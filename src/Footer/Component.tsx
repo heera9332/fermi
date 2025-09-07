@@ -1,31 +1,163 @@
-import { getCachedGlobal } from '@/utilities/getGlobals'
+// src/components/site-footer.tsx
+import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import { getCachedGlobal } from '@/utilities/getGlobals'
+import type { Footer as FooterType } from '@/payload-types'
 
-import type { Footer } from '@/payload-types'
+const ICONS: Record<string, string> = {
+  x: '/assets/icons/svg/x.svg',
+  instagram: '/assets/icons/svg/insta.svg',
+  youtube: '/assets/icons/svg/yt.svg',
+  linkedin: '/assets/icons/svg/linkedin.svg',
+}
 
-import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
-import { CMSLink } from '@/components/Link'
-import { Logo } from '@/components/Logo/Logo'
+function extTarget(newTab?: boolean) {
+  return newTab ? { target: '_blank', rel: 'noreferrer noopener' } : {}
+}
 
 export async function Footer() {
-  const footerData: Footer = await getCachedGlobal('footer', 1)()
+  const footerData = (await getCachedGlobal('footer', 3)()) as FooterType
 
-  const navItems = footerData?.navItems || []
+  console.log(footerData)
+  // Background image (works with Payload local or cloud-storage adapters):
+  const bgUrl =
+    typeof footerData?.footerBackground === 'object' &&
+    footerData.footerBackground &&
+    'url' in footerData.footerBackground
+      ? (footerData.footerBackground as any).url
+      : undefined
 
   return (
-    <footer className="mt-auto border-t border-border bg-black dark:bg-card text-white">
-      <div className="container py-8 gap-8 flex flex-col md:flex-row md:justify-between">
-        <Link className="flex items-center" href="/">
-          <Logo />
-        </Link>
+    <footer aria-labelledby="footer-heading" className="relative mt-auto text-white py-20">
+      {/* Background layer */}
+      <div className="absolute inset-0 -z-10">
+        {bgUrl ? (
+          <>
+            <Image
+              src={bgUrl}
+              alt=""
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover object-top"
+            />
+            {/* Subtle tint to match Figma dark backdrop */}
+            <div className="absolute inset-0 bg-[#030531]/60" />
+          </>
+        ) : (
+          <div className="h-full w-full bg-[#030531]" />
+        )}
+      </div>
 
-        <div className="flex flex-col-reverse items-start md:flex-row gap-4 md:items-center">
-          <nav className="flex flex-col md:flex-row gap-4">
-            {navItems.map(({ link }, i) => {
-              return <CMSLink className="text-white" key={i} {...link} />
-            })}
-          </nav>
+      {/* CTA */}
+      {footerData?.cta?.enabled && (
+        <section className="mx-auto max-w-5xl px-6 pb-16 text-center md:pb-20">
+          {footerData.cta.title && (
+            <h2 className="mx-auto px-40 text-[30px] font-semibold md:text-[40px] !leading-[150%]">
+              {footerData.cta.title}
+            </h2>
+          )}
+          {footerData.cta.subtitle && (
+            <p className="mx-auto mt-4 max-w-2xl text-pretty  leading-[150%] text-white font-normal">
+              {footerData.cta.subtitle}
+            </p>
+          )}
+          {footerData.cta.button?.label && footerData.cta.button?.link && (
+            <div className="mt-8">
+              <Link
+                href={footerData.cta.button.link}
+                {...extTarget(footerData.cta.button.newTab)}
+                className="inline-flex items-center rounded-full bg-white px-6 py-3   text-black shadow-sm transition   hover:text-black !leading-[150%]"
+              >
+                {footerData.cta.button.label}
+              </Link>
+            </div>
+          )}
+        </section>
+      )}
+
+      {/* White rounded card (links + brand) */}
+      <div className="mx-auto max-w-8xl px-20 md:px-36 pb-14">
+        <div className="mx-auto rounded-3xl bg-white p-6 text-neutral-900 shadow-xl ring-1 ring-black/5 md:p-8 lg:p-10">
+          <div className="grid gap-10 md:grid-cols-3">
+            {/* Brand + Socials */}
+            <div className="md:col-span-1">
+              {footerData.brand && <div className="text-5xl font-bold">{footerData.brand}</div>}
+
+              {Array.isArray(footerData.social) && footerData.social.length > 0 && (
+                <div className="mt-4 flex items-center gap-4">
+                  {footerData.social.map((s) => {
+                    const key = `${s.platform}-${s.url}`
+                    const icon = ICONS[s.platform] // fallbacks to undefined => hidden
+                    if (!icon) return null
+                    return (
+                      <Link
+                        key={key}
+                        href={s.url || '#'}
+                        {...extTarget(true)}
+                        aria-label={s.platform}
+                      >
+                        {/* Keep icons as img since they’re in /public */}
+                        <img src={icon} alt={s.platform ?? 'social'} className="h-6 w-6" />
+                      </Link>
+                    )
+                  })}
+                </div>
+              )}
+            </div>
+
+            {/* Link Columns */}
+            <div className="md:col-span-2 grid gap-10 sm:grid-cols-2">
+              {(footerData.columns ?? []).map((col, i) => (
+                <nav key={i} aria-label={col?.title ?? `footer-column-${i}`}>
+                  {col?.title && <div className="text-[16px] font-medium">{col.title}</div>}
+                  <ul className="mt-4 space-y-3 text-[16px]">
+                    {(col?.links ?? []).map((l, j) => (
+                      <li key={`${i}-${j}`}>
+                        <Link
+                          href={l.link || '#'}
+                          {...extTarget(l.newTab)}
+                          className="transition hover:opacity-70"
+                        >
+                          {l.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
+              ))}
+
+              {/* Optional extra column for contact if you want it separated */}
+              {footerData.contact?.email || footerData.contact?.phone ? (
+                <div className="sm:col-span-1">
+                  <div className="text-[16px] font-medium">Contacto</div>
+                  <ul className="mt-4 space-y-3 text-[16px]">
+                    {footerData.contact?.email && (
+                      <li>
+                        <Link
+                          href={`mailto:${footerData.contact.email}`}
+                          className="transition hover:opacity-70"
+                        >
+                          {footerData.contact.email}
+                        </Link>
+                      </li>
+                    )}
+                    {footerData.contact?.phone && (
+                      <li>
+                        <Link
+                          href={`tel:${footerData.contact.phone.replace(/\s+/g, '')}`}
+                          className="transition hover:opacity-70"
+                        >
+                          {footerData.contact.phone}
+                        </Link>
+                      </li>
+                    )}
+                  </ul>
+                </div>
+              ) : null}
+            </div>
+          </div>
         </div>
       </div>
     </footer>

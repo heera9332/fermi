@@ -284,6 +284,7 @@ export interface Media {
     };
     [k: string]: unknown;
   } | null;
+  prefix?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -1026,6 +1027,7 @@ export interface PostsSelect<T extends boolean = true> {
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
   caption?: T;
+  prefix?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -1450,26 +1452,43 @@ export interface Header {
  */
 export interface Footer {
   id: string;
-  navItems?:
+  cta: {
+    enabled?: boolean | null;
+    title: string;
+    subtitle?: string | null;
+    button: {
+      label: string;
+      link: string;
+      newTab?: boolean | null;
+    };
+  };
+  brand?: string | null;
+  social?:
     | {
-        link: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: string | Page;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: string | Post;
-              } | null);
-          url?: string | null;
-          label: string;
-        };
+        platform: 'x' | 'instagram' | 'youtube' | 'linkedin';
+        url: string;
         id?: string | null;
       }[]
     | null;
+  columns?:
+    | {
+        title: string;
+        links?:
+          | {
+              label: string;
+              link: string;
+              newTab?: boolean | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  contact?: {
+    email?: string | null;
+    phone?: string | null;
+  };
+  footerBackground?: (string | null) | Media;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1508,20 +1527,49 @@ export interface HeaderSelect<T extends boolean = true> {
  * via the `definition` "footer_select".
  */
 export interface FooterSelect<T extends boolean = true> {
-  navItems?:
+  cta?:
     | T
     | {
-        link?:
+        enabled?: T;
+        title?: T;
+        subtitle?: T;
+        button?:
           | T
           | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
               label?: T;
+              link?: T;
+              newTab?: T;
+            };
+      };
+  brand?: T;
+  social?:
+    | T
+    | {
+        platform?: T;
+        url?: T;
+        id?: T;
+      };
+  columns?:
+    | T
+    | {
+        title?: T;
+        links?:
+          | T
+          | {
+              label?: T;
+              link?: T;
+              newTab?: T;
+              id?: T;
             };
         id?: T;
       };
+  contact?:
+    | T
+    | {
+        email?: T;
+        phone?: T;
+      };
+  footerBackground?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

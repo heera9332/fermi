@@ -35,7 +35,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
       className="header-dark container relative z-20 w-full max-w-full"
       {...(theme ? { 'data-theme': theme } : {})}
     >
-      <div className="py-6 flex justify-between max-w-8xl mx-auto">
+      <div className="py-6 flex justify-between max-w-8xl mx-auto px-4">
         <Link href="/">
           <Logo />
         </Link>
