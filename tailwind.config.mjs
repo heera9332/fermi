@@ -95,8 +95,21 @@ const config = {
       },
       fontFamily: {
         mono: ['var(--font-geist-mono)'],
-        sans: ['var(--font-geist-sans)'],
+        sans: [
+          'var(--font-clash-display)',
+          'ui-sans-serif',
+          'system-ui',
+          'Segoe UI',
+          'Roboto',
+          'Arial',
+          'sans-serif',
+        ],
       },
+      fontSize: {
+        body: ['18px', { lineHeight: '130%' }], // default mobile
+        bodyDesktop: ['24px', { lineHeight: '100%' }],
+      },
+
       keyframes: {
         'accordion-down': {
           from: { height: '0' },

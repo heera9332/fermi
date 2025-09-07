@@ -93,11 +93,32 @@
   }
 }
 
-html {
-  opacity: 0;
-}
-
 html[data-theme='dark'],
 html[data-theme='light'] {
   opacity: initial;
+}
+
+html {
+  font-size: 16px;
+} /* keep rem stable */
+
+body {
+  font-size: 18px;
+  line-height: 130%;
+  font-weight: 400;
+}
+
+.payload-richtext {
+  font-size: 18px;
+}
+
+@media (min-width: 1024px) {
+  body {
+    font-size: 24px;
+    line-height: 100%;
+  }
+
+  .payload-richtext {
+    font-size: 24px;
+  }
 }
