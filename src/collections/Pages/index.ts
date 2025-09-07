@@ -18,6 +18,8 @@ import {
   OverviewField,
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
+import { HeroCtaShowcase } from '@/blocks/HeroCtaShowcase/config'
+import { TestimonialCard } from '@/blocks/TestimonialCard/config'
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -72,7 +74,7 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [Content, MediaBlock, Archive, FormBlock],
+              blocks: [HeroCtaShowcase, TestimonialCard, Content, MediaBlock, Archive, FormBlock],
               required: true,
               admin: {
                 initCollapsed: true,

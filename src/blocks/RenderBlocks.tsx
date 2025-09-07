@@ -6,8 +6,13 @@ import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
 import { ContentBlock } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
+import { HeroCtaShowcaseBlock } from './HeroCtaShowcase/Component'
+import { TestimonialCardBlock } from './TestimonialCard/Component'
 
+// component mapping
 const blockComponents = {
+  heroCtaShowcase: HeroCtaShowcaseBlock,
+  testimonialCard: TestimonialCardBlock,
   archive: ArchiveBlock,
   content: ContentBlock,
   formBlock: FormBlock,
@@ -32,7 +37,7 @@ export const RenderBlocks: React.FC<{
 
             if (Block) {
               return (
-                <div className="my-16" key={index}>
+                <div className="" key={index}>
                   {/* @ts-expect-error there may be some mismatch between the expected types here */}
                   <Block {...block} disableInnerContainer />
                 </div>

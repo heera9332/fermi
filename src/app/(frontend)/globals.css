@@ -178,6 +178,10 @@ body {
   background-color: var(--accent1);
 }
 
+.png-white {
+  filter: brightness(0) invert(1);
+}
+
 
 @media (min-width: 1024px) {
   body {

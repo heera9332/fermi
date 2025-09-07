@@ -19,7 +19,6 @@ function extTarget(newTab?: boolean) {
 export async function Footer() {
   const footerData = (await getCachedGlobal('footer', 3)()) as FooterType
 
-  console.log(footerData)
   // Background image (works with Payload local or cloud-storage adapters):
   const bgUrl =
     typeof footerData?.footerBackground === 'object' &&

@@ -22,6 +22,7 @@ export const Media: CollectionConfig = {
     {
       name: 'alt',
       type: 'text',
+      defaultValue: 'fermi',
     },
     {
       name: 'caption',
