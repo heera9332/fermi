@@ -1416,6 +1416,7 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface Header {
   id: string;
+  brand: string;
   navItems?:
     | {
         link: {
@@ -1436,6 +1437,10 @@ export interface Header {
         id?: string | null;
       }[]
     | null;
+  cta: {
+    label: string;
+    link: string;
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1473,6 +1478,7 @@ export interface Footer {
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
+  brand?: T;
   navItems?:
     | T
     | {
@@ -1486,6 +1492,12 @@ export interface HeaderSelect<T extends boolean = true> {
               label?: T;
             };
         id?: T;
+      };
+  cta?:
+    | T
+    | {
+        label?: T;
+        link?: T;
       };
   updatedAt?: T;
   createdAt?: T;

@@ -10,6 +10,13 @@ export const Header: GlobalConfig = {
   },
   fields: [
     {
+      name: 'brand',
+      label: 'Brand name',
+      type: 'text',
+      required: true,
+      defaultValue: 'Fermi',
+    },
+    {
       name: 'navItems',
       type: 'array',
       fields: [
@@ -24,6 +31,28 @@ export const Header: GlobalConfig = {
           RowLabel: '@/Header/RowLabel#RowLabel',
         },
       },
+    },
+    {
+      name: 'cta',
+      label: 'CTA',
+      type: 'group',
+      required: true,
+      fields: [
+        {
+          name: 'label',
+          label: 'Label',
+          type: 'text',
+          required: true,
+          defaultValue: 'Fale Conosco',
+        },
+        {
+          name: 'link',
+          label: 'Link',
+          type: 'text',
+          required: true,
+          defaultValue: 'https://femit.it',
+        },
+      ],
     },
   ],
   hooks: {

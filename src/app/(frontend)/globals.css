@@ -98,6 +98,12 @@ html[data-theme='light'] {
   opacity: initial;
 }
 
+:root {
+  --color-primary: #030531;
+  --color-secondary: #EDEDED;
+  --accent1: #21F2C0;
+}
+
 html {
   font-size: 16px;
 } /* keep rem stable */
@@ -111,6 +117,67 @@ body {
 .payload-richtext {
   font-size: 18px;
 }
+
+.max-w-8xl {
+  max-width: 90rem;
+}
+
+:root {
+  --color-primary: #030531;   /* dark navy */
+  --color-secondary: #EDEDED; /* light gray */
+  --accent1: #21F2C0;         /* bright turquoise */
+}
+
+/* Header Variants */
+.header-light {
+  background-color: var(--color-secondary);
+  color: black;
+}
+
+.header-dark {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+/* Ensure links/buttons inherit correctly */
+.header-light a,
+.header-dark a, .header-dark button , .header-light button {
+  color: inherit;
+}
+
+/* CTA button - dark header */
+.header-dark .cta {
+  background-color: white;
+  color: black;
+  transition: all 0.3s ease;
+}
+
+.header-dark .cta:hover {
+  background-color: white;
+  color: black; 
+}
+
+/* CTA button - light header */
+.header-light .cta {
+  background-color: black;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.header-light .cta:hover {
+  background-color: var(--accent1);
+  color: black;
+}
+
+/* Accent utility */
+.text-accent {
+  color: var(--accent1);
+}
+
+.bg-accent {
+  background-color: var(--accent1);
+}
+
 
 @media (min-width: 1024px) {
   body {
