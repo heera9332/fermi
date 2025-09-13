@@ -113,16 +113,10 @@ export default function ArchiveBlock(data: ArchiveBlockProps) {
               // fallback: 720x450 looks close to the mock 16:10-16:9-ish box
               'https://placehold.co/720x450'
 
-            // First card appears darker in your screenshot -> add subtle overlay bg
-            const accent = idx === 0
-
             return (
               <article
                 key={doc?.id || doc?.slug || idx}
-                className={cx(
-                  'group relative overflow-hidden rounded-2xl border',
-                  accent ? 'border-white/10 bg-white/[0.06]' : 'border-white/10 bg-white/[0.03]',
-                )}
+                className={cx('group relative overflow-hidden rounded-2xl bg-[#1C1D38]')}
               >
                 {/* Media with fixed aspect ratio */}
                 <div className="relative w-full aspect-[16/10] overflow-hidden">
@@ -149,7 +143,7 @@ export default function ArchiveBlock(data: ArchiveBlockProps) {
                     </Link>
                   </h3>
                   {getDocExcerpt(doc) ? (
-                    <p className="mt-2 text-[20px] text-white/80 leading-relaxed !lh-150 font-regular">
+                    <p className="mt-2 text-[20px] text-white/80 lh-150 font-regular">
                       {getDocExcerpt(doc)}
                     </p>
                   ) : null}

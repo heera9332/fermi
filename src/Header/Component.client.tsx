@@ -34,7 +34,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="lucide lucide-menu-icon lucide-menu block md:hidden"
+            className="lucide lucide-menu-icon lucide-menu block md:hidden cursor-pointer"
             onClick={() => setMobileOpen}
           >
             <path d="M4 5h16" />
@@ -42,7 +42,9 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
             <path d="M4 19h16" />
           </svg>
 
-          <Button className="  rounded-full font-normal cta hidden md:block">Fale Conosco</Button>
+          <Button className="h-12 rounded-full font-normal cta hidden md:block">
+            Fale Conosco
+          </Button>
         </div>
       </div>
     </header>

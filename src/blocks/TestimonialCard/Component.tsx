@@ -41,15 +41,15 @@ export const TestimonialCardBlock = (data: TestimonialCardBlockProps) => {
     )
 
   return (
-    <section className="bg-[#EFEFEF] py-12 sm:py-16 lg:py-24">
+    <section className="bg-[#EDEDED] py-12 sm:py-16 lg:py-24">
       <Container>
         <div className="relative mx-auto max-w-4xl">
-          {/* stacked “paper” layers */}
-          <div className="pointer-events-none absolute inset-x-6 -top-5 -z-10 hidden h-40 rounded-2xl bg-black/5 sm:block" />
-          <div className="pointer-events-none absolute inset-x-3 -top-2 -z-10 hidden h-44 rounded-2xl bg-black/5 sm:block" />
+          {/* stacked “paper” layers (behind) */}
+          <div className="pointer-events-none absolute -top-6 -right-6 w-full h-full rounded-2xl bg-[#CDCDCDB2]/70 z-0"></div>
+          <div className="pointer-events-none absolute -top-12 -right-12 w-full h-full rounded-2xl bg-[#CDCDCDB2]/70 z-5"></div>
 
           {/* main card */}
-          <article className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-black/10 sm:p-8">
+          <article className="rounded-2xl bg-white p-6 shadow-sm sm:p-8 z-10 relative">
             {/* quote */}
             {quote && (
               <blockquote className="text-pretty text-lg/8 sm:text-xl/8 md:text-2xl/9 pb-4">

@@ -8,11 +8,11 @@ export default function BenefitsGridBlock(data: BenefitsGridBlockProps) {
   console.log('grid data > ', data)
   return (
     <section className={cx('mx-auto max-w-7xl px-6 py-16 md:py-24 md:px-8')}>
-      <h2 className="max-w-4xl text-3xl font-semibold leading-tight tracking-tight text-black md:text-5xl">
+      <h2 className="max-w-4xl text-3xl font-semibold lh-130 text-black md:text-5xl">
         {data.heading}
       </h2>
 
-      {data.intro ? <p className="mt-6 max-w-3xl text-[24px] leading-8">{data.intro}</p> : null}
+      {data.intro ? <p className="mt-6 max-w-3xl text-[24px] lh-150">{data.intro}</p> : null}
 
       <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
         {data.items &&
