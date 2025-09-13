@@ -43,25 +43,24 @@ export const TestimonialCardBlock = (data: TestimonialCardBlockProps) => {
   return (
     <section className="bg-[#EDEDED] py-12 sm:py-16 lg:py-24">
       <Container>
-        <div className="relative mx-auto max-w-4xl">
+        <div className="relative mx-auto w-full max-w-4xl pl-4 pr-8 md:px-0">
           {/* stacked “paper” layers (behind) */}
-          <div className="pointer-events-none absolute -top-6 -right-6 w-full h-full rounded-2xl bg-[#CDCDCDB2]/70 z-0"></div>
-          <div className="pointer-events-none absolute -top-12 -right-12 w-full h-full rounded-2xl bg-[#CDCDCDB2]/70 z-5"></div>
+          <div className="pointer-events-none absolute bottom-20 left-12 md:-top-6 md:-right-6 w-[90%] md:w-full h-full rounded-2xl bg-[#CDCDCDB2]/70 z-0"></div>
+          <div className="pointer-events-none absolute -top-4 left-14 md:-top-12 md:-right-12 w-[90%] md:w-full h-full rounded-2xl bg-[#CDCDCDB2]/70 z-0"></div>
 
           {/* main card */}
-          <article className="rounded-2xl bg-white p-6 shadow-sm sm:p-8 z-10 relative">
+          <article className="relative z-10 rounded-2xl bg-white p-5 shadow-sm sm:p-6 md:p-8">
             {/* quote */}
             {quote && (
-              <blockquote className="text-pretty text-lg/8 sm:text-xl/8 md:text-2xl/9 pb-4">
+              <blockquote className="pb-4 text-balance text-base/7 sm:text-lg/8 md:text-2xl/9">
                 {quote}
               </blockquote>
             )}
 
-            {/* divider */}
             <hr className="my-2 border-black/10" />
 
             {/* footer row */}
-            <div className="flex items-center justify-between gap-6 pt-6">
+            <div className="flex flex-col gap-4 pt-5 sm:flex-row sm:items-center sm:justify-between sm:pt-6">
               {/* author */}
               <div className="flex min-w-0 items-center gap-3">
                 {avatarSrc ? (
@@ -70,35 +69,36 @@ export const TestimonialCardBlock = (data: TestimonialCardBlockProps) => {
                     alt={avatarAlt}
                     width={48}
                     height={48}
-                    className="h-12 w-12 rounded-full object-cover"
+                    className="h-10 w-10 rounded-full object-cover sm:h-12 sm:w-12"
                   />
                 ) : (
-                  <div className="h-12 w-12 rounded-full bg-black/10" />
+                  <div className="h-10 w-10 rounded-full bg-black/10 sm:h-12 sm:w-12" />
                 )}
 
                 <div className="min-w-0">
                   {author?.name && (
-                    <div className="truncate text-sm font-semibold md:text-base">{author.name}</div>
+                    <div className="truncate text-sm font-semibold sm:text-base">{author.name}</div>
                   )}
                   {author?.role && (
-                    <div className="truncate text-xs text-black/60 md:text-sm">{author.role}</div>
+                    <div className="truncate text-xs text-black/60 sm:text-sm">{author.role}</div>
                   )}
                 </div>
               </div>
 
-              {/* company logo (right) */}
+              {/* company */}
               <div className="shrink-0">
                 {companyLogoSrc ? (
                   <Image
                     src={companyLogoSrc}
                     alt={companyLogoAlt}
-                    width={1000}
-                    height={1000}
-                    className="w-full h-16 object-cover"
+                    width={240}
+                    height={64}
+                    className="h-10 w-auto max-w-[160px] object-contain sm:h-14 sm:max-w-[200px]"
                   />
-                ) : // if no logo, show text if provided (your “link” is being used as company name in sample data)
-                company?.link ? (
-                  <span className="text-sm text-black/60">{company.link}</span>
+                ) : company?.link ? (
+                  <span className="block truncate text-sm text-black/60 sm:text-base max-w-[200px]">
+                    {company.link}
+                  </span>
                 ) : null}
               </div>
             </div>

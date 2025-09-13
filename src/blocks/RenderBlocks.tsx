@@ -11,6 +11,7 @@ import BenefitsGridBlock from './BenefitsGrid/Component'
 import ArchiveBlock from './ArchiveBlock/Component'
 import BriefHistoryBlock from './BriefHistory/Component'
 import CalloutSectionBlock from './CalloutSection/Component'
+import AboutSplitBlock from './AboutSplit/Component'
 
 // component mapping
 const blockComponents = {
@@ -20,6 +21,7 @@ const blockComponents = {
   archive: ArchiveBlock,
   briefHistory: BriefHistoryBlock,
   calloutSection: CalloutSectionBlock,
+  aboutSplit: AboutSplitBlock,
   content: ContentBlock,
   formBlock: FormBlock,
   mediaBlock: MediaBlock,

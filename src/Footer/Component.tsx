@@ -53,7 +53,7 @@ export async function Footer() {
       {footerData?.cta?.enabled && (
         <section className="mx-auto max-w-5xl px-6 pb-16 text-center md:pb-20">
           {footerData.cta.title && (
-            <h2 className="mx-auto px-40 text-[30px] font-semibold md:text-[40px] !leading-[150%]">
+            <h2 className="mx-auto px-4 md:px-40 text-[30px] font-semibold md:text-[40px] !leading-[150%]">
               {footerData.cta.title}
             </h2>
           )}
@@ -77,7 +77,7 @@ export async function Footer() {
       )}
 
       {/* White rounded card (links + brand) */}
-      <div className="mx-auto max-w-8xl px-20 md:px-36 pb-14">
+      <div className="mx-auto max-w-8xl px-4 md:px-36 pb-14">
         <div className="mx-auto rounded-3xl bg-white p-6 text-neutral-900 shadow-xl ring-1 ring-black/5 md:p-8 lg:p-10">
           <div className="grid gap-10 md:grid-cols-3">
             {/* Brand + Socials */}
