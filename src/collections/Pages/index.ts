@@ -22,6 +22,7 @@ import { HeroCtaShowcase } from '@/blocks/HeroCtaShowcase/config'
 import { TestimonialCard } from '@/blocks/TestimonialCard/config'
 import { BenefitsGrid } from '@/blocks/BenefitsGrid/config'
 import { BriefHistory } from '@/blocks/BriefHistory/config'
+import { CalloutSection } from '@/blocks/CalloutSection/config'
 
 const COLLECTION_MAP: Record<string, string> = {
   posts: 'posts',
@@ -86,6 +87,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 TestimonialCard,
                 BenefitsGrid,
                 BriefHistory,
+                CalloutSection,
                 Content,
                 MediaBlock,
                 Archive,

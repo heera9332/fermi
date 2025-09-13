@@ -9,6 +9,8 @@ import { HeroCtaShowcaseBlock } from './HeroCtaShowcase/Component'
 import { TestimonialCardBlock } from './TestimonialCard/Component'
 import BenefitsGridBlock from './BenefitsGrid/Component'
 import ArchiveBlock from './ArchiveBlock/Component'
+import BriefHistoryBlock from './BriefHistory/Component'
+import CalloutSectionBlock from './CalloutSection/Component'
 
 // component mapping
 const blockComponents = {
@@ -16,6 +18,8 @@ const blockComponents = {
   testimonialCard: TestimonialCardBlock,
   benefitsGrid: BenefitsGridBlock,
   archive: ArchiveBlock,
+  briefHistory: BriefHistoryBlock,
+  calloutSection: CalloutSectionBlock,
   content: ContentBlock,
   formBlock: FormBlock,
   mediaBlock: MediaBlock,

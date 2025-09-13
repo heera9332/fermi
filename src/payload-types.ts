@@ -154,6 +154,7 @@ export interface Page {
     | TestimonialCardBlock
     | BenefitsGridBlock
     | BriefHistory
+    | CalloutSectionBlock
     | ContentBlock
     | MediaBlock
     | ArchiveBlock
@@ -344,6 +345,23 @@ export interface BriefHistory {
   id?: string | null;
   blockName?: string | null;
   blockType: 'briefHistory';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CalloutSectionBlock".
+ */
+export interface CalloutSectionBlock {
+  heading: string;
+  headingHighlighted: string;
+  description?: string | null;
+  cta: {
+    label: string;
+    link: string;
+    newTab?: boolean | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'calloutSection';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -992,6 +1010,7 @@ export interface PagesSelect<T extends boolean = true> {
         testimonialCard?: T | TestimonialCardBlockSelect<T>;
         benefitsGrid?: T | BenefitsGridBlockSelect<T>;
         briefHistory?: T | BriefHistorySelect<T>;
+        calloutSection?: T | CalloutSectionBlockSelect<T>;
         content?: T | ContentBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
@@ -1092,6 +1111,24 @@ export interface BriefHistorySelect<T extends boolean = true> {
   heading?: T;
   description?: T;
   sectionImage?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CalloutSectionBlock_select".
+ */
+export interface CalloutSectionBlockSelect<T extends boolean = true> {
+  heading?: T;
+  headingHighlighted?: T;
+  description?: T;
+  cta?:
+    | T
+    | {
+        label?: T;
+        link?: T;
+        newTab?: T;
+      };
   id?: T;
   blockName?: T;
 }
