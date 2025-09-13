@@ -42,7 +42,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
             <path d="M4 19h16" />
           </svg>
 
-          <Button className="h-12 rounded-full font-normal cta hidden md:block">
+          <Button className="h-14 rounded-full px-6 cta hidden md:block font-normal text-[20px] lh-130">
             Fale Conosco
           </Button>
         </div>
