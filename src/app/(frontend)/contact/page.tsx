@@ -4,25 +4,31 @@ const formField = [
   { name: 'name', label: 'Name*', placeholder: 'Aqui vai a descrição...', type: 'text' },
   { name: 'company', label: 'Nome da Empresa*', placeholder: 'Nome da Empresa*', type: 'text' },
   { name: 'email', label: 'Email*', placeholder: 'Email*', type: 'email' },
-  { name: 'additionalInfo', label: 'Informações Adicionais', placeholder: 'Conte-nos os seus problemas e necessidades', type: 'textarea' }
+  {
+    name: 'additionalInfo',
+    label: 'Informações Adicionais',
+    placeholder: 'Conte-nos os seus problemas e necessidades',
+    type: 'textarea',
+  },
 ]
 
 const page = () => {
   return (
-    <div className="w-full flex flex-col justify-center items-center px-4 sm:px-6 lg:px-0">
+    <section className="w-full flex flex-col justify-center items-center px-4 sm:px-6 lg:px-0 text-white relative section overflow-hidden">
       <div
         style={{ backgroundImage: "url('/assets/images/contectFormBg.png')" }}
         className="contect-page flex flex-col justify-center items-center w-full max-w-[1240px] rounded-[24px] py-[48px] px-[24px] gap-[48px] bg-no-repeat bg-center bg-cover"
       >
         <div className="w-full max-w-[1144px] flex flex-col items-center gap-6">
-          <span className="font-normal text-xl sm:text-2xl leading-[150%] tracking-normal text-center block">
+          <span className="font-normal text-xl sm:text-2xl leading-[150%] tracking-normal text-center block text-white">
             Consultoria Grátis
           </span>
-          <span className="w-full sm:w-[776px] text-2xl sm:text-[40px] font-semibold leading-[130%] tracking-normal text-center block">
+          <span className="w-full sm:w-[776px] text-2xl sm:text-[40px] font-semibold leading-[130%] tracking-normal text-center block text-white">
             Quer saber como utilizar IA para alavancar o seu negócio?
           </span>
-          <p className="w-full sm:w-[776px] text-base sm:text-[24px] font-normal leading-[150%] tracking-normal text-center">
-            Preencha o formulário e, dentro de 24 horas, a nossa equipa entrará em contacto consigo para agendar uma consolturia grátis.
+          <p className="w-full sm:w-[776px] text-base sm:text-[24px] font-normal leading-[150%] tracking-normal text-center text-white">
+            Preencha o formulário e, dentro de 24 horas, a nossa equipa entrará em contacto consigo
+            para agendar uma consolturia grátis.
           </p>
         </div>
 
@@ -49,18 +55,20 @@ const page = () => {
                   )}
                 </div>
               ))}
-                <button
+              <button
                 type="submit"
                 className="w-full h-[52px] px-[20px] py-[16px] rounded-[24px] border-2 border-[#E0E0E0] flex items-center justify-center text-[#030531] text-[20px] bg-white transition-all duration-300 hover:border-[#4ECDC4] group hover:shadow-[inset_0_0_8px_rgba(78,205,196,0.4)] hover:shadow-[inset_0_0_12px_rgba(78,205,196,0.6)]"
-                >
-                    <span className="group-hover:mr-2 transition-all duration-300">Submeter</span>
-                    <span className="transform transition-transform duration-300 opacity-0 group-hover:translate-x-2 group-hover:opacity-100">→</span>
-                </button>
+              >
+                <span className="group-hover:mr-2 transition-all duration-300">Submeter</span>
+                <span className="transform transition-transform duration-300 opacity-0 group-hover:translate-x-2 group-hover:opacity-100">
+                  →
+                </span>
+              </button>
             </form>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   )
 }
 
