@@ -155,10 +155,12 @@ export interface Page {
     | BenefitsGridBlock
     | BriefHistory
     | CalloutSectionBlock
+    | AboutSplitBlock
     | ContentBlock
     | MediaBlock
     | ArchiveBlock
     | FormBlock
+    | EmptyBlock
   )[];
   meta?: {
     title?: string | null;
@@ -362,6 +364,19 @@ export interface CalloutSectionBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'calloutSection';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutSplitBlock".
+ */
+export interface AboutSplitBlock {
+  heading: string;
+  subheading?: string | null;
+  description?: string | null;
+  image: string | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'aboutSplit';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -743,6 +758,15 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "EmptyBlock".
+ */
+export interface EmptyBlock {
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'emptyBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1011,10 +1035,12 @@ export interface PagesSelect<T extends boolean = true> {
         benefitsGrid?: T | BenefitsGridBlockSelect<T>;
         briefHistory?: T | BriefHistorySelect<T>;
         calloutSection?: T | CalloutSectionBlockSelect<T>;
+        aboutSplit?: T | AboutSplitBlockSelect<T>;
         content?: T | ContentBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
+        emptyBlock?: T | EmptyBlockSelect<T>;
       };
   meta?:
     | T
@@ -1134,6 +1160,18 @@ export interface CalloutSectionBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutSplitBlock_select".
+ */
+export interface AboutSplitBlockSelect<T extends boolean = true> {
+  heading?: T;
+  subheading?: T;
+  description?: T;
+  image?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ContentBlock_select".
  */
 export interface ContentBlockSelect<T extends boolean = true> {
@@ -1198,6 +1236,14 @@ export interface FormBlockSelect<T extends boolean = true> {
   form?: T;
   enableIntro?: T;
   introContent?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "EmptyBlock_select".
+ */
+export interface EmptyBlockSelect<T extends boolean = true> {
   id?: T;
   blockName?: T;
 }

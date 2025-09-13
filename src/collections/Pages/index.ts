@@ -23,6 +23,8 @@ import { TestimonialCard } from '@/blocks/TestimonialCard/config'
 import { BenefitsGrid } from '@/blocks/BenefitsGrid/config'
 import { BriefHistory } from '@/blocks/BriefHistory/config'
 import { CalloutSection } from '@/blocks/CalloutSection/config'
+import { AboutSplit } from '@/blocks/AboutSplit/config'
+import { EmptyBlock } from '@/blocks/EmptyBlock/config'
 
 const COLLECTION_MAP: Record<string, string> = {
   posts: 'posts',
@@ -88,10 +90,12 @@ export const Pages: CollectionConfig<'pages'> = {
                 BenefitsGrid,
                 BriefHistory,
                 CalloutSection,
+                AboutSplit,
                 Content,
                 MediaBlock,
                 Archive,
                 FormBlock,
+                EmptyBlock,
               ],
               required: true,
               admin: {
