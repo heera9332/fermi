@@ -85,6 +85,11 @@ export const Posts: CollectionConfig<'posts'> = {
               relationTo: 'media',
             },
             {
+              name: 'excerpt',
+              type: 'textarea',
+              label: 'Excerpt',
+            },
+            {
               name: 'content',
               type: 'richText',
               editor: lexicalEditor({
@@ -218,6 +223,34 @@ export const Posts: CollectionConfig<'posts'> = {
       ],
     },
     ...slugField(),
+    {
+      name: 'postType',
+      label: 'Post type',
+      type: 'select',
+      options: [
+        {
+          label: 'post',
+          value: 'posts',
+        },
+        {
+          label: 'project',
+          value: 'projects',
+        },
+      ],
+      defaultValue: 'posts',
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
+      name: 'featuredImage',
+      label: 'Featured image',
+      type: 'upload',
+      relationTo: 'media',
+      admin: {
+        position: 'sidebar',
+      },
+    },
   ],
   hooks: {
     afterChange: [revalidatePost],

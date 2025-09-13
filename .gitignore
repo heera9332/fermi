@@ -22,3 +22,4 @@ node_modules/
 .env.local
 temp
 dump
+eslint.config.mjs.bk

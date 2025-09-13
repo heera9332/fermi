@@ -1,4 +1,4 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig, Where } from 'payload'
 
 import { authenticated } from '../../access/authenticated'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
@@ -21,6 +21,12 @@ import {
 import { HeroCtaShowcase } from '@/blocks/HeroCtaShowcase/config'
 import { TestimonialCard } from '@/blocks/TestimonialCard/config'
 import { BenefitsGrid } from '@/blocks/BenefitsGrid/config'
+import { BriefHistory } from '@/blocks/BriefHistory/config'
+
+const COLLECTION_MAP: Record<string, string> = {
+  posts: 'posts',
+  projects: 'posts',
+}
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -79,6 +85,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 HeroCtaShowcase,
                 TestimonialCard,
                 BenefitsGrid,
+                BriefHistory,
                 Content,
                 MediaBlock,
                 Archive,
@@ -134,6 +141,56 @@ export const Pages: CollectionConfig<'pages'> = {
     afterChange: [revalidatePage],
     beforeChange: [populatePublishedAt],
     afterDelete: [revalidateDelete],
+    afterRead: [
+      async ({ doc, req }) => {
+        if (!Array.isArray(doc?.layout)) return doc
+        const hydrated = await Promise.all(
+          doc.layout.map(async (block: any) => {
+            if (block?.blockType !== 'archive') return block
+            const limit = Math.max(1, Math.min(Number(block.limit || 10), 48))
+            // MODE: collection
+            if (block.populateBy === 'collection') {
+              const collection = block.relationTo || 'posts'
+              const where: Where = { _status: { equals: 'published' } }
+              if (collection === 'posts' && block.postTypeFilter) {
+                where.postType = { equals: block.postTypeFilter }
+              }
+              if (Array.isArray(block.categories) && block.categories.length) {
+                const catIDs = block.categories.map((c: any) => c?.id || c).filter(Boolean)
+                if (catIDs.length) where.categories = { in: catIDs }
+              }
+              const { docs } = await req.payload.find({
+                collection,
+                where,
+                limit,
+                depth: 2,
+                sort: '-publishedAt',
+              })
+              return { ...block, docs }
+            }
+            // MODE: selection
+            const selected = Array.isArray(block.selectedDocs) ? block.selectedDocs : []
+            if (!selected.length) return { ...block, docs: [] }
+            // If relationTo allows only 'posts', simplify:
+            const ids = selected.map((s: any) => s?.id || s?.value || s).filter(Boolean)
+            const { docs } = await req.payload.find({
+              collection: block.relationTo || 'posts',
+              where: { id: { in: ids } },
+              limit: ids.length,
+              depth: 2,
+            })
+            // preserve author order
+            const order = new Map(ids.map((id: string, i: number) => [String(id), i]))
+            docs.sort(
+              (a: any, b: any) => (order.get(String(a.id)) ?? 0) - (order.get(String(b.id)) ?? 0),
+            )
+            return { ...block, docs: docs.slice(0, limit) }
+          }),
+        )
+        doc.layout = hydrated
+        return doc
+      },
+    ],
   },
   versions: {
     drafts: {

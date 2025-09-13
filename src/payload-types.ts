@@ -149,7 +149,16 @@ export interface Page {
   id: string;
   title: string;
   isHeaderDark?: boolean | null;
-  layout: (HeroCtaShowcaseBlock | TestimonialCardBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[];
+  layout: (
+    | HeroCtaShowcaseBlock
+    | TestimonialCardBlock
+    | BenefitsGridBlock
+    | BriefHistory
+    | ContentBlock
+    | MediaBlock
+    | ArchiveBlock
+    | FormBlock
+  )[];
   meta?: {
     title?: string | null;
     /**
@@ -202,21 +211,6 @@ export interface HeroCtaShowcaseBlock {
 export interface Media {
   id: string;
   alt?: string | null;
-  caption?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
   prefix?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -319,6 +313,40 @@ export interface TestimonialCardBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BenefitsGridBlock".
+ */
+export interface BenefitsGridBlock {
+  heading: string;
+  intro: string;
+  items: {
+    icon: string | Media;
+    heading: string;
+    body: string;
+    link?: {
+      label?: string | null;
+      url?: string | null;
+      newTab?: boolean | null;
+    };
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'benefitsGrid';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BriefHistory".
+ */
+export interface BriefHistory {
+  heading: string;
+  description: string;
+  sectionImage: string | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'briefHistory';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ContentBlock".
  */
 export interface ContentBlock {
@@ -375,6 +403,7 @@ export interface Post {
   id: string;
   title: string;
   heroImage?: (string | null) | Media;
+  excerpt?: string | null;
   content: {
     root: {
       type: string;
@@ -410,6 +439,8 @@ export interface Post {
     | null;
   slug?: string | null;
   slugLock?: boolean | null;
+  postType?: ('posts' | 'projects') | null;
+  featuredImage?: (string | null) | Media;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -475,31 +506,19 @@ export interface MediaBlock {
  * via the `definition` "ArchiveBlock".
  */
 export interface ArchiveBlock {
-  introContent?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+  heading: string;
+  description?: string | null;
   populateBy?: ('collection' | 'selection') | null;
   relationTo?: 'posts' | null;
   categories?: (string | Category)[] | null;
   limit?: number | null;
-  selectedDocs?:
-    | {
-        relationTo: 'posts';
-        value: string | Post;
-      }[]
-    | null;
+  postTypeFilter?: ('projects' | 'posts') | null;
+  headerAlignment: 'left' | 'center' | 'right';
+  link: {
+    label: string;
+    url: string;
+    newTab: boolean;
+  };
   id?: string | null;
   blockName?: string | null;
   blockType: 'archive';
@@ -971,6 +990,8 @@ export interface PagesSelect<T extends boolean = true> {
     | {
         heroCtaShowcase?: T | HeroCtaShowcaseBlockSelect<T>;
         testimonialCard?: T | TestimonialCardBlockSelect<T>;
+        benefitsGrid?: T | BenefitsGridBlockSelect<T>;
+        briefHistory?: T | BriefHistorySelect<T>;
         content?: T | ContentBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
@@ -1040,6 +1061,42 @@ export interface TestimonialCardBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BenefitsGridBlock_select".
+ */
+export interface BenefitsGridBlockSelect<T extends boolean = true> {
+  heading?: T;
+  intro?: T;
+  items?:
+    | T
+    | {
+        icon?: T;
+        heading?: T;
+        body?: T;
+        link?:
+          | T
+          | {
+              label?: T;
+              url?: T;
+              newTab?: T;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BriefHistory_select".
+ */
+export interface BriefHistorySelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  sectionImage?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ContentBlock_select".
  */
 export interface ContentBlockSelect<T extends boolean = true> {
@@ -1078,12 +1135,21 @@ export interface MediaBlockSelect<T extends boolean = true> {
  * via the `definition` "ArchiveBlock_select".
  */
 export interface ArchiveBlockSelect<T extends boolean = true> {
-  introContent?: T;
+  heading?: T;
+  description?: T;
   populateBy?: T;
   relationTo?: T;
   categories?: T;
   limit?: T;
-  selectedDocs?: T;
+  postTypeFilter?: T;
+  headerAlignment?: T;
+  link?:
+    | T
+    | {
+        label?: T;
+        url?: T;
+        newTab?: T;
+      };
   id?: T;
   blockName?: T;
 }
@@ -1105,6 +1171,7 @@ export interface FormBlockSelect<T extends boolean = true> {
 export interface PostsSelect<T extends boolean = true> {
   title?: T;
   heroImage?: T;
+  excerpt?: T;
   content?: T;
   relatedPosts?: T;
   categories?: T;
@@ -1125,6 +1192,8 @@ export interface PostsSelect<T extends boolean = true> {
       };
   slug?: T;
   slugLock?: T;
+  postType?: T;
+  featuredImage?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -1135,7 +1204,6 @@ export interface PostsSelect<T extends boolean = true> {
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
-  caption?: T;
   prefix?: T;
   updatedAt?: T;
   createdAt?: T;

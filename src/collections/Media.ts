@@ -24,15 +24,6 @@ export const Media: CollectionConfig = {
       type: 'text',
       defaultValue: 'fermi',
     },
-    {
-      name: 'caption',
-      type: 'richText',
-      editor: lexicalEditor({
-        features: ({ rootFeatures }) => {
-          return [...rootFeatures, FixedToolbarFeature(), InlineToolbarFeature()]
-        },
-      }),
-    },
   ],
   upload: {
     adminThumbnail: 'thumbnail',

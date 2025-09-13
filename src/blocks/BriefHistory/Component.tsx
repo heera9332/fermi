@@ -4,9 +4,9 @@ import { BenefitsGridBlock as BenefitsGridBlockProps } from '@/payload-types'
 import Image from 'next/image'
 const cx = (...c: Array<string | false | null | undefined>) => c.filter(Boolean).join(' ')
 
-export default function BriefHistoryBlock(data: BenefitsGridBlockProps) {
+export default function BenefitsGridBlock(data: BenefitsGridBlockProps) {
   return (
-    <section className={cx('mx-auto max-w-7xl px-6 py-16 md:py-24 md:px-8')}>
+    <section className={`mx-auto max-w-7xl px-6 py-16 md:px-8`}>
       <h2 className="max-w-4xl text-3xl font-semibold leading-tight tracking-tight text-black md:text-5xl">
         {data.heading}
       </h2>
@@ -16,21 +16,15 @@ export default function BriefHistoryBlock(data: BenefitsGridBlockProps) {
       <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
         {data.items.map((item, idx) => {
           const iconUrl = typeof item.icon !== 'string' ? item.icon.url : '#'
-          const accent = idx === 0 // first card accent like the screenshot
           return (
             <article
               key={item.id || item.heading + idx}
-              className={cx(
-                'relative overflow-hidden rounded-2xl border p-6 md:p-8',
-                accent
-                  ? 'bg-[linear-gradient(178.62deg,_#21F2C0_-47.71%,_#FFFFFF_35.08%)]'
-                  : 'border-gray-200 bg-white',
-              )}
+              className={cx('relative overflow-hidden rounded-2xl border p-6 md:p-8')}
             >
               <div className="flex flex-col items-start gap-4">
                 <div
                   className={cx(
-                    'flex h-16 w-16 shrink-0 items-center justify-center rounded-xl ring-1 ring-black/5 bg-white',
+                    'flex h-16 w-16 shrink-0 items-center justify-center rounded-xl ring-1 ring-black/5 bg-[#1C1D38] ',
                   )}
                 >
                   {iconUrl ? (

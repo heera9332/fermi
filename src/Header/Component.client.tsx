@@ -1,8 +1,6 @@
 'use client'
-import { useHeaderTheme } from '@/providers/HeaderTheme'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 import type { Header } from '@/payload-types'
 
@@ -33,9 +31,9 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             className="lucide lucide-menu-icon lucide-menu block md:hidden"
             onClick={() => setMobileOpen}
           >

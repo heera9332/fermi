@@ -2,13 +2,13 @@ import React, { Fragment } from 'react'
 
 import type { Page } from '@/payload-types'
 
-import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
 import { ContentBlock } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { HeroCtaShowcaseBlock } from './HeroCtaShowcase/Component'
 import { TestimonialCardBlock } from './TestimonialCard/Component'
 import BenefitsGridBlock from './BenefitsGrid/Component'
+import ArchiveBlock from './ArchiveBlock/Component'
 
 // component mapping
 const blockComponents = {
