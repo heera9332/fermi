@@ -8,11 +8,13 @@ import { FormBlock } from '@/blocks/Form/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { HeroCtaShowcaseBlock } from './HeroCtaShowcase/Component'
 import { TestimonialCardBlock } from './TestimonialCard/Component'
+import BenefitsGridBlock from './BenefitsGrid/Component'
 
 // component mapping
 const blockComponents = {
   heroCtaShowcase: HeroCtaShowcaseBlock,
   testimonialCard: TestimonialCardBlock,
+  benefitsGrid: BenefitsGridBlock,
   archive: ArchiveBlock,
   content: ContentBlock,
   formBlock: FormBlock,

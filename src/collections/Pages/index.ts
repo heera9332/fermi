@@ -20,6 +20,7 @@ import {
 } from '@payloadcms/plugin-seo/fields'
 import { HeroCtaShowcase } from '@/blocks/HeroCtaShowcase/config'
 import { TestimonialCard } from '@/blocks/TestimonialCard/config'
+import { BenefitsGrid } from '@/blocks/BenefitsGrid/config'
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -74,7 +75,15 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [HeroCtaShowcase, TestimonialCard, Content, MediaBlock, Archive, FormBlock],
+              blocks: [
+                HeroCtaShowcase,
+                TestimonialCard,
+                BenefitsGrid,
+                Content,
+                MediaBlock,
+                Archive,
+                FormBlock,
+              ],
               required: true,
               admin: {
                 initCollapsed: true,
