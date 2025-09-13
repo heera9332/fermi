@@ -40,7 +40,7 @@ export const HeroCtaShowcaseBlock: React.FC<HeroCtaShowcaseBlockProps> = (data) 
   return (
     <section className="relative overflow-hidden text-white bg-[#030531] pt-16">
       {/* Background image + tint */}
-      <div className="relative max-w-8xl mx-auto px-20">
+      <div className="relative max-w-8xl mx-auto px-4 md:px-20">
         {bgSrc ? (
           <>
             <Image
@@ -50,7 +50,7 @@ export const HeroCtaShowcaseBlock: React.FC<HeroCtaShowcaseBlockProps> = (data) 
               width={1000}
               sizes="100vw"
               priority
-              className="object-cover w-full rounded-2xl"
+              className="object-cover w-full md:rounded-2xl"
             />
             {/* dark navy tint to increase contrast */}
             <div className="absolute inset-0 bg-gradient-to-t from-[#030531] via-[#030531]/60 to-transparent pointer-events-none" />
@@ -62,7 +62,7 @@ export const HeroCtaShowcaseBlock: React.FC<HeroCtaShowcaseBlockProps> = (data) 
 
       {/* Content */}
       <div className="max-w-7xl mx-auto px-10">
-        <div className="relative mx-auto flex min-h-[60vh] -mt-[60vh] max-w-4xl flex-col items-center justify-center   text-center">
+        <div className="relative mx-auto flex min-h-[60vh] md:-mt-[60vh] max-w-4xl flex-col items-center justify-center   text-center">
           {/* Title */}
           {(title || titleHighlighted) && (
             <h1 className="text-balance text-3xl font-semibold sm:text-4xl md:text-5xl !leading-[100%] md:!leading-[130%]">
