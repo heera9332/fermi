@@ -13,7 +13,7 @@ interface HeaderClientProps {
 }
 
 export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
-  const [mobileOpen, setMobileOpen] = useState(false)
+  const [_mobileOpen, setMobileOpen] = useState(false)
 
   return (
     <header className="header-dark container relative z-20 w-full max-w-full">

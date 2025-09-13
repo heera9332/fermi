@@ -98,7 +98,13 @@ export async function Footer() {
                         aria-label={s.platform}
                       >
                         {/* Keep icons as img since they’re in /public */}
-                        <img src={icon} alt={s.platform ?? 'social'} className="h-6 w-6" />
+                        <Image
+                          width={56}
+                          height={56}
+                          src={icon}
+                          alt={s.platform ?? 'social'}
+                          className="h-6 w-6"
+                        />
                       </Link>
                     )
                   })}

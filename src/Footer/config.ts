@@ -10,7 +10,8 @@ export const Footer: GlobalConfig = {
     {
       name: 'cta',
       type: 'group',
-      label: 'CTA (optional)',
+      label: 'CTA',
+      required: true,
       fields: [
         { name: 'enabled', type: 'checkbox', defaultValue: true },
         {

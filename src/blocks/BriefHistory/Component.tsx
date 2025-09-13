@@ -20,7 +20,7 @@ function getMediaUrl(m?: any): string | null {
 export default function BriefHistoryBlock(data: Props) {
   console.log('history data > ', data)
   const url = getMediaUrl(data.sectionImage) || 'https://placehold.co/960x540/svg?text=Grafico'
-  const alt = data.sectionImage?.alt || 'Gráfico'
+  const alt = typeof data.sectionImage !== 'string' ? data.sectionImage?.alt : 'Gráfico'
 
   return (
     <section className="w-full bg-[#EDEDED]">
@@ -48,7 +48,7 @@ export default function BriefHistoryBlock(data: Props) {
                 {/* If your Next config allows your Payload domain, keep <Image />; otherwise swap to <img> */}
                 <Image
                   src={url}
-                  alt={alt}
+                  alt={alt || 'history'}
                   fill
                   sizes="(min-width: 1024px) 1024px"
                   className="object-contain md:object-contain"
