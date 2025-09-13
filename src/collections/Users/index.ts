@@ -20,6 +20,9 @@ export const Users: CollectionConfig = {
     {
       name: 'name',
       type: 'text',
+      access: {
+        read: () => true,
+      },
     },
   ],
   timestamps: true,

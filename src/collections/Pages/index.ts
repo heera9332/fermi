@@ -25,6 +25,7 @@ import { BriefHistory } from '@/blocks/BriefHistory/config'
 import { CalloutSection } from '@/blocks/CalloutSection/config'
 import { AboutSplit } from '@/blocks/AboutSplit/config'
 import { EmptyBlock } from '@/blocks/EmptyBlock/config'
+import { NewsLetterBlock } from '@/blocks/Newsletter/config'
 
 const COLLECTION_MAP: Record<string, string> = {
   posts: 'posts',
@@ -91,6 +92,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 BriefHistory,
                 CalloutSection,
                 AboutSplit,
+                NewsLetterBlock,
                 Content,
                 MediaBlock,
                 Archive,

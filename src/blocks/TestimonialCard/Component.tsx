@@ -43,10 +43,10 @@ export const TestimonialCardBlock = (data: TestimonialCardBlockProps) => {
   return (
     <section className="bg-[#EDEDED] py-12 sm:py-16 lg:py-24">
       <Container>
-        <div className="relative mx-auto w-full max-w-4xl pl-4 pr-8 md:px-0">
+        <div className="relative mx-auto w-full max-w-4xl pl-4 pr-8 md:pl-0 md:pr-0 md:px-0">
           {/* stacked “paper” layers (behind) */}
-          <div className="pointer-events-none absolute bottom-20 left-12 md:-top-6 md:-right-6 w-[90%] md:w-full h-full rounded-2xl bg-[#CDCDCDB2]/70 z-0"></div>
-          <div className="pointer-events-none absolute -top-4 left-14 md:-top-12 md:-right-12 w-[90%] md:w-full h-full rounded-2xl bg-[#CDCDCDB2]/70 z-0"></div>
+          <div className="pointer-events-none absolute -top-6 -right-6 w-[90%] md:w-full h-full rounded-2xl bg-[#CDCDCDB2]/70 z-0"></div>
+          <div className="pointer-events-none absolute -top-12 -right-12   md:w-full h-full rounded-2xl bg-[#CDCDCDB2]/70 z-0"></div>
 
           {/* main card */}
           <article className="relative z-10 rounded-2xl bg-white p-5 shadow-sm sm:p-6 md:p-8">

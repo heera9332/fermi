@@ -156,6 +156,7 @@ export interface Page {
     | BriefHistory
     | CalloutSectionBlock
     | AboutSplitBlock
+    | NewsLetter
     | ContentBlock
     | MediaBlock
     | ArchiveBlock
@@ -380,6 +381,24 @@ export interface AboutSplitBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NewsLetter".
+ */
+export interface NewsLetter {
+  heading: string;
+  headingHighlighted: string;
+  subHeading: string;
+  description: string;
+  form: {
+    placeHolder: string;
+    message: string;
+    buttonLabel: string;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'newsLetter';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ContentBlock".
  */
 export interface ContentBlock {
@@ -463,8 +482,8 @@ export interface Post {
     description?: string | null;
   };
   publishedAt?: string | null;
-  authors?: (string | User)[] | null;
-  populatedAuthors?:
+  author?: (string | null) | User;
+  populatedAuthor?:
     | {
         id?: string | null;
         name?: string | null;
@@ -1036,6 +1055,7 @@ export interface PagesSelect<T extends boolean = true> {
         briefHistory?: T | BriefHistorySelect<T>;
         calloutSection?: T | CalloutSectionBlockSelect<T>;
         aboutSplit?: T | AboutSplitBlockSelect<T>;
+        newsLetter?: T | NewsLetterSelect<T>;
         content?: T | ContentBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
@@ -1172,6 +1192,25 @@ export interface AboutSplitBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NewsLetter_select".
+ */
+export interface NewsLetterSelect<T extends boolean = true> {
+  heading?: T;
+  headingHighlighted?: T;
+  subHeading?: T;
+  description?: T;
+  form?:
+    | T
+    | {
+        placeHolder?: T;
+        message?: T;
+        buttonLabel?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ContentBlock_select".
  */
 export interface ContentBlockSelect<T extends boolean = true> {
@@ -1266,8 +1305,8 @@ export interface PostsSelect<T extends boolean = true> {
         description?: T;
       };
   publishedAt?: T;
-  authors?: T;
-  populatedAuthors?:
+  author?: T;
+  populatedAuthor?:
     | T
     | {
         id?: T;

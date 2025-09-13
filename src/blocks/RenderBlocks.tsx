@@ -12,6 +12,7 @@ import ArchiveBlock from './ArchiveBlock/Component'
 import BriefHistoryBlock from './BriefHistory/Component'
 import CalloutSectionBlock from './CalloutSection/Component'
 import AboutSplitBlock from './AboutSplit/Component'
+import NewsLetterBlock from './Newsletter/Component'
 
 // component mapping
 const blockComponents = {
@@ -22,6 +23,7 @@ const blockComponents = {
   briefHistory: BriefHistoryBlock,
   calloutSection: CalloutSectionBlock,
   aboutSplit: AboutSplitBlock,
+  newsLetter: NewsLetterBlock,
   content: ContentBlock,
   formBlock: FormBlock,
   mediaBlock: MediaBlock,

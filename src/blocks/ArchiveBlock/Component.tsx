@@ -76,6 +76,7 @@ const headerAlignClass = (align?: string) =>
       : 'items-start text-left'
 
 export default function ArchiveBlock(data: ArchiveBlockProps) {
+  console.log('archive data > ', data)
   const docs = extractDocs(data) || []
   const limit = typeof data.limit === 'number' ? data.limit : 10
   const visible = docs.slice(0, limit)
@@ -116,7 +117,7 @@ export default function ArchiveBlock(data: ArchiveBlockProps) {
             return (
               <article
                 key={doc?.id || doc?.slug || idx}
-                className={cx('group relative overflow-hidden rounded-2xl bg-[#1C1D38]')}
+                className={cx('group relative overflow-hidden rounded-2xl bg-[#1C1D38] p-2')}
               >
                 {/* Media with fixed aspect ratio */}
                 <div className="relative w-full aspect-[16/10] overflow-hidden">
@@ -126,14 +127,14 @@ export default function ArchiveBlock(data: ArchiveBlockProps) {
                     height={1000}
                     src={mediaUrl}
                     alt={getDocTitle(doc)}
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-cover rounded-2xl"
                     loading="lazy"
                     decoding="async"
                   />
                 </div>
 
                 {/* Text block */}
-                <div className="p-6 md:p-7">
+                <div className={`p-4 ${data.postTypeFilter === 'posts' ? 'h-72' : ''}`}>
                   <h3 className="text-white text-[24px] font-medium lh-150">
                     <Link
                       href={getHref(doc, (data as any).relationTo)}
@@ -148,6 +149,22 @@ export default function ArchiveBlock(data: ArchiveBlockProps) {
                     </p>
                   ) : null}
                 </div>
+
+                {data.postTypeFilter === 'posts' && (
+                  <div className="post-meta">
+                    <div className="border border-[#797979] h-0 mx-4" />
+                    <div className="grid grid-cols-2">
+                      <div className="text-[18px] text-white p-4">
+                        <p>Escrito por</p>
+                        <p>{doc.author.name}</p>
+                      </div>
+                      <div className="text-[18px] text-white p-4">
+                        <p>Publicado em</p>
+                        <p>{new Date(doc.publishedAt).toLocaleDateString()}</p>
+                      </div>
+                    </div>
+                  </div>
+                )}
 
                 {/* Full-card clickable area for better UX */}
                 <Link
