@@ -44,7 +44,7 @@ const page = () => {
                   {field.type === 'textarea' ? (
                     <textarea
                       placeholder={field.placeholder}
-                      className="text-[#B3B3B3] w-full min-w-[240px] h-[50px] px-[16px] py-[8px] border-b-[2px] border-[#E0E0E0] text-[16px] outline-none bg-transparent resize-none"
+                      className="text-[#B3B3B3] w-full min-w-[240px] h-[50px] px-[16px] py-[8px] border-b-[2px] border-[#E0E0E0] text-[16px] outline-none bg-transparent resize-none overflow-hidden"
                     />
                   ) : (
                     <input
