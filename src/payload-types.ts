@@ -157,6 +157,7 @@ export interface Page {
     | CalloutSectionBlock
     | AboutSplitBlock
     | NewsLetter
+    | HowWeWork
     | ContentBlock
     | MediaBlock
     | ArchiveBlock
@@ -396,6 +397,23 @@ export interface NewsLetter {
   id?: string | null;
   blockName?: string | null;
   blockType: 'newsLetter';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HowWeWork".
+ */
+export interface HowWeWork {
+  heading: string;
+  description: string;
+  steps: {
+    image: string | Media;
+    heading: string;
+    description: string;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'howWeWork';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1056,6 +1074,7 @@ export interface PagesSelect<T extends boolean = true> {
         calloutSection?: T | CalloutSectionBlockSelect<T>;
         aboutSplit?: T | AboutSplitBlockSelect<T>;
         newsLetter?: T | NewsLetterSelect<T>;
+        howWeWork?: T | HowWeWorkSelect<T>;
         content?: T | ContentBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
@@ -1205,6 +1224,24 @@ export interface NewsLetterSelect<T extends boolean = true> {
         placeHolder?: T;
         message?: T;
         buttonLabel?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HowWeWork_select".
+ */
+export interface HowWeWorkSelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  steps?:
+    | T
+    | {
+        image?: T;
+        heading?: T;
+        description?: T;
+        id?: T;
       };
   id?: T;
   blockName?: T;

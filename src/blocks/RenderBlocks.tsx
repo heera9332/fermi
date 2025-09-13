@@ -13,6 +13,7 @@ import BriefHistoryBlock from './BriefHistory/Component'
 import CalloutSectionBlock from './CalloutSection/Component'
 import AboutSplitBlock from './AboutSplit/Component'
 import NewsLetterBlock from './Newsletter/Component'
+import { HowWeWorkBlock } from './HowWeWork/Component'
 
 // component mapping
 const blockComponents = {
@@ -24,6 +25,7 @@ const blockComponents = {
   calloutSection: CalloutSectionBlock,
   aboutSplit: AboutSplitBlock,
   newsLetter: NewsLetterBlock,
+  howWeWork: HowWeWorkBlock,
   content: ContentBlock,
   formBlock: FormBlock,
   mediaBlock: MediaBlock,
@@ -49,7 +51,7 @@ export const RenderBlocks: React.FC<{
               return (
                 <div className="" key={index}>
                   {/* @ts-expect-error there may be some mismatch between the expected types here */}
-                  <Block {...block} disableInnerContainer />
+                  <Block {...block} />
                 </div>
               )
             }
