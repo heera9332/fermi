@@ -292,26 +292,31 @@ export interface Media {
  * via the `definition` "TestimonialCardBlock".
  */
 export interface TestimonialCardBlock {
-  /**
-   * Customer testimonial text shown large inside the card.
-   */
-  quote: string;
-  author: {
-    name: string;
-    role?: string | null;
-    /**
-     * Square image; rendered as a circle ~40px.
-     */
-    avatar?: (string | null) | Media;
-  };
-  company?: {
-    /**
-     * SVG/PNG; shown small on the card bottom-right.
-     */
-    logo?: (string | null) | Media;
-    link?: string | null;
-    newTab?: boolean | null;
-  };
+  quotes?:
+    | {
+        /**
+         * Customer testimonial text shown large inside the card.
+         */
+        quote: string;
+        author: {
+          name: string;
+          role?: string | null;
+          /**
+           * Square image; rendered as a circle ~40px.
+           */
+          avatar?: (string | null) | Media;
+        };
+        company?: {
+          /**
+           * SVG/PNG; shown small on the card bottom-right.
+           */
+          logo?: (string | null) | Media;
+          link?: string | null;
+          newTab?: boolean | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'testimonialCard';
@@ -1125,20 +1130,25 @@ export interface HeroCtaShowcaseBlockSelect<T extends boolean = true> {
  * via the `definition` "TestimonialCardBlock_select".
  */
 export interface TestimonialCardBlockSelect<T extends boolean = true> {
-  quote?: T;
-  author?:
+  quotes?:
     | T
     | {
-        name?: T;
-        role?: T;
-        avatar?: T;
-      };
-  company?:
-    | T
-    | {
-        logo?: T;
-        link?: T;
-        newTab?: T;
+        quote?: T;
+        author?:
+          | T
+          | {
+              name?: T;
+              role?: T;
+              avatar?: T;
+            };
+        company?:
+          | T
+          | {
+              logo?: T;
+              link?: T;
+              newTab?: T;
+            };
+        id?: T;
       };
   id?: T;
   blockName?: T;
