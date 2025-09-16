@@ -24,3 +24,4 @@ temp
 dump
 eslint.config.mjs.bk
 .env.production
+package-lock.json
