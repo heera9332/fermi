@@ -18,18 +18,20 @@ export default function BenefitsGridBlock(data: BenefitsGridBlockProps) {
         {data.items &&
           data.items.map((item, idx) => {
             const iconUrl = typeof item.icon !== 'string' ? item.icon.url : '#'
-            const accent = idx === 0 // first card accent like the screenshot
             return (
               <article
                 key={item.id || item.heading + idx}
                 className={cx(
-                  'relative overflow-hidden rounded-2xl border p-6 md:p-8',
-                  accent
-                    ? 'bg-[linear-gradient(178.62deg,_#21F2C0_-47.71%,_#FFFFFF_35.08%)]'
-                    : 'border-gray-200 bg-white',
+                  ` relative overflow-hidden rounded-2xl border p-6 md:p-8
+                  border-gray-200 bg-white hover:border-white transition-all duration-500
+                    before:content-[''] before:absolute before:inset-0 before:z-0
+                    before:bg-[linear-gradient(178.62deg,_#21F2C0_-47.71%,_#FFFFFF_35.08%)]
+                    before:[clip-path:polygon(0_0,0_0,0_0,0_0)]
+                    hover:before:[clip-path:polygon(0_0,100%_0,100%_100%,0_100%)]
+                    before:transition-[clip-path] before:duration-500 before:ease-out hover:scale-105 hover:shadow-md hover:shadow`,
                 )}
               >
-                <div className="flex flex-col items-start gap-4">
+                <div className="flex flex-col items-start gap-4 relative z-10">
                   <div
                     className={cx(
                       'flex h-16 w-16 shrink-0 items-center justify-center rounded-xl ring-1 ring-black/5 bg-white',

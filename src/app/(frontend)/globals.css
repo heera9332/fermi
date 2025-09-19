@@ -166,3 +166,17 @@ body {
   box-shadow: 29px -29px 0 -2px #CDCDCDCC,
               60px -60px 0 -2px #CDCDCDB2 !important;
 }
+
+.card[data-astro-cid-lishio6b]:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 150%;
+    height: 100%;
+    background: linear-gradient(344deg, #fff0 62.11%, #21f2c080 97.29%), #ededed;
+    z-index: -1;
+    transform: translateY(-50%) translate(-20%) rotate(-25deg);
+    transition: transform .7s 
+ease;
+}

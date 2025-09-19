@@ -118,7 +118,7 @@ export default function ArchiveBlock(data: ArchiveBlockProps) {
               <article
                 key={doc?.id || doc?.slug || idx}
                 className={cx(
-                  'group relative overflow-hidden rounded-2xl hover:bg-[#1C1D38] p-2 transition-colors',
+                  'group relative overflow-hidden rounded-2xl bg-[#1c1d388b] hover:bg-[#1C1D38] p-2 transition-colors',
                 )}
               >
                 {/* Media with fixed aspect ratio */}

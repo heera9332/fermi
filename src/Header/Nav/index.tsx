@@ -15,7 +15,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
             key={i}
             {...link}
             appearance="link"
-            className="font-normal text-[20px] lh-150 relative lh-150 
+            className="font-normal text-[20px] lh-150 relative 
              after:absolute after:bottom-0 after:left-0 
              after:h-[2px] after:w-full after:origin-left 
              after:scale-x-0 after:bg-current after:transition-transform 
