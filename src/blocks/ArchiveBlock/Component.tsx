@@ -5,6 +5,7 @@ import * as React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import type { ArchiveBlock as ArchiveBlockProps } from '@/payload-types'
+import { usePathname } from 'next/navigation'
 
 /**
  * Utility: join class names
@@ -58,6 +59,30 @@ function getDocExcerpt(doc: any): string {
   return doc?.excerpt || doc?.summary || doc?.description || doc?.subtitle || ''
 }
 
+function normalizePath(path: string | undefined | null) {
+  if (!path) return '/'
+  // strip domain, query and hash
+  const stripped = String(path)
+    .replace(/^https?:\/\/[^/]+/i, '')
+    .split('#')[0]
+    .split('?')[0]
+
+  let norm = stripped.replace(/\/+$/, '') // drop trailing slashes
+  if (norm === '' || norm === '/') return '/'
+
+  // ensure single leading slash
+  if (norm[0] !== '/') norm = '/' + norm
+
+  // treat /home as root (optional; remove if you want /home distinct)
+  if (norm === '/home') return '/'
+
+  return norm
+}
+
+function isSameRoute(a: string | undefined, b: string | undefined) {
+  return normalizePath(a) === normalizePath(b)
+}
+
 /**
  * Build a reasonable href. If your app has a different routing,
  * swap this to your own resolver (e.g. by reading doc._collection or block.relationTo).
@@ -77,9 +102,21 @@ const headerAlignClass = (align?: string) =>
 
 export default function ArchiveBlock(data: ArchiveBlockProps) {
   console.log('archive data > ', data)
+  const pathname = usePathname()
+  console.log('path name > ', pathname)
   const docs = extractDocs(data) || []
   const limit = typeof data.limit === 'number' ? data.limit : 10
   const visible = docs.slice(0, limit)
+  const cta = data.link
+
+  const currentPath = normalizePath(pathname)
+  const filterPath = normalizePath('/' + (data.postTypeFilter ?? '')) // "/posts" from "posts"
+
+  // true if we are on the same archive page as the block's post type
+  const isSelfArchive = isSameRoute(currentPath, filterPath)
+
+  // show CTA except when on its own archive; but DO show on home
+  const showCTA = !isSelfArchive || isSameRoute(currentPath, '/')
 
   return (
     <section className="relative overflow-hidden w-full bg-[#030531]">
@@ -179,8 +216,8 @@ export default function ArchiveBlock(data: ArchiveBlockProps) {
           })}
         </div>
 
-        {/* CTA bottom-right */}
-        {data?.link?.url && data?.link?.label ? (
+        {/* CTA bottom-right => not show if archive of self post like posts block has on /posts page */}
+        {showCTA && data.link?.url && data.link?.label ? (
           <div className="mt-10 md:mt-12 flex justify-end">
             <Link
               href={data.link.url}
