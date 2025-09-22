@@ -17,9 +17,9 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, isHeaderDark }
 
   return (
     <header
-      className={`container relative z-20 w-full max-w-full ${isHeaderDark ? 'header-dark' : 'header-light'}`}
+      className={`container relative z-10 w-full max-w-full ${isHeaderDark ? 'header-dark' : 'header-light'}`}
     >
-      <div className="py-6 flex justify-between max-w-8xl mx-auto px-4">
+      <div className="py-6 flex justify-between max-w-7xl mx-auto px-4 md:px-8">
         <Link href="/">
           <Logo />
         </Link>

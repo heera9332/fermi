@@ -38,10 +38,36 @@ export const HeroCtaShowcaseBlock: React.FC<HeroCtaShowcaseBlockProps> = (data) 
   const bgAlt = mediaAlt(sectionImage, 'background')
 
   return (
-    <section className="relative overflow-hidden text-white bg-[#030531] pt-16">
+    <section className="relative  text-white bg-[#030531] pt-16">
+      <svg
+        className="absolute top-0 w-full z-10 -mt-32 pointer-events-none hidden md:block"
+        width="1439"
+        height="880"
+        viewBox="0 0 1439 880"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <line x1="79.5" y1="2.30872e-08" x2="79.4999" y2="1232" stroke="#494949" />
+        <line x1="1359.5" y1="2.30872e-08" x2="1359.5" y2="1232" stroke="#494949" />
+        <line x1="4.37114e-08" y1="163.5" x2="1440" y2="163.5" stroke="#494949" />
+      </svg>
+
+      <svg
+        className="absolute top-0 w-full z-10 -mt-32 pointer-events-none block md:hidden"
+        width="393"
+        height="1019"
+        viewBox="0 0 393 1019"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <line x1="20.5" y1="2.30872e-08" x2="20.4999" y2="1232" stroke="#494949" />
+        <line x1="373.5" y1="2.30872e-08" x2="373.5" y2="1232" stroke="#494949" />
+        <line x1="-522" y1="163.5" x2="918" y2="163.5" stroke="#494949" />
+      </svg>
+
       {/* Background image + tint */}
 
-      <div className="relative max-w-8xl mx-auto px-4 md:px-20">
+      <div className="relative max-w-7xl mx-auto px-4 md:px-12 pt-4">
         {bgSrc ? (
           <>
             <Image
