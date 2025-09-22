@@ -7,18 +7,12 @@ import Link from 'next/link'
 import type { ArchiveBlock as ArchiveBlockProps } from '@/payload-types'
 import { usePathname } from 'next/navigation'
 
-/**
- * Utility: join class names
- */
 const cx = (...c: Array<string | false | undefined | null>) => c.filter(Boolean).join(' ')
 
-/**
- * Try multiple common shapes to derive a media URL from a Payload doc
- */
+/** Media resolver */
 function getMediaUrl(doc: any): string | null {
   const media = doc?.featuredImage || doc?.image || doc?.cover || doc?.thumbnail || doc?.media
   if (!media) return null
-
   const url =
     typeof media === 'string'
       ? media
@@ -27,31 +21,19 @@ function getMediaUrl(doc: any): string | null {
         media?.sizes?.feature?.url ||
         media?.url ||
         null
-
-  if (!url) return null
-  // If it's already absolute, use it; else prefix with site origin if you need.
-  return url.startsWith('http') ? url : url
+  return url?.startsWith('http') ? url : url
 }
 
-/**
- * Pulls array of docs (supports both "selection" and any pre-populated field names)
- */
+/** Get initial docs (preloaded/selected) */
 function extractDocs(data: any): any[] {
-  // When "populateBy = selection"
   if (Array.isArray(data?.selectedDocs)) return data.selectedDocs
-
-  // When "populateBy = collection" you might have already-populated docs via loader
-  // Adjust these keys based on your loader shape
   if (Array.isArray((data as any)?.docs)) return (data as any).docs
   if (Array.isArray((data as any)?.results)) return (data as any).results
   if (Array.isArray((data as any)?.items)) return (data as any).items
-
   return []
 }
 
-/**
- * Derive useful text fields
- */
+/** Basic fields */
 function getDocTitle(doc: any): string {
   return doc?.title || doc?.name || 'Untitled'
 }
@@ -59,34 +41,24 @@ function getDocExcerpt(doc: any): string {
   return doc?.excerpt || doc?.summary || doc?.description || doc?.subtitle || ''
 }
 
+/** Routing utils */
 function normalizePath(path: string | undefined | null) {
   if (!path) return '/'
-  // strip domain, query and hash
   const stripped = String(path)
     .replace(/^https?:\/\/[^/]+/i, '')
     .split('#')[0]
     .split('?')[0]
-
-  let norm = stripped.replace(/\/+$/, '') // drop trailing slashes
+  let norm = stripped.replace(/\/+$/, '')
   if (norm === '' || norm === '/') return '/'
-
-  // ensure single leading slash
   if (norm[0] !== '/') norm = '/' + norm
-
-  // treat /home as root (optional; remove if you want /home distinct)
   if (norm === '/home') return '/'
-
   return norm
 }
-
 function isSameRoute(a: string | undefined, b: string | undefined) {
   return normalizePath(a) === normalizePath(b)
 }
 
-/**
- * Build a reasonable href. If your app has a different routing,
- * swap this to your own resolver (e.g. by reading doc._collection or block.relationTo).
- */
+/** Href builder (match your routes) */
 function getHref(doc: any, relationTo: string | undefined): string {
   const slug = doc?.slug || doc?.id || ''
   const base = relationTo || 'posts'
@@ -100,23 +72,81 @@ const headerAlignClass = (align?: string) =>
       ? 'items-end text-right'
       : 'items-start text-left'
 
+/** Debounce hook */
+function useDebouncedValue<T>(value: T, delay = 350) {
+  const [debounced, setDebounced] = React.useState(value)
+  React.useEffect(() => {
+    const t = setTimeout(() => setDebounced(value), delay)
+    return () => clearTimeout(t)
+  }, [value, delay])
+  return debounced
+}
+
 export default function ArchiveBlock(data: ArchiveBlockProps) {
-  console.log('archive data > ', data)
   const pathname = usePathname()
-  console.log('path name > ', pathname)
-  const docs = extractDocs(data) || []
+
+  const docsInitial = extractDocs(data) || []
   const limit = typeof data.limit === 'number' ? data.limit : 10
-  const visible = docs.slice(0, limit)
   const cta = data.link
 
+  const postType = data.postTypeFilter || 'posts'
+  const archivePath = normalizePath('/' + postType) // '/posts' or '/projects'
   const currentPath = normalizePath(pathname)
-  const filterPath = normalizePath('/' + (data.postTypeFilter ?? '')) // "/posts" from "posts"
+  const isOnArchive = isSameRoute(currentPath, archivePath)
 
-  // true if we are on the same archive page as the block's post type
-  const isSelfArchive = isSameRoute(currentPath, filterPath)
+  /** Visibility rules */
+  const showSearch = isOnArchive // search ONLY on its own archive
+  const showCTA = !isOnArchive && !!(cta?.url && cta?.label) // CTA ONLY off-archive
 
-  // show CTA except when on its own archive; but DO show on home
-  const showCTA = !isSelfArchive || isSameRoute(currentPath, '/')
+  /** SEARCH STATE */
+  const [q, setQ] = React.useState<string>('')
+  const debouncedQ = useDebouncedValue(q, 350)
+  const [results, setResults] = React.useState<any[]>(docsInitial.slice(0, limit))
+  const [isLoading, setIsLoading] = React.useState(false)
+  const [error, setError] = React.useState<string | null>(null)
+
+  // Query only the selected collection (no mixing)
+  React.useEffect(() => {
+    const run = async () => {
+      if (!showSearch) {
+        // not on archive: stick to initial docs
+        setResults(docsInitial.slice(0, limit))
+        setIsLoading(false)
+        setError(null)
+        return
+      }
+
+      if (!debouncedQ) {
+        // on archive with empty query: optionally show initial docs or latest from API
+        setResults(docsInitial.slice(0, limit))
+        setIsLoading(false)
+        setError(null)
+        return
+      }
+
+      setIsLoading(true)
+      setError(null)
+      try {
+        const url = new URL(`/api/posts`, window.location.origin)
+        url.searchParams.set('limit', String(limit))
+        url.searchParams.set('depth', '1')
+        // OR search across common fields; adjust for your schema
+        url.searchParams.set('where[or][0][title][like]', debouncedQ)
+        url.searchParams.set('where[or][0][postType][equals]', postType)
+
+        const res = await fetch(url.toString(), { method: 'GET', credentials: 'include' })
+        if (!res.ok) throw new Error(`Search failed: ${res.status}`)
+        const json = await res.json()
+        const items = Array.isArray(json?.docs) ? json.docs : json?.results || json?.items || []
+        setResults((items || []).slice(0, limit))
+      } catch (e: any) {
+        setError(e?.message || 'Search error')
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    run()
+  }, [debouncedQ, showSearch, postType, limit, docsInitial])
 
   return (
     <section className="relative overflow-hidden w-full bg-[#030531]">
@@ -129,6 +159,7 @@ export default function ArchiveBlock(data: ArchiveBlockProps) {
         className="object-contain absolute top-0 w-full"
         priority={false}
       />
+
       <div className="relative mx-auto max-w-7xl px-6 md:px-8 py-14 md:py-20">
         {/* Header */}
         <header
@@ -139,18 +170,79 @@ export default function ArchiveBlock(data: ArchiveBlockProps) {
         >
           <h2 className="text-3xl md:text-5xl font-semibold text-white lh-130">{data.heading}</h2>
           {data.description ? (
-            <p className="max-w-3xl text-base md:text-lg  text-white/80">{data.description}</p>
+            <p className="max-w-3xl text-base md:text-lg text-white/80">{data.description}</p>
           ) : null}
         </header>
 
-        {/* Cards */}
-        <div className="mt-10 md:mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {visible.map((doc: any, idx: number) => {
-            const mediaUrl =
-              getMediaUrl(doc) ||
-              // fallback: 720x450 looks close to the mock 16:10-16:9-ish box
-              'https://placehold.co/720x450'
+        {/* Top row: Search (left, 50%) shown ONLY on self-archive; CTA shown ONLY off-archive */}
+        <div className="mt-6 md:mt-8 flex items-center justify-between gap-4">
+          {/* SEARCH */}
+          {showSearch ? (
+            <form
+              className="w-full md:w-1/2"
+              onSubmit={(e) => e.preventDefault()}
+              role="search"
+              aria-label="Search"
+            >
+              <label htmlFor="archive-search" className="sr-only">
+                Buscar artigo, blog ou informação
+              </label>
+              <div className="relative">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="absolute top-5 left-6"
+                >
+                  <path
+                    d="M21.5299 20.4693L16.8358 15.7762C18.1963 14.1428 18.8748 12.0478 18.73 9.92691C18.5852 7.80604 17.6283 5.82265 16.0584 4.38932C14.4885 2.95599 12.4264 2.18308 10.3012 2.23138C8.1759 2.27968 6.15108 3.14547 4.64791 4.64864C3.14474 6.15181 2.27895 8.17663 2.23065 10.3019C2.18235 12.4271 2.95526 14.4892 4.38859 16.0591C5.82191 17.629 7.80531 18.5859 9.92618 18.7307C12.047 18.8755 14.1421 18.1971 15.7755 16.8365L20.4686 21.5306C20.5383 21.6003 20.621 21.6556 20.7121 21.6933C20.8031 21.731 20.9007 21.7504 20.9992 21.7504C21.0978 21.7504 21.1954 21.731 21.2864 21.6933C21.3775 21.6556 21.4602 21.6003 21.5299 21.5306C21.5995 21.4609 21.6548 21.3782 21.6925 21.2871C21.7302 21.1961 21.7497 21.0985 21.7497 21C21.7497 20.9014 21.7302 20.8038 21.6925 20.7128C21.6548 20.6218 21.5995 20.539 21.5299 20.4693ZM3.74924 10.5C3.74924 9.16495 4.14512 7.8599 4.88682 6.74987C5.62852 5.63984 6.68272 4.77467 7.91612 4.26378C9.14953 3.75289 10.5067 3.61922 11.8161 3.87967C13.1255 4.14012 14.3282 4.78299 15.2722 5.727C16.2162 6.671 16.8591 7.87374 17.1195 9.18311C17.38 10.4925 17.2463 11.8497 16.7354 13.0831C16.2245 14.3165 15.3594 15.3707 14.2493 16.1124C13.1393 16.8541 11.8343 17.25 10.4992 17.25C8.70964 17.248 6.9939 16.5362 5.72846 15.2708C4.46302 14.0053 3.75122 12.2896 3.74924 10.5Z"
+                    fill="white"
+                  />
+                </svg>
 
+                <input
+                  id="archive-search"
+                  name="q"
+                  value={q}
+                  onChange={(e) => setQ(e.target.value)}
+                  placeholder="Buscar artigo, blog ou informação"
+                  className="pl-16 w-full rounded-xl border border-white/15 bg-white/5 text-white placeholder-white/60
+                             px-4 py-3 outline-none focus:border-white/30 focus:ring-2 focus:ring-white/20"
+                  autoComplete="off"
+                />
+                {isLoading && (
+                  <span
+                    aria-hidden
+                    className="absolute right-3 top-1/2 -translate-y-1/2 animate-spin"
+                    title="Searching..."
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M12 2a10 10 0 1 0 10 10"
+                        stroke="white"
+                        strokeOpacity="0.6"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                  </span>
+                )}
+              </div>
+              {error ? (
+                <p className="mt-2 text-sm text-red-300/90">Erro na pesquisa: {error}</p>
+              ) : null}
+            </form>
+          ) : (
+            <div className="w-full md:w-1/2" />
+          )}
+        </div>
+
+        {/* Grid */}
+        <div className="mt-10 md:mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          {(results || []).map((doc: any, idx: number) => {
+            const mediaUrl = getMediaUrl(doc) || 'https://placehold.co/720x450'
             return (
               <article
                 key={doc?.id || doc?.slug || idx}
@@ -158,9 +250,7 @@ export default function ArchiveBlock(data: ArchiveBlockProps) {
                   'group relative overflow-hidden rounded-2xl bg-[#1c1d388b] hover:bg-[#1C1D38] p-2 transition-colors',
                 )}
               >
-                {/* Media with fixed aspect ratio */}
                 <div className="relative w-full aspect-[16/10] overflow-hidden">
-                  {/* Use <img> to allow external placeholder without next.config */}
                   <Image
                     width={1000}
                     height={1000}
@@ -172,11 +262,10 @@ export default function ArchiveBlock(data: ArchiveBlockProps) {
                   />
                 </div>
 
-                {/* Text block */}
-                <div className={`p-4 ${data.postTypeFilter === 'posts' ? 'h-72' : ''}`}>
+                <div className={`p-4 ${postType === 'posts' ? 'h-72' : ''}`}>
                   <h3 className="text-white text-[24px] font-medium lh-150">
                     <Link
-                      href={getHref(doc, (data as any).relationTo)}
+                      href={getHref(doc, (data as any).relationTo || postType)}
                       className="focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
                     >
                       {getDocTitle(doc)}
@@ -189,25 +278,26 @@ export default function ArchiveBlock(data: ArchiveBlockProps) {
                   ) : null}
                 </div>
 
-                {data.postTypeFilter === 'posts' && (
+                {postType === 'posts' && (
                   <div className="post-meta">
                     <div className="border border-[#797979] h-0 mx-4" />
                     <div className="grid grid-cols-2">
                       <div className="text-[18px] text-white p-4">
                         <p>Escrito por</p>
-                        <p>{doc.author.name}</p>
+                        <p>{doc?.author?.name ?? '—'}</p>
                       </div>
                       <div className="text-[18px] text-white p-4">
                         <p>Publicado em</p>
-                        <p>{new Date(doc.publishedAt).toLocaleDateString()}</p>
+                        <p>
+                          {doc?.publishedAt ? new Date(doc.publishedAt).toLocaleDateString() : '—'}
+                        </p>
                       </div>
                     </div>
                   </div>
                 )}
 
-                {/* Full-card clickable area for better UX */}
                 <Link
-                  href={getHref(doc, (data as any).relationTo)}
+                  href={getHref(doc, (data as any).relationTo || postType)}
                   className="absolute inset-0"
                   aria-label={getDocTitle(doc)}
                 />
@@ -216,16 +306,16 @@ export default function ArchiveBlock(data: ArchiveBlockProps) {
           })}
         </div>
 
-        {/* CTA bottom-right => not show if archive of self post like posts block has on /posts page */}
-        {showCTA && data.link?.url && data.link?.label ? (
-          <div className="mt-10 md:mt-12 flex justify-end">
+        {/* CTA (only off-archive) */}
+        {showCTA ? (
+          <div className="flex justify-end mt-6">
             <Link
-              href={data.link.url}
-              target={data.link.newTab ? '_blank' : undefined}
-              rel={data.link.newTab ? 'noopener noreferrer' : undefined}
+              href={cta!.url}
+              target={cta!.newTab ? '_blank' : undefined}
+              rel={cta!.newTab ? 'noopener noreferrer' : undefined}
               className="inline-flex items-center gap-2 text-white/90 hover:text-white transition"
             >
-              <span className="text-base md:text-lg lh-150">{data.link.label}</span>
+              <span className="text-base md:text-lg lh-150">{cta!.label}</span>
               <svg
                 width="20"
                 height="20"
