@@ -162,6 +162,7 @@ export interface Page {
     | MediaBlock
     | ArchiveBlock
     | FormBlock
+    | ContactHeroBlock
     | EmptyBlock
   )[];
   meta?: {
@@ -604,7 +605,6 @@ export interface ArchiveBlock {
  */
 export interface FormBlock {
   form: string | Form;
-  enableIntro?: boolean | null;
   introContent?: {
     root: {
       type: string;
@@ -797,6 +797,19 @@ export interface Form {
     | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactHeroBlock".
+ */
+export interface ContactHeroBlock {
+  subHeading: string;
+  heading: string;
+  description: string;
+  form: string | Form;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'contactHero';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1084,6 +1097,7 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
+        contactHero?: T | ContactHeroBlockSelect<T>;
         emptyBlock?: T | EmptyBlockSelect<T>;
       };
   meta?:
@@ -1320,8 +1334,19 @@ export interface ArchiveBlockSelect<T extends boolean = true> {
  */
 export interface FormBlockSelect<T extends boolean = true> {
   form?: T;
-  enableIntro?: T;
   introContent?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactHeroBlock_select".
+ */
+export interface ContactHeroBlockSelect<T extends boolean = true> {
+  subHeading?: T;
+  heading?: T;
+  description?: T;
+  form?: T;
   id?: T;
   blockName?: T;
 }

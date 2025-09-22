@@ -27,6 +27,7 @@ import { AboutSplit } from '@/blocks/AboutSplit/config'
 import { EmptyBlock } from '@/blocks/EmptyBlock/config'
 import { NewsLetterBlock } from '@/blocks/Newsletter/config'
 import { HowWeWork } from '@/blocks/HowWeWork/config'
+import { ContactHeroBlock } from '@/blocks/ContactHero/config'
 
 const COLLECTION_MAP: Record<string, string> = {
   posts: 'posts',
@@ -99,6 +100,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 MediaBlock,
                 Archive,
                 FormBlock,
+                ContactHeroBlock,
                 EmptyBlock,
               ],
               required: true,

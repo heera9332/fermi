@@ -125,8 +125,8 @@ body {
 
 /* CTA button - light header */
 .header-light .cta {
-  background-color: black;
-  color: white;
+  background-color: white;
+  color: black;
   transition: all 0.3s ease;
 }
 
@@ -162,7 +162,7 @@ body {
 
 /* ========== Testimonial slider */
 
-.swiper-slide-active {
+.testimonialCard .swiper-slide-active {
   box-shadow: 29px -29px 0 -2px #CDCDCDCC,
               60px -60px 0 -2px #CDCDCDB2 !important;
 }

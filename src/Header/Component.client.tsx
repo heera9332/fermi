@@ -46,9 +46,9 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, isHeaderDark }
 
           <Link
             href={data.cta.link}
-            className="group inline-flex items-center justify-center
+            className="hidden group md:inline-flex items-center justify-center
     rounded-full bg-white px-4 py-3 text-[24px] text-[#0B0E2A]
-    shadow-sm hover:shadow-md active:scale-[0.98]
+    active:scale-[0.98]
     focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60
     transition-all duration-50 ease-[cubic-bezier(0.22,1,0.36,1)] cta"
           >

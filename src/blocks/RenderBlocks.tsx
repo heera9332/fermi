@@ -14,6 +14,7 @@ import CalloutSectionBlock from './CalloutSection/Component'
 import AboutSplitBlock from './AboutSplit/Component'
 import NewsLetterBlock from './Newsletter/Component'
 import { HowWeWorkBlock } from './HowWeWork/Component'
+import { ContactHero } from './ContactHero/Component'
 
 // component mapping
 const blockComponents = {
@@ -29,6 +30,7 @@ const blockComponents = {
   content: ContentBlock,
   formBlock: FormBlock,
   mediaBlock: MediaBlock,
+  contactHero: ContactHero,
 }
 
 export const RenderBlocks: React.FC<{

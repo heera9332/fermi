@@ -27,3 +27,4 @@ eslint.config.mjs.bk
 package-lock.json
 *.zip
 dump
+raw.svg

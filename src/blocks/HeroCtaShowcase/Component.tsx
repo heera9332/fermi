@@ -40,6 +40,7 @@ export const HeroCtaShowcaseBlock: React.FC<HeroCtaShowcaseBlockProps> = (data) 
   return (
     <section className="relative overflow-hidden text-white bg-[#030531] pt-16">
       {/* Background image + tint */}
+
       <div className="relative max-w-8xl mx-auto px-4 md:px-20">
         {bgSrc ? (
           <>

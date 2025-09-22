@@ -18,11 +18,6 @@ export const FormBlock: Block = {
       required: true,
     },
     {
-      name: 'enableIntro',
-      type: 'checkbox',
-      label: 'Enable Intro Content',
-    },
-    {
       name: 'introContent',
       type: 'richText',
       admin: {
