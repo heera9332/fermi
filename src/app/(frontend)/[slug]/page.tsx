@@ -11,6 +11,8 @@ import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
+import { Header } from '@/Header/Component'
+import { Footer } from '@/Footer/Component'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -67,15 +69,16 @@ export default async function Page({ params: paramsPromise }: Args) {
   const { layout } = page
 
   return (
-    <article className="">
+    <>
       <PageClient />
       {/* Allows redirects for valid pages too */}
       <PayloadRedirects disableNotFound url={url} />
 
       {draft && <LivePreviewListener />}
-
+      <Header isHeaderDark={page?.isHeaderDark ? true : false} />
       <RenderBlocks blocks={layout} />
-    </article>
+      <Footer />
+    </>
   )
 }
 
