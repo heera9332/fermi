@@ -70,6 +70,13 @@ export const Archive: Block = {
       required: true,
     },
     {
+      name: 'dots',
+      label: 'Show dots on secton top',
+      type: 'checkbox',
+      defaultValue: true,
+      required: true,
+    },
+    {
       name: 'link',
       type: 'group',
       label: 'Link',

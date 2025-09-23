@@ -1,11 +1,11 @@
 'use client'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 
 import type { Header } from '@/payload-types'
-
 import { Logo } from '@/components/Logo/Logo'
-import { HeaderNav } from './Nav'
+import { HeaderNav } from './Nav/index'
+import { MobileMenu } from './MobileMenu'
 
 interface HeaderClientProps {
   data: Header
@@ -13,37 +13,53 @@ interface HeaderClientProps {
 }
 
 export const HeaderClient: React.FC<HeaderClientProps> = ({ data, isHeaderDark }) => {
-  const [_mobileOpen, setMobileOpen] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const openMenu = useCallback(() => setMobileOpen(true), [])
+  const closeMenu = useCallback(() => setMobileOpen(false), [])
+  const toggleMenu = useCallback(() => setMobileOpen((v) => !v), [])
 
   return (
     <header
       className={`container relative z-10 w-full max-w-full ${isHeaderDark ? 'header-dark' : 'header-light'}`}
     >
       <div className="py-6 flex justify-between max-w-7xl mx-auto px-4 md:px-8">
-        <Link href="/">
+        <Link href="/" aria-label="Go to home">
           <Logo />
         </Link>
+
         <div className="flex gap-4 md:gap-8 items-center">
+          {/* Desktop nav remains the same */}
           <HeaderNav data={data} />
 
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="lucide lucide-menu-icon lucide-menu block md:hidden cursor-pointer"
-            onClick={() => setMobileOpen}
+          {/* Mobile trigger */}
+          <button
+            type="button"
+            aria-label="Open menu"
+            aria-haspopup="dialog"
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-menu"
+            onClick={toggleMenu}
+            className="block md:hidden p-2 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
           >
-            <path d="M4 5h16" />
-            <path d="M4 12h16" />
-            <path d="M4 19h16" />
-          </svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="28"
+              height="28"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="lucide lucide-menu"
+            >
+              <path d="M4 5h16" />
+              <path d="M4 12h16" />
+              <path d="M4 19h16" />
+            </svg>
+          </button>
 
+          {/* Desktop CTA unchanged */}
           <Link
             href={data.cta.link}
             className="hidden group md:inline-flex items-center justify-center
@@ -53,7 +69,6 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, isHeaderDark }
             transition-all duration-50 ease-[cubic-bezier(0.22,1,0.36,1)] cta"
           >
             {data.cta.label}
-
             <span
               className="ml-0 max-w-0 overflow-hidden opacity-0
               group-hover:ml-3 group-hover:max-w-[40px] group-hover:opacity-100
@@ -76,6 +91,11 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, isHeaderDark }
             </span>
           </Link>
         </div>
+      </div>
+
+      {/* Mobile Menu portalized inline (keeps things simple) */}
+      <div id="mobile-menu">
+        <MobileMenu open={mobileOpen} onClose={closeMenu} data={data} />
       </div>
     </header>
   )

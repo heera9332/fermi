@@ -102,10 +102,10 @@ export const HeroCtaShowcaseBlock: React.FC<HeroCtaShowcaseBlockProps> = (data) 
               priority
             />
             {/* Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-b from-[#030531]/0 to-[#030531]/90 rounded-2xl md:rounded-2xl z-10" />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#030531]/0 to-[#030531]/90 rounded-2xl md:rounded-2xl z-[1]" />
           </div>
 
-          <div className="section-content relative z-10">
+          <div className="section-content relative z-[1]">
             {/* Title */}
             {(title || titleHighlighted) && (
               <h1 className="text-balance text-3xl font-semibold sm:text-4xl md:text-5xl !leading-[100%] md:!leading-[130%]">

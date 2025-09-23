@@ -151,26 +151,36 @@ export default function ArchiveBlock(data: ArchiveBlockProps) {
   return (
     <section className="relative overflow-hidden w-full bg-[#030531]">
       {/* dotted background layer */}
-      <Image
-        src="/assets/icons/svg/dots.svg"
-        alt=""
-        width={1000}
-        height={1000}
-        className="object-contain absolute top-0 w-full"
-        priority={false}
-      />
+      {data.dots && (
+        <Image
+          src="/assets/icons/svg/dots.svg"
+          alt=""
+          width={1000}
+          height={1000}
+          className="object-contain absolute top-0 w-full"
+          priority={false}
+        />
+      )}
 
       <div className="relative mx-auto max-w-7xl px-6 md:px-8 py-14 md:py-20">
         {/* Header */}
         <header
           className={cx(
-            'flex flex-col gap-4',
+            'flex flex-col gap-4 max-w-xl mx-auto',
             headerAlignClass((data as any).headerAlignment || 'left'),
           )}
         >
-          <h2 className="text-3xl md:text-5xl font-semibold text-white lh-130">{data.heading}</h2>
+          <h2
+            className={`text-3xl md:text-5xl font-semibold text-white lh-130 ${headerAlignClass((data as any).headerAlignment || 'left')}`}
+          >
+            {data.heading}
+          </h2>
           {data.description ? (
-            <p className="max-w-3xl text-base md:text-lg text-white/80">{data.description}</p>
+            <p
+              className={`max-w-3xl text-xl md:text-2xl text-white ${headerAlignClass((data as any).headerAlignment || 'left')}`}
+            >
+              {data.description}
+            </p>
           ) : null}
         </header>
 

@@ -589,6 +589,7 @@ export interface ArchiveBlock {
   limit?: number | null;
   postTypeFilter?: ('projects' | 'posts') | null;
   headerAlignment: 'left' | 'center' | 'right';
+  dots: boolean;
   link: {
     label: string;
     url: string;
@@ -1283,6 +1284,7 @@ export interface ArchiveBlockSelect<T extends boolean = true> {
   limit?: T;
   postTypeFilter?: T;
   headerAlignment?: T;
+  dots?: T;
   link?:
     | T
     | {
