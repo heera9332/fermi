@@ -1,8 +1,7 @@
 import type { Metadata } from 'next'
-
+import payload from '@/lib/payload-client'
 import { PayloadRedirects } from '@/components/PayloadRedirects'
-import configPromise from '@payload-config'
-import { getPayload, type RequiredDataFromCollectionSlug } from 'payload'
+import { type RequiredDataFromCollectionSlug } from 'payload'
 import { draftMode } from 'next/headers'
 import React, { cache } from 'react'
 import { homeStatic } from '@/endpoints/seed/home-static'
@@ -15,7 +14,6 @@ import { Header } from '@/Header/Component'
 import { Footer } from '@/Footer/Component'
 
 export async function generateStaticParams() {
-  const payload = await getPayload({ config: configPromise })
   const pages = await payload.find({
     collection: 'pages',
     draft: false,
@@ -91,10 +89,8 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
   return generateMeta({ doc: page })
 }
 
-const queryPageBySlug = cache(async ({ slug }: { slug: string }) => {
+export const queryPageBySlug = cache(async ({ slug }: { slug: string }) => {
   const { isEnabled: draft } = await draftMode()
-
-  const payload = await getPayload({ config: configPromise })
 
   const result = await payload.find({
     collection: 'pages',
