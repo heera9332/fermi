@@ -67,5 +67,12 @@ export const HeroCtaShowcase: Block = {
       label: 'Section Image',
       required: true,
     },
+    {
+      name: 'sectionImageMobile',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'Section Image (mobile)',
+      required: true,
+    },
   ],
 }

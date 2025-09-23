@@ -47,18 +47,18 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, isHeaderDark }
           <Link
             href={data.cta.link}
             className="hidden group md:inline-flex items-center justify-center
-    rounded-full bg-white px-4 py-3 text-[24px] text-[#0B0E2A]
-    active:scale-[0.98]
-    focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60
-    transition-all duration-50 ease-[cubic-bezier(0.22,1,0.36,1)] cta"
+            rounded-full bg-white px-4 py-3 text-[24px] text-[#0B0E2A]
+            active:scale-[0.98]
+            focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60
+            transition-all duration-50 ease-[cubic-bezier(0.22,1,0.36,1)] cta"
           >
             {data.cta.label}
 
             <span
               className="ml-0 max-w-0 overflow-hidden opacity-0
-      group-hover:ml-3 group-hover:max-w-[40px] group-hover:opacity-100
-      transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]
-      flex items-center"
+              group-hover:ml-3 group-hover:max-w-[40px] group-hover:opacity-100
+              transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]
+              flex items-center"
             >
               <svg
                 width="24"

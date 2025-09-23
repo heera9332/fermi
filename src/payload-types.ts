@@ -204,6 +204,7 @@ export interface HeroCtaShowcaseBlock {
       }[]
     | null;
   sectionImage: string | Media;
+  sectionImageMobile: string | Media;
   id?: string | null;
   blockName?: string | null;
   blockType: 'heroCtaShowcase';
@@ -1099,6 +1100,7 @@ export interface HeroCtaShowcaseBlockSelect<T extends boolean = true> {
         id?: T;
       };
   sectionImage?: T;
+  sectionImageMobile?: T;
   id?: T;
   blockName?: T;
 }

@@ -54,7 +54,7 @@ export const TestimonialCardBlock = (data: TestimonialCardBlockProps) => {
   if (!Array.isArray(items) || items.length === 0) return null
 
   return (
-    <section className="bg-[#EDEDED] py-24 md:py-48 overflow-hidden relative section">
+    <section className="bg-[#EDEDED] py-24 md:py-48 overflow-hidden relative section z-10">
       <div className="ml-4 mr-8 md:mx-auto max-w-7xl  md:px-6">
         <Swiper
           modules={[A11y, Keyboard, EffectCards, Autoplay]}

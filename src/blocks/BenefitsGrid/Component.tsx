@@ -43,7 +43,7 @@ export default function BenefitsGridBlock(data: BenefitsGridBlockProps) {
                  before:[clip-path:polygon(0_0,0_0,0_0,0_0)]
                  hover:before:[clip-path:polygon(0_0,100%_0,100%_100%,0_100%)]
                  before:transition-[clip-path] before:duration-500 before:ease-out
-                 hover:scale-105 hover:shadow-md hover:shadow`,
+                 hover:shadow-md`,
                 // animation state
                 'transform-gpu transition-all duration-700 ease-out',
                 mounted
