@@ -66,7 +66,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, isHeaderDark }
             rounded-full bg-white px-4 py-3 text-[24px] text-[#0B0E2A]
             active:scale-[0.98]
             focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60
-            transition-all duration-50 ease-[cubic-bezier(0.22,1,0.36,1)] cta"
+            transition-all duration-50 ease-[cubic-bezier(0.22,1,0.36,1)] cta  !hover:bg-none"
           >
             {data.cta.label}
             <span

@@ -3,7 +3,7 @@ import { ContactHeroBlock } from '@/payload-types'
 import { ContactForm } from './ContactForm'
 
 export const ContactHero = (data: ContactHeroBlock) => {
-  console.log(data)
+  // console.log(data)
 
   return (
     <section className="w-full flex flex-col justify-center items-center px-4 sm:px-6 lg:px-0 text-white relative section overflow-hidden bg-[#EDEDED] pt-4 pb-20">

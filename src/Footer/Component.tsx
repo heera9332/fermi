@@ -69,18 +69,18 @@ export async function Footer() {
                 target={footerData.cta.button.newTab ? '_blank' : undefined}
                 rel={footerData.cta.button.newTab ? 'noopener noreferrer' : undefined}
                 className="group inline-flex items-center justify-center
-    rounded-full bg-white px-4 py-3 text-[24px] text-[#0B0E2A]
-    shadow-sm hover:shadow-md active:scale-[0.98]
-    focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60
-    transition-all duration-50 ease-[cubic-bezier(0.22,1,0.36,1)]"
+                rounded-full bg-white px-4 py-3 text-[24px] text-[#0B0E2A]
+                shadow-sm hover:shadow-md active:scale-[0.98]
+                focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60
+                transition-all duration-50 ease-[cubic-bezier(0.22,1,0.36,1)]"
               >
                 {footerData.cta.button.label}
 
                 <span
                   className="ml-0 max-w-0 overflow-hidden opacity-0
-      group-hover:ml-3 group-hover:max-w-[40px] group-hover:opacity-100
-      transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]
-      flex items-center"
+                  group-hover:ml-3 group-hover:max-w-[40px] group-hover:opacity-100
+                  transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]
+                  flex items-center"
                 >
                   <svg
                     width="24"
@@ -150,10 +150,10 @@ export async function Footer() {
                           href={l.link || '#'}
                           {...extTarget(l?.newTab)}
                           className="transition hover:opacity-70 relative 
-             after:absolute after:bottom-0 after:left-0 
-             after:h-[2px] after:w-full after:origin-left 
-             after:scale-x-0 after:bg-current after:transition-transform 
-             after:duration-300 hover:after:scale-x-100 inline-block"
+                          after:absolute after:bottom-0 after:left-0 
+                            after:w-full after:origin-left 
+                          after:scale-x-0 after:bg-current after:transition-transform 
+                          after:duration-300 hover:after:scale-x-100 inline-block"
                         >
                           {l.label}
                         </Link>
@@ -173,10 +173,10 @@ export async function Footer() {
                         <Link
                           href={`mailto:${footerData.contact.email}`}
                           className="transition hover:opacity-70 relative 
-             after:absolute after:bottom-0 after:left-0 
-             after:h-[2px] after:w-full after:origin-left 
-             after:scale-x-0 after:bg-current after:transition-transform 
-             after:duration-300 hover:after:scale-x-100 inline-block"
+                          after:absolute after:bottom-0 after:left-0 
+                            after:w-full after:origin-left 
+                          after:scale-x-0 after:bg-current after:transition-transform 
+                          after:duration-300 hover:after:scale-x-100 inline-block"
                         >
                           {footerData.contact.email}
                         </Link>
@@ -187,10 +187,10 @@ export async function Footer() {
                         <Link
                           href={`tel:${footerData.contact.phone.replace(/\s+/g, '')}`}
                           className="transition hover:opacity-70 relative 
-             after:absolute after:bottom-0 after:left-0 
-             after:h-[2px] after:w-full after:origin-left 
-             after:scale-x-0 after:bg-current after:transition-transform 
-             after:duration-300 hover:after:scale-x-100 inline-block"
+                          after:absolute after:bottom-0 after:left-0 
+                          first: after:w-full after:origin-left 
+                          after:scale-x-0 after:bg-current after:transition-transform 
+                          after:duration-300 hover:after:scale-x-100 inline-block"
                         >
                           {footerData.contact.phone}
                         </Link>

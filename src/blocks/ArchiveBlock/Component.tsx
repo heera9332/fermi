@@ -35,10 +35,27 @@ function extractDocs(data: any): any[] {
 
 /** Basic fields */
 function getDocTitle(doc: any): string {
-  return doc?.title || doc?.name || 'Untitled'
+  const title = doc?.title || doc?.name || 'Untitled'
+  const clean = String(title).trim()
+
+  if (clean.length > 72) {
+    return clean.slice(0, 69).trimEnd() + '…'
+  }
+
+  return clean
 }
+
 function getDocExcerpt(doc: any): string {
-  return doc?.excerpt || doc?.summary || doc?.description || doc?.subtitle || ''
+  const text = doc?.excerpt || doc?.summary || doc?.description || doc?.subtitle || ''
+
+  const clean = String(text).trim()
+
+  // Limit to 160 chars like WP excerpt
+  if (clean.length > 72) {
+    return clean.slice(0, 69).trimEnd() + '…'
+  }
+
+  return clean
 }
 
 /** Routing utils */
@@ -149,7 +166,7 @@ export default function ArchiveBlock(data: ArchiveBlockProps) {
   }, [debouncedQ, showSearch, postType, limit, docsInitial])
 
   return (
-    <section className="relative overflow-hidden w-full bg-[#030531]">
+    <section className="relative overflow-hidden w-full bg-[#030531]" id="archive-block">
       {/* dotted background layer */}
       {data.dots && (
         <Image
@@ -171,13 +188,13 @@ export default function ArchiveBlock(data: ArchiveBlockProps) {
           )}
         >
           <h2
-            className={`text-3xl md:text-5xl font-semibold text-white lh-130 ${headerAlignClass((data as any).headerAlignment || 'left')}`}
+            className={`text-3xl md:text-5xl font-semibold text-white !lh-130 ${headerAlignClass((data as any).headerAlignment || 'left')}`}
           >
             {data.heading}
           </h2>
           {data.description ? (
             <p
-              className={`max-w-3xl text-xl md:text-2xl text-white ${headerAlignClass((data as any).headerAlignment || 'left')}`}
+              className={`max-w-3xl text-xl md:text-2xl !lh-150 text-white ${headerAlignClass((data as any).headerAlignment || 'left')}`}
             >
               {data.description}
             </p>
@@ -277,12 +294,16 @@ export default function ArchiveBlock(data: ArchiveBlockProps) {
                     <Link
                       href={getHref(doc, (data as any).relationTo || postType)}
                       className="focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
+                      title={getDocTitle(doc)}
                     >
                       {getDocTitle(doc)}
                     </Link>
                   </h3>
                   {getDocExcerpt(doc) ? (
-                    <p className="mt-2 text-[20px] text-white/80 lh-150 font-regular">
+                    <p
+                      title={getDocExcerpt(doc)}
+                      className="mt-2 text-[20px] text-white/80 lh-150 font-regular"
+                    >
                       {getDocExcerpt(doc)}
                     </p>
                   ) : null}

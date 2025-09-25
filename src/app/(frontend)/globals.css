@@ -135,8 +135,7 @@ body {
   transition: all 0.3s ease;
 }
 
-.header-light .cta:hover {
-  background-color: var(--accent1);
+.header-light .cta:hover { 
   color: black;
 }
 

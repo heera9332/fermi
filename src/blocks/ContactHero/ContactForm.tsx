@@ -139,14 +139,13 @@ function ContactForm({ form, className }: Props) {
 
   return (
     <div
+      id="contact-form"
       className={cn(
         'w-full max-w-[694px] flex justify-center items-center gap-8 flex-col sm:flex-row rounded-[24px] p-6 sm:p-8 bg-[#EDEDED]',
         className,
       )}
     >
       <div className="w-full sm:w-[646px] flex flex-col gap-6">
-        {form?.title ? <h3 className="text-2xl font-black text-[#030531]">{form.title}</h3> : null}
-
         {successMsg ? (
           <div className="rounded-xl bg-white text-[#0B0E2A] border border-[#E0E0E0] p-4">
             {successMsg}
@@ -246,21 +245,11 @@ function ContactForm({ form, className }: Props) {
               'w-full h-[52px] px-[20px] py-[16px] rounded-[24px] border-2 border-[#E0E0E0]',
               'flex items-center justify-center text-[#030531] text-[20px] bg-white',
               'transition-all duration-300',
-              'hover:border-[#4ECDC4] group',
               loading && 'opacity-70 cursor-not-allowed',
             )}
           >
             <span className={cn('transition-all duration-300', 'group-hover:mr-2')}>
               {loading ? 'A enviar…' : submitLabel}
-            </span>
-            <span
-              className={cn(
-                'transform transition-transform duration-300 opacity-0',
-                'group-hover:translate-x-2 group-hover:opacity-100',
-              )}
-              aria-hidden
-            >
-              →
             </span>
           </button>
         </form>
