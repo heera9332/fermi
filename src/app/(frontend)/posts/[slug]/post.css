@@ -1,0 +1,28 @@
+#post-page {
+  line-height: 1.5 !important; /* 150% */
+}
+
+#post-page {
+  h1,
+  h2,
+  h3,
+  h4 {
+    line-height: 150% !important;
+    font-weight: semibold !important;
+  }
+}
+
+#post-page .post-excerpt {
+  line-height: 150% !important;
+}
+/* mobile responsive design of blog */
+@media (max-width: 576px) {
+  #post-page {
+    h1,
+    h2,
+    h3,
+    h4 {
+      line-height: 130% !important;
+    }
+  }
+}
