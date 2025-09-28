@@ -9,7 +9,7 @@ export const ContactHero = (data: ContactHeroBlock) => {
     <section className="w-full flex flex-col justify-center items-center px-4 sm:px-6 lg:px-0 text-white relative section overflow-hidden bg-[#EDEDED] pt-4 pb-20">
       <div
         style={{ backgroundImage: "url('/assets/images/contectFormBg.png')" }}
-        className="contect-page flex flex-col justify-center items-center w-full max-w-[1240px] rounded-[24px] py-[48px] px-[24px] gap-[48px] bg-no-repeat bg-center bg-cover"
+        className="contect-page flex flex-col justify-center items-center w-full max-w-[1240px] rounded-[24px] py-12 px-6 gap-12 bg-no-repeat bg-center bg-cover"
       >
         <div className="w-full max-w-6xl flex flex-col items-center gap-6">
           <span className="font-normal text-xl sm:text-2xl leading-[150%] tracking-normal text-center block text-white">
