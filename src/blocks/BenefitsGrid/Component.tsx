@@ -36,13 +36,8 @@ export default function BenefitsGridBlock(data: BenefitsGridBlockProps) {
               }}
               className={cx(
                 // base styling
-                `relative overflow-hidden rounded-2xl border p-6 md:p-8
+                `article-card relative overflow-hidden rounded-2xl border p-6 md:p-8
                  border-gray-200 bg-white hover:border-white transition-all duration-500
-                 before:content-[''] before:absolute before:inset-0 before:z-0
-                 before:bg-[linear-gradient(178.62deg,_#21F2C0_-47.71%,_#FFFFFF_35.08%)]
-                 before:[clip-path:polygon(0_0,0_0,0_0,0_0)]
-                 hover:before:[clip-path:polygon(0_0,100%_0,100%_100%,0_100%)]
-                 before:transition-[clip-path] before:duration-500 before:ease-out
                  hover:shadow-md`,
                 // animation state
                 'transform-gpu transition-all duration-700 ease-out',
@@ -68,8 +63,10 @@ export default function BenefitsGridBlock(data: BenefitsGridBlockProps) {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium text-black text-[24px]">{item.heading}</h3>
-                  <p className="mt-2 text-[20px] leading-relaxed text-[#6B6B6B]">{item.body}</p>
+                  <h3 className="text-lg  font-medium !lg-150 text-black md:text-2xl">
+                    {item.heading}
+                  </h3>
+                  <p className="mt-2 text-xl !lh-150 text-[#6B6B6B]">{item.body}</p>
 
                   {item.link?.url && item.link?.label ? (
                     <a

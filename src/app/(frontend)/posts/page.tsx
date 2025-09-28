@@ -16,7 +16,7 @@ export default async function PostsArchivePage() {
 
   return (
     <>
-      <Header isHeaderDark={false} />
+      <Header isHeaderDark={page.isHeaderDark || false} />
       <RenderBlocks blocks={layout} />
       <Footer />
     </>

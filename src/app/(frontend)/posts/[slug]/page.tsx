@@ -57,6 +57,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
           <RichText data={post.content} className="max-w-full w-full mx-0 px-8" />
         </div>
       </article>
+
       <Footer />
     </div>
   )

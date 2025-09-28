@@ -37,9 +37,9 @@ export const HeroCtaShowcaseBlock: React.FC<HeroCtaShowcaseBlockProps> = (data) 
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <line x1="79.5" y1="2.30872e-08" x2="79.4999" y2="1232" stroke="#494949" />
+        <line x1="79.5" y1="-100" x2="79.4999" y2="2000" stroke="#494949" />
         <line x1="1359.5" y1="2.30872e-08" x2="1359.5" y2="1232" stroke="#494949" />
-        <line x1="4.37114e-08" y1="163.5" x2="1440" y2="163.5" stroke="#494949" />
+        <line x1="-1000" y1="163.5" x2="5000" y2="163.5" stroke="#494949" />
       </svg>
 
       <svg
