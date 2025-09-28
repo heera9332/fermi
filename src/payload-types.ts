@@ -636,26 +636,10 @@ export interface Form {
         | {
             name: string;
             label?: string | null;
-            width?: number | null;
-            required?: boolean | null;
-            defaultValue?: boolean | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'checkbox';
-          }
-        | {
-            name: string;
-            label?: string | null;
-            width?: number | null;
-            required?: boolean | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'country';
-          }
-        | {
-            name: string;
-            label?: string | null;
-            width?: number | null;
+            /**
+             * Optional placeholder shown inside the input
+             */
+            placeholder?: string | null;
             required?: boolean | null;
             id?: string | null;
             blockName?: string | null;
@@ -684,7 +668,10 @@ export interface Form {
         | {
             name: string;
             label?: string | null;
-            width?: number | null;
+            /**
+             * Optional placeholder shown inside the input
+             */
+            placeholder?: string | null;
             defaultValue?: number | null;
             required?: boolean | null;
             id?: string | null;
@@ -694,34 +681,10 @@ export interface Form {
         | {
             name: string;
             label?: string | null;
-            width?: number | null;
-            defaultValue?: string | null;
+            /**
+             * Optional placeholder shown inside the input
+             */
             placeholder?: string | null;
-            options?:
-              | {
-                  label: string;
-                  value: string;
-                  id?: string | null;
-                }[]
-              | null;
-            required?: boolean | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'select';
-          }
-        | {
-            name: string;
-            label?: string | null;
-            width?: number | null;
-            required?: boolean | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'state';
-          }
-        | {
-            name: string;
-            label?: string | null;
-            width?: number | null;
             defaultValue?: string | null;
             required?: boolean | null;
             id?: string | null;
@@ -731,7 +694,10 @@ export interface Form {
         | {
             name: string;
             label?: string | null;
-            width?: number | null;
+            /**
+             * Optional placeholder shown inside the input
+             */
+            placeholder?: string | null;
             defaultValue?: string | null;
             required?: boolean | null;
             id?: string | null;
@@ -1520,33 +1486,12 @@ export interface FormsSelect<T extends boolean = true> {
   fields?:
     | T
     | {
-        checkbox?:
-          | T
-          | {
-              name?: T;
-              label?: T;
-              width?: T;
-              required?: T;
-              defaultValue?: T;
-              id?: T;
-              blockName?: T;
-            };
-        country?:
-          | T
-          | {
-              name?: T;
-              label?: T;
-              width?: T;
-              required?: T;
-              id?: T;
-              blockName?: T;
-            };
         email?:
           | T
           | {
               name?: T;
               label?: T;
-              width?: T;
+              placeholder?: T;
               required?: T;
               id?: T;
               blockName?: T;
@@ -1563,37 +1508,8 @@ export interface FormsSelect<T extends boolean = true> {
           | {
               name?: T;
               label?: T;
-              width?: T;
-              defaultValue?: T;
-              required?: T;
-              id?: T;
-              blockName?: T;
-            };
-        select?:
-          | T
-          | {
-              name?: T;
-              label?: T;
-              width?: T;
-              defaultValue?: T;
               placeholder?: T;
-              options?:
-                | T
-                | {
-                    label?: T;
-                    value?: T;
-                    id?: T;
-                  };
-              required?: T;
-              id?: T;
-              blockName?: T;
-            };
-        state?:
-          | T
-          | {
-              name?: T;
-              label?: T;
-              width?: T;
+              defaultValue?: T;
               required?: T;
               id?: T;
               blockName?: T;
@@ -1603,7 +1519,7 @@ export interface FormsSelect<T extends boolean = true> {
           | {
               name?: T;
               label?: T;
-              width?: T;
+              placeholder?: T;
               defaultValue?: T;
               required?: T;
               id?: T;
@@ -1614,7 +1530,7 @@ export interface FormsSelect<T extends boolean = true> {
           | {
               name?: T;
               label?: T;
-              width?: T;
+              placeholder?: T;
               defaultValue?: T;
               required?: T;
               id?: T;

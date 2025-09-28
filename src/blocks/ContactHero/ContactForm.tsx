@@ -1,7 +1,6 @@
 'use client'
 
 import * as React from 'react'
-import Image from 'next/image' // if you add logos later; safe to keep
 // Minimal shape we actually use from Payload
 type FormField = {
   blockType: 'text' | 'email' | 'textarea'
