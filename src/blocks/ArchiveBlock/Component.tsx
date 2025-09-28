@@ -101,6 +101,7 @@ function useDebouncedValue<T>(value: T, delay = 350) {
 
 export default function ArchiveBlock(data: ArchiveBlockProps) {
   const pathname = usePathname()
+  const searchSettings = data.search
 
   const docsInitial = extractDocs(data) || []
   const limit = typeof data.limit === 'number' ? data.limit : 10
@@ -212,7 +213,7 @@ export default function ArchiveBlock(data: ArchiveBlockProps) {
               aria-label="Search"
             >
               <label htmlFor="archive-search" className="sr-only">
-                Buscar artigo, blog ou informação
+                {searchSettings.searchPlaceholderText || 'Buscar artigo, blog ou informação'}
               </label>
               <div className="relative">
                 <svg

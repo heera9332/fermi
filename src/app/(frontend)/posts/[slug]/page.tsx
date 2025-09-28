@@ -5,6 +5,7 @@ import RichText from '@/components/RichText'
 import { Header } from '@/Header/Component'
 import { Footer } from '@/Footer/Component'
 import Image from 'next/image'
+import { RelatedContentSection } from '@/blocks/RelatedArchiveBlock/Component'
 
 export default async function PostPage({ params }: { params: { slug: string } }) {
   const { docs } = await payload.find({
@@ -45,7 +46,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
           </div>
           <div className="featured-image">
             <Image
-              src={post?.featuredImage.url || '/assets/images/placeholder.png'}
+              src={post?.featuredImage?.url || '/assets/images/placeholder.png'}
               width={1000}
               height={1000}
               alt={'featured-image'}
@@ -57,7 +58,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
           <RichText data={post.content} className="max-w-full w-full mx-0 px-8" />
         </div>
       </article>
-
+      <RelatedContentSection />
       <Footer />
     </div>
   )

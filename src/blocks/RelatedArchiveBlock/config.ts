@@ -1,13 +1,19 @@
-import type { Block } from 'payload'
+import type { GlobalConfig } from 'payload'
 
-export const RelatedContentBlock: Block = {
+export const RelatedContentBlock: GlobalConfig = {
   slug: 'relatedContent',
   interfaceName: 'RelatedContent',
   labels: { plural: 'Related Content', singular: 'Related Content' },
   fields: [
+    {
+      name: 'isEnableRelatedBlock',
+      type: 'checkbox',
+      label: 'Enable related posts',
+      required: true,
+      defaultValue: true,
+    },
     { name: 'heading', type: 'text', label: 'Heading', required: true },
-    { name: 'description', type: 'text', label: 'Description' },
-
+    { name: 'description', type: 'textarea', label: 'Description' },
     {
       name: 'mode',
       type: 'radio',
@@ -27,20 +33,15 @@ export const RelatedContentBlock: Block = {
       admin: { condition: (_, s) => s.mode === 'auto' },
       fields: [
         {
-          name: 'postTypeFilter',
-          type: 'select',
-          label: 'Post Type',
-          defaultValue: 'any',
-          options: [
-            { label: 'Any', value: 'any' },
-            { label: 'Posts', value: 'posts' },
-            { label: 'Projects', value: 'projects' },
-          ],
-        },
-        {
           name: 'matchByCurrentCategories',
           type: 'checkbox',
-          label: 'Match by current page categories',
+          label: 'Match by current post categories',
+          defaultValue: true,
+        },
+        {
+          name: 'matchByCurrentTitle',
+          type: 'checkbox',
+          label: 'Match by current post title',
           defaultValue: true,
         },
         {

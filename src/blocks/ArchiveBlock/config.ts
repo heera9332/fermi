@@ -104,5 +104,19 @@ export const Archive: Block = {
         },
       ],
     },
+    {
+      type: 'group',
+      name: 'search',
+      label: 'Settings for archive page',
+      required: true,
+      fields: [
+        {
+          name: 'searchPlaceholderText',
+          label: 'Search placeholder text',
+          type: 'text',
+          defaultValue: 'Buscar artigo, blog ou informação',
+        },
+      ],
+    },
   ],
 }
