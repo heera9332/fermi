@@ -42,7 +42,7 @@ export default function BriefHistoryBlock(data: Props) {
         <figure className={cx('mt-10 md:mt-12 ')} aria-labelledby="chart-title">
           <div className="relative">
             {/* Image */}
-            <div className="w-full border border-[#E0E0E0]">
+            <div className="w-full md:w-[90%] mx-auto border border-[#E0E0E0] px-10">
               {/* Keep a stable aspect on load to prevent CLS */}
               <div className="relative w-full aspect-[16/10]">
                 {/* If your Next config allows your Payload domain, keep <Image />; otherwise swap to <img> */}

@@ -53,7 +53,7 @@ export async function Footer() {
       {footerData?.cta?.enabled && (
         <section className="mx-auto max-w-5xl px-6 pb-16 text-center md:pb-20">
           {footerData.cta.title && (
-            <h2 className="mx-auto px-4 md:px-40 text-[30px] font-semibold md:text-[40px] !leading-[150%]">
+            <h2 className="cta mx-auto px-6 md:px-40 text-[30px] font-semibold md:text-[40px] !leading-[150%]">
               {footerData.cta.title}
             </h2>
           )}
@@ -69,7 +69,7 @@ export async function Footer() {
                 target={footerData.cta.button.newTab ? '_blank' : undefined}
                 rel={footerData.cta.button.newTab ? 'noopener noreferrer' : undefined}
                 className="group inline-flex items-center justify-center
-                rounded-full bg-white px-4 py-3 text-[24px] text-[#0B0E2A]
+                rounded-full bg-white px-6 py-3 text-[24px] text-[#0B0E2A]
                 shadow-sm hover:shadow-md active:scale-[0.98]
                 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60
                 transition-all duration-50 ease-[cubic-bezier(0.22,1,0.36,1)]"

@@ -43,16 +43,16 @@ export default function CalloutSectionBlock(data: CalloutSectionBlockProps) {
           ) : null}
 
           {/* CTA */}
-          <div className="mt-7 flex justify-center md:mt-8 group gap-4">
+          <div className="mt-7 flex justify-center md:mt-8 gap-4">
             <Link
               href={ctaHref}
               target={ctaNewTab ? '_blank' : '_self'}
               rel={ctaNewTab ? 'noopener noreferrer' : undefined}
-              className="group inline-flex items-center justify-center
-    rounded-full bg-white px-4 py-3 text-[24px] text-[#0B0E2A]
-    shadow-sm hover:shadow-md active:scale-[0.98]
-    focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60
-    transition-all duration-50 ease-[cubic-bezier(0.22,1,0.36,1)]"
+              className="cta group inline-flex items-center justify-center
+                rounded-full bg-white px-6 py-3 text-[24px] text-[#0B0E2A]
+                shadow-sm hover:shadow-md active:scale-[0.98]
+                focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60
+                transition-all duration-50 ease-[cubic-bezier(0.22,1,0.36,1)]"
             >
               {ctaLabel}
 

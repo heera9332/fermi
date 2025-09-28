@@ -6,14 +6,7 @@ import Link from 'next/link'
 import * as React from 'react'
 import type { HeroCtaShowcaseBlock as HeroCtaShowcaseBlockProps, Media } from 'src/payload-types'
 
-type MediaDoc =
-  | (NonNullable<HeroCtaShowcaseBlockProps['sectionImage']> & { url?: string })
-  | { url?: string; alt?: string }
-  | string
-  | null
-  | undefined
-
-function mediaURL(m: MediaDoc): string | undefined {
+function mediaURL(m: Media | string): string | undefined {
   if (!m || typeof m === 'string') return undefined
   // Prefer responsive sizes if present
   const anyM = m as any
@@ -22,18 +15,14 @@ function mediaURL(m: MediaDoc): string | undefined {
   )
 }
 
-function mediaAlt(m: MediaDoc, fallback = ''): string {
+function mediaAlt(m: Media | string, fallback = ''): string {
   if (!m || typeof m === 'string') return fallback
-  return (m as any)?.alt ?? fallback
-}
-
-function targetRel(newTab?: boolean) {
-  return newTab ? { target: '_blank', rel: 'noreferrer noopener' } : {}
+  return m.alt ?? fallback
 }
 
 export const HeroCtaShowcaseBlock: React.FC<HeroCtaShowcaseBlockProps> = (data) => {
   const { title, titleHighlighted, content, cta, companies = [], sectionImage } = data
-  const sectionMobileImg: Media = data.sectionImageMobile
+  const sectionMobileImg: Media | string = data.sectionImageMobile
 
   const bgSrc = mediaURL(sectionImage)
   const bgAlt = mediaAlt(sectionImage, 'background')
@@ -74,11 +63,11 @@ export const HeroCtaShowcaseBlock: React.FC<HeroCtaShowcaseBlockProps> = (data) 
             <Image
               src={bgSrc}
               alt={bgAlt}
-              height={1000}
-              width={1000}
+              height={350}
+              width={350}
               sizes="100vw"
               priority
-              className="hidden md:block object-cover w-full md:rounded-2xl"
+              className="hidden md:block object-cover w-full md:rounded-2xl blur-[1px]"
             />
             {/* dark navy tint to increase contrast */}
             <div className="absolute inset-0 bg-gradient-to-t from-[#030531] via-[#030531]/60 to-transparent pointer-events-none" />
@@ -131,7 +120,7 @@ export const HeroCtaShowcaseBlock: React.FC<HeroCtaShowcaseBlockProps> = (data) 
                   target={cta.newTab ? '_blank' : undefined}
                   rel={cta.newTab ? 'noopener noreferrer' : undefined}
                   className="group inline-flex items-center justify-center
-                rounded-full bg-white px-4 py-3 text-[24px] text-[#0B0E2A]
+                rounded-full bg-white px-6 py-3 text-[24px] text-[#0B0E2A]
                 shadow-sm hover:shadow-md active:scale-[0.98]
                 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60
                 transition-all duration-50 ease-[cubic-bezier(0.22,1,0.36,1)]"

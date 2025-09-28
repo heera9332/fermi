@@ -183,12 +183,12 @@ export default function ArchiveBlock(data: ArchiveBlockProps) {
         {/* Header */}
         <header
           className={cx(
-            'flex flex-col gap-4 max-w-xl mx-auto',
+            'flex gap-4 flex-col mx-auto',
             headerAlignClass((data as any).headerAlignment || 'left'),
           )}
         >
           <h2
-            className={`text-3xl md:text-5xl font-semibold text-white !lh-130 ${headerAlignClass((data as any).headerAlignment || 'left')}`}
+            className={`block text-3xl md:text-5xl font-semibold text-white !lh-130 ${headerAlignClass((data as any).headerAlignment || 'left')}`}
           >
             {data.heading}
           </h2>
@@ -289,7 +289,7 @@ export default function ArchiveBlock(data: ArchiveBlockProps) {
                   />
                 </div>
 
-                <div className={`p-4 ${postType === 'posts' ? 'h-72' : ''}`}>
+                <div className={`py-4 px-2 ${postType === 'posts' ? 'h-72' : ''}`}>
                   <h3 className="text-white text-[24px] font-medium lh-150">
                     <Link
                       href={getHref(doc, (data as any).relationTo || postType)}

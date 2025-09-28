@@ -16,11 +16,11 @@ function mediaUrl(m?: any): string | null {
 export default function AboutSplitBlock(data: Props) {
   const url = mediaUrl(data.image) || 'https://placehold.co/1200x900/jpg?text=Imagem'
   return (
-    <section className="w-full bg-[#F2F3F4]">
+    <section className="w-full bg-[#F2F3F4] relative section overflow-hidden">
       <div className="mx-auto max-w-7xl px-6 md:px-8 py-14 md:py-20">
-        <div className="flex gap-12 flex-col md:flex-row">
+        <div className="flex gap-12 flex-col md:flex-row justify-between">
           {/* Text */}
-          <div className="pt-12 md:py-12 w-full md:w-6/10">
+          <div className="pt-12 md:py-12 w-full md:w-[60%]">
             <h2 className="text-[28px] md:text-[40px] font-semibold tracking-[-0.01em] text-[#0A0A0A] lh-150">
               {data.heading}
             </h2>
@@ -41,14 +41,14 @@ export default function AboutSplitBlock(data: Props) {
           </div>
 
           {/* Image */}
-          <div className="md:justify-self-end h-full w-full md:w-3/10">
+          <div className="md:justify-self-end h-full w-full md:w-[40%]">
             {typeof data.image !== 'string' && (
               <Image
-                src={'http://localhost:3000/api/media/file/Screenshot%202025-09-13%20094150.png'}
+                src={data.image.url || '/assets/images/placeholder.png'}
                 alt={data.image?.alt || ''}
                 width={1000}
                 height={1000}
-                className="object-contain md:h-[542px] md:max-w-[500px] rounded-xl"
+                className="object-contain md:max-w-[500px] w-full rounded-xl"
                 priority={false}
               />
             )}
