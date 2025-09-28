@@ -17,10 +17,6 @@ export default async function PostsArchivePage() {
   return (
     <>
       <Header isHeaderDark={false} />
-      <main className="p-6">
-        <h1>{page?.title ?? 'Not found'}</h1>
-        <p>Slug: {route}</p>
-      </main>
       <RenderBlocks blocks={layout} />
       <Footer />
     </>

@@ -31,7 +31,7 @@ export default function CalloutSectionBlock(data: CalloutSectionBlockProps) {
 
         <div className="mx-auto max-w-5xl rounded-[28px]   bg-gradient-to-b from-[#040f4a] via-[#091f7f] to-[#003896] px-6 py-8 shadow-[0_8px_30px_rgba(0,0,0,0.25)] md:px-12 md:py-12">
           {/* heading */}
-          <h2 className="text-center text-[24px] font-semibold text-white md:text-[40px] lh-130">
+          <h2 className="text-center text-[24px] font-semibold text-white md:text-[40px] lh-150">
             {heading} <span className="text-[#21F2C0]">{highlight}</span>
           </h2>
 
