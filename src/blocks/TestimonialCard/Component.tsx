@@ -84,7 +84,7 @@ export const TestimonialCardBlock = (data: TestimonialCardBlockProps) => {
                   {/* main card — your original design */}
                   <article className="relative z-10 rounded-2xl bg-white p-5 shadow-sm sm:p-6 md:p-8">
                     {quote && (
-                      <blockquote className="pb-4 text-balance text-base/7 sm:text-lg/8 md:text-2xl/9">
+                      <blockquote className="pb-4 leading-130 text-lg md:text-2xl tracking-[-2%]">
                         {quote}
                       </blockquote>
                     )}
@@ -108,9 +108,7 @@ export const TestimonialCardBlock = (data: TestimonialCardBlockProps) => {
 
                         <div className="min-w-0">
                           {author?.name && (
-                            <div className="truncate text-sm font-semibold sm:text-base">
-                              {author.name}
-                            </div>
+                            <div className="!lg-140 font-semibold text-lg">{author.name}</div>
                           )}
                           {author?.role && (
                             <div className="truncate text-xs text-black/60 sm:text-sm">

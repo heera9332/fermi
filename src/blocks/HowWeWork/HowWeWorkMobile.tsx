@@ -28,8 +28,8 @@ export function HowWeWorkMobile({ heading, description, steps = [] }: Props) {
 
   return (
     <section className="lg:hidden relative overflow-hidden bg-[#EDEDED] py-10">
-      <div className="mx-auto w-[90%] max-w-7xl">
-        {heading && <h2 className="font-black text-[32px] leading-[1.2]">{heading}</h2>}
+      <div className="mx-auto max-w-7xl">
+        {heading && <h2 className="font-black text-[32px] leading-130">{heading}</h2>}
         {description && (
           <p className="mt-3 text-[18px] leading-[1.6] text-black/70">{description}</p>
         )}
@@ -74,7 +74,7 @@ export function HowWeWorkMobile({ heading, description, steps = [] }: Props) {
 
                   {/* Text below image */}
                   <div className="mx-auto mt-6 max-w-3xl">
-                    <div className="text-xl sm:text-2xl font-black leading-[1.5]">
+                    <div className="text-[32px] md:text-2xl font-black leading-130">
                       {String(i + 1).padStart(2, '0')} {s.heading}
                     </div>
                     {s.description && (

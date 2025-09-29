@@ -83,7 +83,7 @@ export const HeroCtaShowcaseBlock: React.FC<HeroCtaShowcaseBlockProps> = (data) 
         <div className="relative mx-auto flex min-h-[60vh] md:-mt-[60vh] max-w-4xl flex-col items-center justify-center   text-center md:pt-0">
           <div className="relative px-4 w-full">
             <Image
-              className=" w-full object-contain md:rounded-2xl block md:hidden pointer-events-none z-0"
+              className=" w-full object-contain md:rounded-2xl block md:hidden pointer-events-none z-0 blur-[1px]"
               src={sectionMobileImg?.url || '/assets/images/placeholder.webp'}
               alt={sectionMobileImg?.alt || 'ferm it'}
               height={512}
@@ -95,10 +95,10 @@ export const HeroCtaShowcaseBlock: React.FC<HeroCtaShowcaseBlockProps> = (data) 
             <div className="absolute inset-0 bg-gradient-to-b from-[#030531]/0 to-[#030531]/90 rounded-2xl md:rounded-2xl z-[1]" />
           </div>
 
-          <div className="section-content relative z-[1]">
+          <div className="section-content relative z-[1] -mt-12">
             {/* Title */}
             {(title || titleHighlighted) && (
-              <h1 className="text-balance text-3xl font-semibold sm:text-4xl md:text-5xl !leading-[100%] md:!leading-[130%]">
+              <h1 className="text-balance font-semibold text-[40px] md:text-5xl !leading-[130%]">
                 {title}{' '}
                 <p>
                   {titleHighlighted && <span className="text-[#21F2C0]">{titleHighlighted}</span>}
@@ -115,8 +115,13 @@ export const HeroCtaShowcaseBlock: React.FC<HeroCtaShowcaseBlockProps> = (data) 
 
             {/* CTA */}
             {cta?.label && cta?.link && (
-              <div className="mt-8">
-                <CTAButton type="button" href={data.cta.link} label={data.cta.label} />
+              <div className="mt-8 px-2 mb-4">
+                <CTAButton
+                  className="w-full"
+                  type="button"
+                  href={data.cta.link}
+                  label={data.cta.label}
+                />
               </div>
             )}
           </div>
@@ -124,7 +129,7 @@ export const HeroCtaShowcaseBlock: React.FC<HeroCtaShowcaseBlockProps> = (data) 
 
         {/* Companies (max 3) */}
         {companies && companies.length > 0 && (
-          <div className="mx-auto pb-8 mt-2 grid max-w-6xl grid-cols-1 gap-0 md:gap-6 sm:grid-cols-3">
+          <div className="mx-auto pb-8 mt-2 grid max-w-6xl grid-cols-1 gap-2 md:gap-6 sm:grid-cols-3">
             {companies.slice(0, 3).map((c, idx) => {
               const logo = (c as any)?.logo
               const logoSrc =

@@ -14,23 +14,22 @@ function mediaUrl(m?: any): string | null {
 }
 
 export default function AboutSplitBlock(data: Props) {
-  const url = mediaUrl(data.image) || 'https://placehold.co/1200x900/jpg?text=Imagem'
   return (
     <section className="w-full bg-[#F2F3F4] relative section overflow-hidden">
-      <div className="mx-auto max-w-7xl px-6 md:px-8 py-14 md:py-20">
+      <div className="mx-auto max-w-7xl px-6 md:px-8 py-16 md:py-20">
         <div className="flex gap-12 flex-col md:flex-row justify-between">
           {/* Text */}
-          <div className="pt-12 md:py-12 w-full md:w-[60%]">
-            <h2 className="text-[28px] md:text-[40px] font-semibold tracking-[-0.01em] text-[#0A0A0A] lh-150">
+          <div className="md:pt-12 md:pb-12 w-full md:w-[60%]">
+            <h2 className="text-[32px] md:text-[40px] font-semibold tracking-[-0.01em] text-[#0A0A0A] leading-130 md:leading-150">
               {data.heading}
             </h2>
             {data.subheading ? (
-              <p className="mt-3 text-[18px] md:text-[24px] font-medium text-[#0A0A0A] lh-150">
+              <p className="mt-3 text-xl md:text-2xl font-medium text-[#0A0A0A] leading-150">
                 {data.subheading}
               </p>
             ) : null}
             {data.description ? (
-              <div className="mt-7 space-y-5 text-[24px] lh-150">
+              <div className="mt-7 space-y-5 text-xl md:text-2xl leading-150">
                 {data.description
                   .split(/\n{2,}/) // paragraphs if author presses Enter twice
                   .map((p, i) => (
@@ -41,7 +40,7 @@ export default function AboutSplitBlock(data: Props) {
           </div>
 
           {/* Image */}
-          <div className="md:justify-self-end h-full w-full md:w-[40%]">
+          <div className="md:justify-self-end h-full  w-full md:w-[40%]">
             {typeof data.image !== 'string' && (
               <Image
                 src={data.image.url || '/assets/images/placeholder.png'}

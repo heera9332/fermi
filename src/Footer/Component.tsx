@@ -29,7 +29,11 @@ export async function Footer() {
       : undefined
 
   return (
-    <footer aria-labelledby="footer-heading" className="relative mt-auto text-white py-20">
+    <footer
+      id="footer"
+      aria-labelledby="footer-heading"
+      className="relative mt-auto text-white py-20"
+    >
       {/* Background layer */}
       <div className="absolute inset-0 -z-10">
         {bgUrl ? (
@@ -52,20 +56,21 @@ export async function Footer() {
 
       {/* CTA */}
       {footerData?.cta?.enabled && (
-        <section className="mx-auto max-w-5xl px-6 pb-16 text-center md:pb-20">
+        <section className="mx-auto max-w-5xl px-4 sm:px-6 pb-16 text-center md:pb-20">
           {footerData.cta.title && (
-            <h2 className="cta mx-auto px-6 md:px-40 text-[30px] font-semibold md:text-[40px] !leading-[150%]">
+            <h2 className="cta mx-auto px-4 sm:px-6 md:px-40 text-[32px] font-semibold md:text-[40px] leading-150">
               {footerData.cta.title}
             </h2>
           )}
           {footerData.cta.subtitle && (
-            <p className="mx-auto mt-4 max-w-2xl text-pretty  leading-[150%] text-white font-normal">
+            <p className="mx-auto mt-4 max-w-2xl  text-lg leading-150 text-white font-normal">
               {footerData.cta.subtitle}
             </p>
           )}
           {footerData.cta.button?.label && footerData.cta.button?.link && (
             <div className="mt-8">
               <CTAButton
+                className="w-full md:w-fit"
                 type="button"
                 href={footerData.cta.button.link}
                 label={footerData.cta.button.label}

@@ -170,14 +170,24 @@ export default function ArchiveBlock(data: ArchiveBlockProps) {
     <section className="relative overflow-hidden w-full bg-[#030531]" id="archive-block">
       {/* dotted background layer */}
       {data.dots && (
-        <Image
-          src="/assets/icons/svg/dots.svg"
-          alt=""
-          width={1000}
-          height={1000}
-          className="object-contain absolute top-0 w-full"
-          priority={false}
-        />
+        <>
+          <Image
+            src="/assets/icons/svg/dots.svg"
+            alt=""
+            width={1000}
+            height={1000}
+            className="hidden md:block object-contain absolute top-0 w-full"
+            priority={false}
+          />
+          <Image
+            src="/assets/icons/svg/dots-mobile.svg"
+            alt=""
+            width={1000}
+            height={1000}
+            className="block md:hidden object-contain absolute top-0 w-full"
+            priority={false}
+          />
+        </>
       )}
 
       <div className="relative mx-auto max-w-7xl px-6 md:px-8 py-14 md:py-20">
@@ -339,7 +349,7 @@ export default function ArchiveBlock(data: ArchiveBlockProps) {
 
         {/* CTA (only off-archive) */}
         {showCTA ? (
-          <div className="flex justify-end mt-6">
+          <div className="flex justify-center md:justify-end mt-6">
             <Link
               href={cta!.url}
               target={cta!.newTab ? '_blank' : undefined}

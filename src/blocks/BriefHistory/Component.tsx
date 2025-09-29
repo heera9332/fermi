@@ -27,14 +27,11 @@ export default function BriefHistoryBlock(data: Props) {
       <div className="mx-auto max-w-7xl px-6 md:px-8 py-12 md:p-20">
         {/* Heading + description */}
         <header className="">
-          <h2
-            className="text-[28px] font-semibold text-[#0A0A0A] md:text-[40px] md:mr-20"
-            style={{ lineHeight: '130%' }}
-          >
+          <h2 className="text-[32px] font-semibold text-[#0A0A0A] md:text-[40px] md:mr-20 leading-130">
             {data.heading}
           </h2>
           {data.description ? (
-            <p className="mt-4  md:text-[24px] !lh-150 ">{data.description}</p>
+            <p className="mt-4  md:text-2xl leading-150 ">{data.description}</p>
           ) : null}
         </header>
 
@@ -42,7 +39,7 @@ export default function BriefHistoryBlock(data: Props) {
         <figure className={cx('mt-10 md:mt-12 ')} aria-labelledby="chart-title">
           <div className="relative">
             {/* Image */}
-            <div className="w-full md:w-[90%] mx-auto border border-[#E0E0E0] px-10">
+            <div className="w-full md:w-[90%] mx-auto border border-[#E0E0E0] md:px-10">
               {/* Keep a stable aspect on load to prevent CLS */}
               <div className="relative w-full aspect-[16/10]">
                 {/* If your Next config allows your Payload domain, keep <Image />; otherwise swap to <img> */}

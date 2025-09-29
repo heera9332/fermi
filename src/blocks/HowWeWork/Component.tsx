@@ -33,7 +33,7 @@ export const HowWeWorkBlock: React.FC<HowWeWork> = (data) => {
   }
 
   return (
-    <section className="relative overflow-hidden bg-[#EDEDED] py-16 sm:py-20 lg:py-24">
+    <section className="relative overflow-hidden bg-[#EDEDED] py-4 md:py-20  lg:py-24">
       <div className="mx-auto w-[90%] max-w-7xl">
         <HowWeWorkMobile heading={heading} description={description} steps={steps} />
 

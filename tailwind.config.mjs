@@ -124,6 +124,14 @@ const config = {
         bodyDesktop: ['24px', { lineHeight: '100%' }],
       },
 
+      lineHeight: {
+        100: '100%',
+        110: '110%',
+        120: '120%',
+        130: '130%',
+        140: '140%',
+        150: '150%',
+      },
       keyframes: {
         'accordion-down': {
           from: { height: '0' },

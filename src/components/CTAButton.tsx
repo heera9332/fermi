@@ -26,11 +26,11 @@ export default function CTAButton({
       rel={newTab ? 'noopener noreferrer' : undefined}
       className={clsx(
         `cta
-        group relative hidden md:inline-flex items-center justify-center
-        rounded-3xl overflow-hidden
-        px-5 py-4 text-2xl bg-white !text-[#0B0E2A]
+        group relative inline-flex items-center justify-center
+        rounded-full md:rounded-3xl overflow-hidden
+        px-5 py-4 text-lg md:text-2xl bg-white !text-[#0B0E2A]
         transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]
-        focus:outline-none
+        focus:outline-none w-full md:w-full
         hover:bg-[linear-gradient(355.38deg,#FFFFFF_46.07%,#21F2C0_245.96%)]
         `,
         className,

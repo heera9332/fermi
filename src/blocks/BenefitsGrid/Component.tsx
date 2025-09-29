@@ -17,12 +17,14 @@ export default function BenefitsGridBlock(data: BenefitsGridBlockProps) {
   }, [])
 
   return (
-    <section className="mx-auto max-w-7xl px-6 py-16 md:py-24 md:px-8">
-      <h2 className="max-w-4xl text-3xl font-semibold lh-130 text-black md:text-5xl">
+    <section className="mx-auto max-w-7xl px-4 sm:px-6 py-16 md:py-24 md:px-8">
+      <h2 className="md:max-w-4xl text-[32px] font-semibold leading-130 text-black md:text-[48px]">
         {data.heading}
       </h2>
 
-      {data.intro ? <p className="mt-6 max-w-3xl text-[24px] lh-150">{data.intro}</p> : null}
+      {data.intro ? (
+        <p className="mt-4 md:mt-6 max-w-3xl text-lg md:text-[24px] leading-150">{data.intro}</p>
+      ) : null}
 
       <div className="mt-12 grid grid-cols-1 gap-6 md:gap-8 md:grid-cols-3">
         {data.items?.map((item, idx) => {
@@ -47,7 +49,7 @@ export default function BenefitsGridBlock(data: BenefitsGridBlockProps) {
               )}
             >
               <div className="flex flex-col items-start gap-4 relative z-10">
-                <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl ring-1 ring-black/5 bg-white">
+                <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl  border border-[#E0E0E0] bg-white">
                   {iconUrl ? (
                     <Image
                       src={iconUrl}
@@ -63,10 +65,12 @@ export default function BenefitsGridBlock(data: BenefitsGridBlockProps) {
                 </div>
 
                 <div>
-                  <h3 className="text-lg  font-medium !lg-150 text-black md:text-2xl">
+                  <h3 className="text-lg  font-medium !leading-150 text-black md:text-2xl">
                     {item.heading}
                   </h3>
-                  <p className="mt-2 text-xl !lh-150 text-[#6B6B6B]">{item.body}</p>
+                  <p className="mt-4 md:mt-2 text-lg md:text-xl leading-150 text-[#6B6B6B]">
+                    {item.body}
+                  </p>
 
                   {item.link?.url && item.link?.label ? (
                     <a

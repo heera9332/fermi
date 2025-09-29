@@ -61,7 +61,12 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, isHeaderDark }
           </button>
 
           <div className="rounded-full  bg-transparent hover:bg-[linear-gradient(189.22deg,rgba(58,255,208,0)_1.35%,#3AFFD0_93.77%)] p-[1px]">
-            <CTAButton type="button" href={data.cta.link} label={data.cta.label} />
+            <CTAButton
+              className="hidden md:inline-flex"
+              type="button"
+              href={data.cta.link}
+              label={data.cta.label}
+            />
           </div>
         </div>
       </div>
