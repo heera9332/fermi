@@ -203,9 +203,8 @@ export default function ArchiveBlock(data: ArchiveBlockProps) {
         </header>
 
         {/* Top row: Search (left, 50%) shown ONLY on self-archive; CTA shown ONLY off-archive */}
-        <div className="mt-6 md:mt-8 flex items-center justify-between gap-4">
-          {/* SEARCH */}
-          {showSearch ? (
+        {showSearch && (
+          <div className="mt-6 md:mt-8 flex items-center justify-between gap-4">
             <form
               className="w-full md:w-1/2"
               onSubmit={(e) => e.preventDefault()}
@@ -262,13 +261,11 @@ export default function ArchiveBlock(data: ArchiveBlockProps) {
                 <p className="mt-2 text-sm text-red-300/90">Erro na pesquisa: {error}</p>
               ) : null}
             </form>
-          ) : (
-            <div className="w-full md:w-1/2" />
-          )}
-        </div>
+          </div>
+        )}
 
         {/* Grid */}
-        <div className="mt-10 md:mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        <div className="mt-10 md:mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {(results || []).map((doc: any, idx: number) => {
             const mediaUrl = getMediaUrl(doc) || 'https://placehold.co/720x450'
             return (
@@ -278,7 +275,9 @@ export default function ArchiveBlock(data: ArchiveBlockProps) {
                   'group relative overflow-hidden rounded-2xl bg-[#1c1d388b] hover:bg-[#1C1D38] p-2 transition-colors',
                 )}
               >
-                <div className="relative w-full aspect-[16/10] overflow-hidden">
+                <div
+                  className={`relative w-full ${postType === 'posts' ? 'aspect-[6/4]' : 'aspect-square'} overflow-hidden`}
+                >
                   <Image
                     width={1000}
                     height={1000}
@@ -347,7 +346,7 @@ export default function ArchiveBlock(data: ArchiveBlockProps) {
               rel={cta!.newTab ? 'noopener noreferrer' : undefined}
               className="inline-flex items-center gap-2 text-white/90 hover:text-white transition"
             >
-              <span className="text-base md:text-lg lh-150">{cta!.label}</span>
+              <span className="text-lg md:text-xl lh-150">{cta!.label}</span>
               <svg
                 width="20"
                 height="20"

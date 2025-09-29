@@ -43,7 +43,7 @@ export const HowWeWorkBlock: React.FC<HowWeWork> = (data) => {
             {heading && <h2 className="font-black lh-130 text-[40px]">{heading}</h2>}
             {description && <p className="mt-4 text-[24px] lh-150 text-black/70">{description}</p>}
 
-            <ol className="mt-8 space-y-2 sm:space-y-3">
+            <ol className="mt-8 space-y-2 md:space-y-3">
               {steps.map((s, i) => {
                 const num = (i + 1).toString().padStart(2, '0')
                 const selected = i === active
@@ -60,7 +60,7 @@ export const HowWeWorkBlock: React.FC<HowWeWork> = (data) => {
                       onClick={() => setActive(i)}
                       className={[
                         // layout
-                        'group relative flex w-full items-center justify-between gap-3 rounded-md px-3 md:py-4 md:px-4 text-left',
+                        'group relative flex w-full items-center justify-between gap-3 rounded-md px-3 md:py-3 md:px-4 text-left',
                         'text-[24px] lh-150',
                         // smooth bg + subtle shadow
                         'transition-[background-color,box-shadow,transform] duration-300 ease-out ',
@@ -74,9 +74,9 @@ export const HowWeWorkBlock: React.FC<HowWeWork> = (data) => {
                       <span className="flex min-w-0 items-center gap-3">
                         <span
                           className={[
-                            'font-medium tabular-nums',
-                            'transition-colors duration-300 ease-out',
-                            selected ? 'text-black' : 'text-black/40',
+                            'hover:font-medium tabular-nums',
+                            'transition-colors duration-300 ease-out text-lg md:text-2xl',
+                            selected ? 'text-black' : 'text-[#6B6B6B]',
                           ].join(' ')}
                         >
                           {num}
@@ -84,9 +84,9 @@ export const HowWeWorkBlock: React.FC<HowWeWork> = (data) => {
 
                         <span
                           className={[
-                            'truncate font-medium sm:text-lg',
-                            'transition-colors duration-300 ease-out',
-                            selected ? 'text-black' : 'text-black/60 group-hover:text-black/80',
+                            'truncate hover:font-medium sm:text-lg',
+                            'transition-colors duration-300 ease-out text-lg md:text-2xl',
+                            selected ? 'text-black' : 'text-[#6B6B6B] group-hover:text-black/80',
                           ].join(' ')}
                           title={s.heading ?? ''}
                         >

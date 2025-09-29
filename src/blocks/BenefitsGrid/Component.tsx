@@ -24,7 +24,7 @@ export default function BenefitsGridBlock(data: BenefitsGridBlockProps) {
 
       {data.intro ? <p className="mt-6 max-w-3xl text-[24px] lh-150">{data.intro}</p> : null}
 
-      <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
+      <div className="mt-12 grid grid-cols-1 gap-6 md:gap-8 md:grid-cols-3">
         {data.items?.map((item, idx) => {
           const iconUrl = typeof item.icon !== 'string' ? item.icon?.url : '#'
 
@@ -38,7 +38,7 @@ export default function BenefitsGridBlock(data: BenefitsGridBlockProps) {
                 // base styling
                 `article-card relative overflow-hidden rounded-2xl border p-6 md:p-8
                  border-gray-200 bg-white hover:border-white transition-all duration-500
-                 hover:shadow-md`,
+                  `,
                 // animation state
                 'transform-gpu transition-all duration-700 ease-out',
                 mounted

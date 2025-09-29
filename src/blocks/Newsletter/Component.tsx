@@ -42,7 +42,11 @@ export default function NewsLetterBlock(data: NewsLetter) {
               placeholder={data.form.placeHolder}
               className="rounded-3xl bg-[#1C1D32] py-3 px-4 h-16 border-none focus:outline-none outline-none text-[24px] text-white"
             />
-            <Button className="inline-flex items-center justify-center bg-white px-6 py-3 text-[24px] text-[#0B0E2A] shadow-sm transition-[transform,box-shadow] hover:shadow-md focus:outline-none font-normal h-16 rounded-3xl hover:text-white hover:border">
+            <Button
+              className="inline-flex items-center justify-center bg-white px-6 py-3 text-[24px] text-[#0B0E2A] shadow-sm  hover:shadow-md   font-normal h-16 rounded-3xl hover:text-black hover:border transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]
+              focus:outline-none
+              hover:bg-[linear-gradient(355.38deg,#FFFFFF_46.07%,#21F2C0_245.96%)]"
+            >
               {data.form.buttonLabel}
             </Button>
           </div>
