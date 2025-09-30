@@ -27,7 +27,7 @@ export default function CTAButton({
       className={clsx(
         `cta
         group relative inline-flex items-center justify-center
-        rounded-full md:rounded-3xl overflow-hidden
+        rounded-full overflow-hidden
         px-5 py-4 text-lg md:text-2xl bg-white !text-[#0B0E2A]
         transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]
         focus:outline-none w-full md:w-fit
