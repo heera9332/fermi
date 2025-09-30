@@ -38,8 +38,8 @@ export default function BenefitsGridBlock(data: BenefitsGridBlockProps) {
               }}
               className={cx(
                 // base styling
-                `article-card relative overflow-hidden rounded-2xl border p-6 md:p-8
-                 border-gray-200 bg-white hover:border-white transition-all duration-500
+                `article-card relative overflow-hidden rounded-2xl border-2 p-6 md:p-8
+                 border-gray-200 bg-white hover:border-white transition-all duration-500 hover:shadow-2xl
                   `,
                 // animation state
                 'transform-gpu transition-all duration-700 ease-out',
