@@ -18,14 +18,22 @@ export default async function PostPage({ params }: { params: { slug: string } })
   const post = docs?.[0]
   if (!post) return notFound()
 
-  console.log(post)
+  const current = {
+    id: post.id,
+    slug: post.slug!,
+    title: post.title,
+    categories: (post.categories as any[])?.map((c) => (typeof c === 'string' ? c : c?.id)),
+    publishedAt: post.publishedAt,
+  }
+
+  console.log({ post })
 
   return (
     <div id="post-page" className={`post-page bg-[#030531] text-white`}>
       <Header isHeaderDark={true} />
 
       <article className="prose max-w-5xl mx-auto post-content">
-        <div className="post-header px-8">
+        <div className="post-header px-4 md:px-8">
           <h1 className="font-semibold !lh-150 text-[32px] md:text-[40px]">{post.title}</h1>
           <div className="post-excerpt text-lg md:text-2xl lh-130">{post.excerpt}</div>
           <hr className="bg-white/50" />
@@ -58,7 +66,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
           <RichText data={post.content} className="max-w-full w-full mx-0 px-8" />
         </div>
       </article>
-      <RelatedContentSection />
+      <RelatedContentSection current={current} />
       <Footer />
     </div>
   )

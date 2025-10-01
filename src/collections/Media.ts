@@ -4,7 +4,6 @@ import { authenticated } from '../access/authenticated'
 
 export const Media: CollectionConfig = {
   slug: 'media',
-
   access: {
     create: authenticated,
     delete: authenticated,
