@@ -1,6 +1,7 @@
 'use client'
 
 import * as React from 'react'
+
 // Minimal shape we actually use from Payload
 type FormField = {
   blockType: 'text' | 'email' | 'textarea'
@@ -11,6 +12,7 @@ type FormField = {
   required?: boolean
   id?: string
 }
+
 type PayloadForm = {
   id: string
   title?: string
@@ -52,6 +54,7 @@ type Props = {
  * - Honeypot (bot trap)
  */
 function ContactForm({ form, className }: Props) {
+  console.log(form)
   const [values, setValues] = React.useState<Record<string, string>>({})
   const [errors, setErrors] = React.useState<Record<string, string>>({})
   const [loading, setLoading] = React.useState(false)

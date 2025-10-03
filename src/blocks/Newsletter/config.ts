@@ -34,32 +34,13 @@ export const NewsLetterBlock: Block = {
         'Todas as semanas oferecemos dicas práticas para aumentar as suas vendas e leads e crescer o seu negócio.',
     },
     {
-      type: 'group',
-      label: 'Form',
       name: 'form',
-      fields: [
-        {
-          label: 'Placeholder',
-          name: 'placeHolder',
-          type: 'text',
-          defaultValue: 'you@example.com',
-          required: true,
-        },
-        {
-          label: 'Success message',
-          name: 'message',
-          type: 'text',
-          defaultValue: 'Thank your form submitted',
-          required: true,
-        },
-        {
-          label: 'Button label',
-          name: 'buttonLabel',
-          type: 'text',
-          required: true,
-          defaultValue: 'Subscrever',
-        },
-      ],
+      type: 'relationship',
+      admin: {
+        description: 'Make sure form has only one field that is email',
+      },
+      relationTo: 'forms',
+      required: true,
     },
   ],
 }
