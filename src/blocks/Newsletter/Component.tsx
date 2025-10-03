@@ -50,13 +50,19 @@ export default function NewsLetterBlock(data: NewsLetter) {
               placeholder={data.form.placeHolder}
               className="rounded-3xl bg-[#1C1D32] py-3 px-4 h-16 border-none focus:outline-none outline-none text-[24px] text-white"
             />
-            <Button
-              className="inline-flex items-center justify-center bg-white px-6 py-3 text-[24px] text-[#0B0E2A] shadow-sm  hover:shadow-md   font-normal h-16 rounded-3xl hover:text-black hover:border transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]
-              focus:outline-none
-              hover:bg-[linear-gradient(355.38deg,#FFFFFF_46.07%,#21F2C0_245.96%)]"
-            >
-              {data.form.buttonLabel}
-            </Button>
+            <div className="rounded-full  bg-transparent hover:bg-[linear-gradient(189.22deg,rgba(58,255,208,0)_1.35%,#3AFFD0_93.77%)] p-[1px]">
+              <button
+                className="h-18
+                  group relative inline-flex items-center justify-center
+                  rounded-full overflow-hidden
+                  px-8 py-4 text-lg md:text-2xl bg-white !text-[#0B0E2A]
+                  transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]
+                  focus:outline-none w-full md:w-fit
+                  hover:bg-[linear-gradient(355.38deg,#FFFFFF_46.07%,#21F2C0_245.96%)]"
+              >
+                {data.form.buttonLabel}
+              </button>
+            </div>
           </div>
         </div>
       </div>
