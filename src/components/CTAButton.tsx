@@ -20,7 +20,7 @@ export default function CTAButton({
   ...rest
 }: CTAButtonProps) {
   return (
-    <div className="rounded-full w-fit inline-block bg-transparent hover:bg-[linear-gradient(189.22deg,rgba(58,255,208,0)_1.35%,#3AFFD0_93.77%)] p-[1px]">
+    <div className="rounded-full w-full md:w-fit inline-block bg-transparent hover:bg-[linear-gradient(189.22deg,rgba(58,255,208,0)_1.35%,#3AFFD0_93.77%)] p-[1px]">
       <Link
         href={href}
         target={newTab ? '_blank' : undefined}

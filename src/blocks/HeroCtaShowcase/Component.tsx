@@ -3,7 +3,6 @@
 
 import CTAButton from '@/components/CTAButton'
 import Image from 'next/image'
-import Link from 'next/link'
 import * as React from 'react'
 import type { HeroCtaShowcaseBlock as HeroCtaShowcaseBlockProps, Media } from 'src/payload-types'
 
@@ -79,7 +78,7 @@ export const HeroCtaShowcaseBlock: React.FC<HeroCtaShowcaseBlockProps> = (data) 
       </div>
 
       {/* Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-10 md:pt-0 md:pb-0 pb-12">
+      <div className="max-w-7xl mx-auto px-8 sm:px-10 md:pt-0 pb-0">
         <div className="relative mx-auto flex min-h-[60vh] md:-mt-[60vh] max-w-4xl flex-col items-center justify-center   text-center md:pt-0">
           <div className="relative px-4 w-full">
             <Image
