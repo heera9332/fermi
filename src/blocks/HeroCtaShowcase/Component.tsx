@@ -57,9 +57,9 @@ export const HeroCtaShowcaseBlock: React.FC<HeroCtaShowcaseBlockProps> = (data) 
       </div>
 
       {/* only in mobile */}
-      <div className="md:hidden h-36 absolute -top-28 w-full z-50 border-b border-b-[#494949] md:border-none ">
+      {/* <div className="md:hidden h-36 absolute -top-28 w-full z-50 border-b border-b-[#494949] md:border-none ">
         <div className="mx-4 border-x-[1px] border-x-[#494949] px-4 h-full"></div>
-      </div>
+      </div> */}
       {/* Background image + tint (unchanged DOM/classes) */}
       <div className="relative max-w-7xl mx-auto px-4 md:px-12 pt-6 hidden md:block border-x-[1px] border-[#494949]  py-16">
         {bgSrc ? (
@@ -82,7 +82,7 @@ export const HeroCtaShowcaseBlock: React.FC<HeroCtaShowcaseBlockProps> = (data) 
       </div>
 
       {/* Content (unchanged structure/classes) */}
-      <div className="max-w-7xl mx-4 md:mx-auto px-2 mt:-mt-32  md:px-10  pt-12 md:pt-0 pb-0 border-x-[1px] border-[#494949] relative">
+      <div className="max-w-7xl mx-4 md:mx-auto px-2 mt:-mt-32  md:px-10  md:pt-0 pb-0 border-x-[1px] border-[#494949] relative">
         <div className="relative mx-auto flex min-h-[60vh] md:-mt-[60vh] max-w-4xl flex-col items-center justify-end text-center">
           <div className="relative w-full">
             <Image
