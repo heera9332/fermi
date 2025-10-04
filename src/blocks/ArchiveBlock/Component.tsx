@@ -289,13 +289,15 @@ export default function ArchiveBlock(data: ArchiveBlockProps) {
                   className={`relative w-full ${postType === 'posts' ? 'aspect-[6/4]' : 'aspect-square'} overflow-hidden`}
                 >
                   <Image
-                    width={1000}
-                    height={1000}
                     src={mediaUrl}
                     alt={getDocTitle(doc)}
+                    width={1000}
+                    height={1000}
+                    priority={idx === 0} // preload only the first/hero image
+                    sizes="(max-width: 768px) 100vw,
+                      (max-width: 1200px) 50vw,
+                      1000px"
                     className="h-full w-full object-cover rounded-2xl"
-                    loading="lazy"
-                    decoding="async"
                   />
                 </div>
 
