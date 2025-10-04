@@ -32,7 +32,7 @@ export const HeroCtaShowcaseBlock: React.FC<HeroCtaShowcaseBlockProps> = (data) 
   const mobileAlt = (sectionMobileImg as any)?.alt || 'ferm it'
 
   return (
-    <section className="relative  text-white bg-[#030531] pt-6 md:pt-16">
+    <section className="relative  text-white bg-[#030531] pt-0 md:pt-16">
       {/* Preload only—no visual change */}
       <Head>
         {bgSrc && (
@@ -63,21 +63,12 @@ export const HeroCtaShowcaseBlock: React.FC<HeroCtaShowcaseBlockProps> = (data) 
         <line x1="-1000" y1="163.5" x2="5000" y2="163.5" stroke="#494949" />
       </svg>
 
-      <svg
-        className="absolute top-0 w-full z-10 -mt-32 pointer-events-none block md:hidden"
-        width="393"
-        height="1019"
-        viewBox="0 0 393 1019"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <line x1="20.5" y1="2.30872e-08" x2="20.4999" y2="1232" stroke="#494949" />
-        <line x1="373.5" y1="2.30872e-08" x2="373.5" y2="1232" stroke="#494949" />
-        <line x1="-522" y1="163.5" x2="918" y2="163.5" stroke="#494949" />
-      </svg>
-
+      {/* only in mobile */}
+      <div className="md:hidden border-b border-b-[#494949] h-36 absolute -top-28 w-full z-50">
+        <div className="mx-4 border-x-[1px] border-[#494949] px-4 h-full"></div>
+      </div>
       {/* Background image + tint (unchanged DOM/classes) */}
-      <div className="relative max-w-7xl mx-auto px-4 md:px-12 pt-4">
+      <div className="relative max-w-7xl mx-auto px-4 md:pt-0 md:px-12 pt-16 hidden md:block">
         {bgSrc ? (
           <>
             <Image
@@ -98,11 +89,11 @@ export const HeroCtaShowcaseBlock: React.FC<HeroCtaShowcaseBlockProps> = (data) 
       </div>
 
       {/* Content (unchanged structure/classes) */}
-      <div className="max-w-7xl mx-auto px-4 md:px-10 md:pt-0 pb-0">
-        <div className="relative mx-auto flex min-h-[60vh] md:-mt-[60vh] max-w-4xl flex-col items-center justify-center   text-center md:pt-0">
-          <div className="relative px-4 w-full">
+      <div className="max-w-7xl mx-4 md:mx-auto px-4  md:px-10  md:pt-0 pb-0 border-x-[1px] md:border-x-0 border-[#494949] md:border-none relative pt-12">
+        <div className="relative mx-auto flex min-h-[60vh] md:-mt-[60vh] max-w-4xl flex-col items-center justify-end text-center md:pt-16">
+          <div className="relative w-full">
             <Image
-              className=" w-full object-contain md:rounded-2xl block md:hidden pointer-events-none z-0 blur-[1px]"
+              className="w-full object-contain rounded-xl block md:hidden pointer-events-none z-0 blur-[1px] mt-2"
               src={mobileSrc}
               alt={mobileAlt}
               height={512}
@@ -115,13 +106,11 @@ export const HeroCtaShowcaseBlock: React.FC<HeroCtaShowcaseBlockProps> = (data) 
             <div className="absolute inset-0 bg-gradient-to-b from-[#030531]/0 to-[#030531]/90 rounded-2xl md:rounded-2xl z-[1]" />
           </div>
 
-          <div className="section-content relative z-[1] -mt-12 px-2 md:px-0">
+          <div className="section-content relative z-[1] -mt-12 px-0">
             {(title || titleHighlighted) && (
-              <h1 className="text-balance font-semibold text-[40px] md:text-5xl !leading-[130%]">
-                {title}{' '}
-                <p>
-                  {titleHighlighted && <span className="text-[#21F2C0]">{titleHighlighted}</span>}
-                </p>
+              <h1 className="font-semibold text-[40px] md:text-5xl !leading-[130%]">
+                {title} <br className="hidden md:inline-block" />
+                {titleHighlighted && <span className="text-[#21F2C0]">{titleHighlighted}</span>}
               </h1>
             )}
 
@@ -146,7 +135,7 @@ export const HeroCtaShowcaseBlock: React.FC<HeroCtaShowcaseBlockProps> = (data) 
 
         {/* Companies (max 3) */}
         {companies && companies.length > 0 && (
-          <div className="mx-auto pb-8 mt-2 grid max-w-6xl grid-cols-1 gap-2 md:gap-6 sm:grid-cols-3">
+          <div className="mx-auto mt-2 grid max-w-6xl grid-cols-1 gap-2 md:gap-6 sm:grid-cols-3">
             {companies.slice(0, 3).map((c, idx) => {
               const logo = (c as any)?.logo
               const logoSrc =
