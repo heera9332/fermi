@@ -51,9 +51,7 @@ export const HeroCtaShowcaseBlock: React.FC<HeroCtaShowcaseBlockProps> = (data) 
       </Head>
 
       <div className="border-[#494949] border-b hidden md:block">
-        <div className="w-full max-w-7xl mx-auto h-64 md:pt-0 pt-16 hidden md:block relative z-[99999] -mt-56">
-          <div className="border-x-[1px] border-[#494949] border-b h-full"></div>
-        </div>
+        <div className="w-full max-w-7xl mx-auto h-1 md:pt-0 pt-16 hidden md:block relative z-[99999] " />
       </div>
 
       {/* only in mobile */}
