@@ -98,7 +98,7 @@ export const HeroCtaShowcaseBlock: React.FC<HeroCtaShowcaseBlockProps> = (data) 
       </div>
 
       {/* Content (unchanged structure/classes) */}
-      <div className="max-w-7xl mx-auto px-8 sm:px-10 md:pt-0 pb-0">
+      <div className="max-w-7xl mx-auto px-4 md:px-10 md:pt-0 pb-0">
         <div className="relative mx-auto flex min-h-[60vh] md:-mt-[60vh] max-w-4xl flex-col items-center justify-center   text-center md:pt-0">
           <div className="relative px-4 w-full">
             <Image
@@ -115,7 +115,7 @@ export const HeroCtaShowcaseBlock: React.FC<HeroCtaShowcaseBlockProps> = (data) 
             <div className="absolute inset-0 bg-gradient-to-b from-[#030531]/0 to-[#030531]/90 rounded-2xl md:rounded-2xl z-[1]" />
           </div>
 
-          <div className="section-content relative z-[1] -mt-12">
+          <div className="section-content relative z-[1] -mt-12 px-2 md:px-0">
             {(title || titleHighlighted) && (
               <h1 className="text-balance font-semibold text-[40px] md:text-5xl !leading-[130%]">
                 {title}{' '}
@@ -132,7 +132,7 @@ export const HeroCtaShowcaseBlock: React.FC<HeroCtaShowcaseBlockProps> = (data) 
             )}
 
             {cta?.label && cta?.link && (
-              <div className="mt-8 px-2 mb-4">
+              <div className="mt-8 mb-4">
                 <CTAButton
                   className="w-full"
                   type="button"
