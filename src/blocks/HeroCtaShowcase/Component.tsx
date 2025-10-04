@@ -57,8 +57,8 @@ export const HeroCtaShowcaseBlock: React.FC<HeroCtaShowcaseBlockProps> = (data) 
       </div>
 
       {/* only in mobile */}
-      <div className="md:hidden border-b  h-36 absolute -top-28 w-full z-50">
-        <div className="mx-4 border-x-[1px] border-[#494949] px-4 h-full"></div>
+      <div className="md:hidden h-36 absolute -top-28 w-full z-50">
+        <div className="mx-4 border-x-[1px] border-x-[#494949] px-4 h-full"></div>
       </div>
       {/* Background image + tint (unchanged DOM/classes) */}
       <div className="relative max-w-7xl mx-auto px-4 md:px-12 pt-6 hidden md:block border-x-[1px] border-[#494949]  py-16">
@@ -82,7 +82,7 @@ export const HeroCtaShowcaseBlock: React.FC<HeroCtaShowcaseBlockProps> = (data) 
       </div>
 
       {/* Content (unchanged structure/classes) */}
-      <div className="max-w-7xl mx-4 md:mx-auto px-4 mt:-mt-32  md:px-10  pt-12 md:pt-0 pb-0 border-x-[1px] border-[#494949] relative">
+      <div className="max-w-7xl mx-4 md:mx-auto px-2 mt:-mt-32  md:px-10  pt-12 md:pt-0 pb-0 border-x-[1px] border-[#494949] relative">
         <div className="relative mx-auto flex min-h-[60vh] md:-mt-[60vh] max-w-4xl flex-col items-center justify-end text-center">
           <div className="relative w-full">
             <Image
@@ -116,7 +116,7 @@ export const HeroCtaShowcaseBlock: React.FC<HeroCtaShowcaseBlockProps> = (data) 
             {cta?.label && cta?.link && (
               <div className="mt-8 mb-4">
                 <CTAButton
-                  className="w-full"
+                  className="w-full rounded-[24px] py-[16px] px-[20px] text-lg md:text-xl lh-100"
                   type="button"
                   href={data.cta.link}
                   label={data.cta.label}
@@ -128,7 +128,7 @@ export const HeroCtaShowcaseBlock: React.FC<HeroCtaShowcaseBlockProps> = (data) 
 
         {/* Companies (max 3) */}
         {companies && companies.length > 0 && (
-          <div className="mx-auto mt-2 grid max-w-6xl grid-cols-1 gap-2 md:gap-6 sm:grid-cols-3">
+          <div className="mx-auto mt-2 grid max-w-6xl grid-cols-1 gap-2 md:gap-6 sm:grid-cols-3 pb-12 md:pb-0">
             {companies.slice(0, 3).map((c, idx) => {
               const logo = (c as any)?.logo
               const logoSrc =
