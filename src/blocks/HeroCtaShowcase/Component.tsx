@@ -1,14 +1,11 @@
-// src/blocks/HeroCtaShowcaseBlock.tsx
-'use client'
-
 import CTAButton from '@/components/CTAButton'
 import Image from 'next/image'
+import Head from 'next/head'
 import * as React from 'react'
 import type { HeroCtaShowcaseBlock as HeroCtaShowcaseBlockProps, Media } from 'src/payload-types'
 
 function mediaURL(m: Media | string): string | undefined {
   if (!m || typeof m === 'string') return undefined
-  // Prefer responsive sizes if present
   const anyM = m as any
   return (
     anyM?.sizes?.xlarge?.url || anyM?.sizes?.large?.url || anyM?.sizes?.medium?.url || anyM?.url
@@ -27,8 +24,32 @@ export const HeroCtaShowcaseBlock: React.FC<HeroCtaShowcaseBlockProps> = (data) 
   const bgSrc = mediaURL(sectionImage)
   const bgAlt = mediaAlt(sectionImage, 'background')
 
+  const mobileSrc =
+    (sectionMobileImg as any)?.sizes?.large?.url ||
+    (sectionMobileImg as any)?.sizes?.medium?.url ||
+    (sectionMobileImg as any)?.url ||
+    '/assets/images/placeholder.webp'
+  const mobileAlt = (sectionMobileImg as any)?.alt || 'ferm it'
+
   return (
     <section className="relative  text-white bg-[#030531] pt-6 md:pt-16">
+      {/* Preload only—no visual change */}
+      <Head>
+        {bgSrc && (
+          <link
+            rel="preload"
+            as="image"
+            href={bgSrc}
+            sizes="(max-width: 1536px) 100vw, 1536px"
+            // if you have srcset variants, you can add `imagesrcset=""` here
+            fetchPriority="high"
+          />
+        )}
+        {mobileSrc && (
+          <link rel="preload" as="image" href={mobileSrc} sizes="100vw" fetchPriority="high" />
+        )}
+      </Head>
+
       <svg
         className="absolute top-0 w-full z-10 -mt-32 pointer-events-none hidden md:block"
         width="1439"
@@ -55,8 +76,7 @@ export const HeroCtaShowcaseBlock: React.FC<HeroCtaShowcaseBlockProps> = (data) 
         <line x1="-522" y1="163.5" x2="918" y2="163.5" stroke="#494949" />
       </svg>
 
-      {/* Background image + tint */}
-
+      {/* Background image + tint (unchanged DOM/classes) */}
       <div className="relative max-w-7xl mx-auto px-4 md:px-12 pt-4">
         {bgSrc ? (
           <>
@@ -65,11 +85,11 @@ export const HeroCtaShowcaseBlock: React.FC<HeroCtaShowcaseBlockProps> = (data) 
               alt={bgAlt}
               height={350}
               width={350}
-              sizes="100vw"
+              sizes="(max-width: 1536px) 100vw, 1536px"
               priority
+              fetchPriority="high"
               className="hidden md:block object-cover w-full md:rounded-2xl blur-[1px]"
             />
-            {/* dark navy tint to increase contrast */}
             <div className="absolute inset-0 bg-gradient-to-t from-[#030531] via-[#030531]/60 to-transparent pointer-events-none" />
           </>
         ) : (
@@ -77,25 +97,25 @@ export const HeroCtaShowcaseBlock: React.FC<HeroCtaShowcaseBlockProps> = (data) 
         )}
       </div>
 
-      {/* Content */}
+      {/* Content (unchanged structure/classes) */}
       <div className="max-w-7xl mx-auto px-8 sm:px-10 md:pt-0 pb-0">
         <div className="relative mx-auto flex min-h-[60vh] md:-mt-[60vh] max-w-4xl flex-col items-center justify-center   text-center md:pt-0">
           <div className="relative px-4 w-full">
             <Image
               className=" w-full object-contain md:rounded-2xl block md:hidden pointer-events-none z-0 blur-[1px]"
-              src={sectionMobileImg?.url || '/assets/images/placeholder.webp'}
-              alt={sectionMobileImg?.alt || 'ferm it'}
+              src={mobileSrc}
+              alt={mobileAlt}
               height={512}
               width={512}
               sizes="100vw"
               priority
+              fetchPriority="high"
             />
             {/* Overlay */}
             <div className="absolute inset-0 bg-gradient-to-b from-[#030531]/0 to-[#030531]/90 rounded-2xl md:rounded-2xl z-[1]" />
           </div>
 
           <div className="section-content relative z-[1] -mt-12">
-            {/* Title */}
             {(title || titleHighlighted) && (
               <h1 className="text-balance font-semibold text-[40px] md:text-5xl !leading-[130%]">
                 {title}{' '}
@@ -105,14 +125,12 @@ export const HeroCtaShowcaseBlock: React.FC<HeroCtaShowcaseBlockProps> = (data) 
               </h1>
             )}
 
-            {/* Subtitle */}
             {content && (
               <p className="mx-auto mt-4 max-w-3xl text-pretty !leading-[130%] text-xl md:text-2xl">
                 {content}
               </p>
             )}
 
-            {/* CTA */}
             {cta?.label && cta?.link && (
               <div className="mt-8 px-2 mb-4">
                 <CTAButton
@@ -150,8 +168,11 @@ export const HeroCtaShowcaseBlock: React.FC<HeroCtaShowcaseBlockProps> = (data) 
                       alt={alt}
                       width={1000}
                       height={1000}
+                      // keep your visual classes exactly the same
                       className="w-full h-full shrink-0 object-contain"
-                      quality={100}
+                      // make them low priority so they don't compete with LCP
+                      loading="lazy"
+                      sizes="(max-width: 640px) 90vw, (max-width: 1024px) 40vw, 320px"
                     />
                   ) : (
                     <div className="w-full h-full rink-0 rounded bg-white/10" />
