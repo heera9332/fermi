@@ -23,7 +23,9 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, isHeaderDark }
     <header
       className={`container relative z-[999] w-full max-w-full  ${isHeaderDark ? 'header-dark' : 'header-light'}`}
     >
-      <div className="py-6 flex justify-between max-w-7xl mx-auto px-4 md:px-8 border-x-[1px] border-[#494949] md:border-none">
+      <div
+        className={`py-6 flex justify-between max-w-7xl mx-auto px-4 md:px-8 ${isHeaderDark ? 'border-x-[1px] border-[#494949]' : ''} md:border-none`}
+      >
         <Link href="/" aria-label="Go to home">
           <Logo />
         </Link>
@@ -60,7 +62,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, isHeaderDark }
             </svg>
           </button>
 
-          <div className="rounded-full  bg-transparent hover:bg-[linear-gradient(189.22deg,rgba(58,255,208,0)_1.35%,#3AFFD0_93.77%)] p-[1px]">
+          <div className="rounded-full  bg-transparent hover:bg-[linear-gradient(189.22deg,rgba(58,255,208,0)_1.35%,#3AFFD0_93.77%)] p-[1px] hidden md:inline-flex">
             <CTAButton
               className="hidden md:inline-flex !rounded-full"
               type="button"

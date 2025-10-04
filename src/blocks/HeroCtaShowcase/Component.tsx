@@ -57,7 +57,7 @@ export const HeroCtaShowcaseBlock: React.FC<HeroCtaShowcaseBlockProps> = (data) 
       </div>
 
       {/* only in mobile */}
-      <div className="md:hidden h-36 absolute -top-28 w-full z-50">
+      <div className="md:hidden h-36 absolute -top-28 w-full z-50 border-b border-b-[#494949] md:border-none ">
         <div className="mx-4 border-x-[1px] border-x-[#494949] px-4 h-full"></div>
       </div>
       {/* Background image + tint (unchanged DOM/classes) */}
