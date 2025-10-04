@@ -32,7 +32,7 @@ export const HeroCtaShowcaseBlock: React.FC<HeroCtaShowcaseBlockProps> = (data) 
   const mobileAlt = (sectionMobileImg as any)?.alt || 'ferm it'
 
   return (
-    <section className="relative  text-white bg-[#030531] md:px-4">
+    <section className="relative  text-white bg-[#030531] sm:px-4 md:px-0">
       {/* Preload only—no visual change */}
       <Head>
         {bgSrc && (
