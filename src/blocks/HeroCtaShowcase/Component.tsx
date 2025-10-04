@@ -32,7 +32,7 @@ export const HeroCtaShowcaseBlock: React.FC<HeroCtaShowcaseBlockProps> = (data) 
   const mobileAlt = (sectionMobileImg as any)?.alt || 'ferm it'
 
   return (
-    <section className="relative  text-white bg-[#030531] pt-0 md:pt-16">
+    <section className="relative  text-white bg-[#030531]">
       {/* Preload only—no visual change */}
       <Head>
         {bgSrc && (
@@ -50,25 +50,18 @@ export const HeroCtaShowcaseBlock: React.FC<HeroCtaShowcaseBlockProps> = (data) 
         )}
       </Head>
 
-      <svg
-        className="absolute top-0 w-full z-10 -mt-32 pointer-events-none hidden md:block"
-        width="1439"
-        height="880"
-        viewBox="0 0 1439 880"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <line x1="79.5" y1="-100" x2="79.4999" y2="2000" stroke="#494949" />
-        <line x1="1359.5" y1="2.30872e-08" x2="1359.5" y2="1232" stroke="#494949" />
-        <line x1="-1000" y1="163.5" x2="5000" y2="163.5" stroke="#494949" />
-      </svg>
+      <div className="border-[#494949] border-b hidden md:block">
+        <div className="w-full max-w-7xl mx-auto h-64 md:pt-0 pt-16 hidden md:block relative z-[99999] -mt-56">
+          <div className="border-x-[1px] border-[#494949] border-b h-full"></div>
+        </div>
+      </div>
 
       {/* only in mobile */}
-      <div className="md:hidden border-b border-b-[#494949] h-36 absolute -top-28 w-full z-50">
+      <div className="md:hidden border-b  h-36 absolute -top-28 w-full z-50">
         <div className="mx-4 border-x-[1px] border-[#494949] px-4 h-full"></div>
       </div>
       {/* Background image + tint (unchanged DOM/classes) */}
-      <div className="relative max-w-7xl mx-auto px-4 md:pt-0 md:px-12 pt-16 hidden md:block">
+      <div className="relative max-w-7xl mx-auto px-4 md:px-12 pt-6 hidden md:block border-x-[1px] border-[#494949]  py-16">
         {bgSrc ? (
           <>
             <Image
@@ -89,8 +82,8 @@ export const HeroCtaShowcaseBlock: React.FC<HeroCtaShowcaseBlockProps> = (data) 
       </div>
 
       {/* Content (unchanged structure/classes) */}
-      <div className="max-w-7xl mx-4 md:mx-auto px-4  md:px-10  md:pt-0 pb-0 border-x-[1px] md:border-x-0 border-[#494949] md:border-none relative pt-12">
-        <div className="relative mx-auto flex min-h-[60vh] md:-mt-[60vh] max-w-4xl flex-col items-center justify-end text-center md:pt-16">
+      <div className="max-w-7xl mx-4 md:mx-auto px-4 mt:-mt-32  md:px-10  pt-12 md:pt-0 pb-0 border-x-[1px] border-[#494949] relative">
+        <div className="relative mx-auto flex min-h-[60vh] md:-mt-[60vh] max-w-4xl flex-col items-center justify-end text-center">
           <div className="relative w-full">
             <Image
               className="w-full object-contain rounded-xl block md:hidden pointer-events-none z-0 blur-[1px] mt-2"
