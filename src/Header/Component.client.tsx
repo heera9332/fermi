@@ -7,6 +7,7 @@ import { Logo } from '@/components/Logo/Logo'
 import { HeaderNav } from './Nav/index'
 import { MobileMenu } from './MobileMenu'
 import CTAButton from '@/components/CTAButton'
+import { usePathname } from 'next/navigation'
 
 interface HeaderClientProps {
   data: Header
@@ -14,17 +15,22 @@ interface HeaderClientProps {
 }
 
 export const HeaderClient: React.FC<HeaderClientProps> = ({ data, isHeaderDark }) => {
+  const path = usePathname()
   const [mobileOpen, setMobileOpen] = useState(false)
   const openMenu = useCallback(() => setMobileOpen(true), [])
   const closeMenu = useCallback(() => setMobileOpen(false), [])
   const toggleMenu = useCallback(() => setMobileOpen((v) => !v), [])
+
+  const isHome = path === '/' || path === '/home'
+
+  console.log(isHome)
 
   return (
     <header
       className={`container relative z-[999] w-full max-w-full flex justify-center  ${isHeaderDark ? 'header-dark border-b-[1px] border-b-[#494949] md:border-none' : 'header-light'}`}
     >
       <div
-        className={`py-6 flex justify-between w-full max-w-7xl md:mx-8 px-4 md:px-8 ${isHeaderDark ? 'border-x-[1px] border-[#494949]' : ''}`}
+        className={`py-6 flex justify-between w-full max-w-7xl md:mx-8 px-4 md:px-8 ${isHeaderDark && isHome ? 'border-x-[1px] border-[#494949]' : ''}`}
       >
         <Link href="/" aria-label="Go to home">
           <Logo />
