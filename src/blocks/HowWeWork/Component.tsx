@@ -74,7 +74,7 @@ export const HowWeWorkBlock: React.FC<HowWeWork> = (data) => {
                       <span className="flex min-w-0 items-center gap-3">
                         <span
                           className={[
-                            'hover:font-medium tabular-nums',
+                            'tabular-nums',
                             'transition-colors duration-300 ease-out text-lg md:text-2xl',
                             selected ? 'text-black' : 'text-[#6B6B6B]',
                           ].join(' ')}
@@ -84,7 +84,7 @@ export const HowWeWorkBlock: React.FC<HowWeWork> = (data) => {
 
                         <span
                           className={[
-                            'truncate hover:font-medium sm:text-lg',
+                            'truncate sm:text-lg',
                             'transition-colors duration-300 ease-out text-lg md:text-2xl',
                             selected ? 'text-black' : 'text-[#6B6B6B] group-hover:text-black/80',
                           ].join(' ')}
