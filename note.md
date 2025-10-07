@@ -5,4 +5,10 @@ mongorestore \
   --nsInclude="fermi-it.*" \
   ./dump/fermi-it
 
+mongorestore \
+  --uri="mongodb://127.0.0.1/fermi-it" \
+  --nsInclude="fermi-it.*" \
+  ./dump/fermi-it
+
+
 npm run build && pm2 restart 0 && pm2 logs 0

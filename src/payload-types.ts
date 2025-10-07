@@ -101,12 +101,10 @@ export interface Config {
   globals: {
     header: Header;
     footer: Footer;
-    relatedContent: RelatedContent;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
-    relatedContent: RelatedContentSelect<false> | RelatedContentSelect<true>;
   };
   locale: null;
   user: User & {
@@ -643,14 +641,25 @@ export interface Post {
     image?: (string | null) | Media;
     description?: string | null;
   };
+  relatedContents: {
+    isEnableRelatedBlock: boolean;
+    heading: string;
+    description?: string | null;
+    mode?: ('auto' | 'manual') | null;
+    limit?: number | null;
+    columns?: number | null;
+    excludeCurrent?: boolean | null;
+    /**
+     * Auto mode always queries the same `postType` as this document.
+     */
+    sortBy?: ('-publishedAt' | 'publishedAt') | null;
+    /**
+     * Pick specific items to show (can include posts or projects).
+     */
+    items?: (string | Post)[] | null;
+  };
   publishedAt?: string | null;
   author?: (string | null) | User;
-  populatedAuthor?:
-    | {
-        id?: string | null;
-        name?: string | null;
-      }[]
-    | null;
   slug?: string | null;
   slugLock?: boolean | null;
   postType?: ('posts' | 'projects') | null;
@@ -1308,14 +1317,21 @@ export interface PostsSelect<T extends boolean = true> {
         image?: T;
         description?: T;
       };
-  publishedAt?: T;
-  author?: T;
-  populatedAuthor?:
+  relatedContents?:
     | T
     | {
-        id?: T;
-        name?: T;
+        isEnableRelatedBlock?: T;
+        heading?: T;
+        description?: T;
+        mode?: T;
+        limit?: T;
+        columns?: T;
+        excludeCurrent?: T;
+        sortBy?: T;
+        items?: T;
       };
+  publishedAt?: T;
+  author?: T;
   slug?: T;
   slugLock?: T;
   postType?: T;
@@ -1720,33 +1736,6 @@ export interface Footer {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "relatedContent".
- */
-export interface RelatedContent {
-  id: string;
-  isEnableRelatedBlock: boolean;
-  heading: string;
-  description?: string | null;
-  mode?: ('auto' | 'manual') | null;
-  auto?: {
-    matchByCurrentCategories?: boolean | null;
-    matchByCurrentTitle?: boolean | null;
-    /**
-     * Union with current page categories if enabled above.
-     */
-    categories?: (string | Category)[] | null;
-    excludeCurrent?: boolean | null;
-    sortBy?: ('publishedAt' | 'updatedAt' | 'title') | null;
-    order?: ('desc' | 'asc') | null;
-    limit?: number | null;
-  };
-  selection?: (string | Post)[] | null;
-  columns?: number | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -1823,32 +1812,6 @@ export interface FooterSelect<T extends boolean = true> {
         phone?: T;
       };
   footerBackground?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "relatedContent_select".
- */
-export interface RelatedContentSelect<T extends boolean = true> {
-  isEnableRelatedBlock?: T;
-  heading?: T;
-  description?: T;
-  mode?: T;
-  auto?:
-    | T
-    | {
-        matchByCurrentCategories?: T;
-        matchByCurrentTitle?: T;
-        categories?: T;
-        excludeCurrent?: T;
-        sortBy?: T;
-        order?: T;
-        limit?: T;
-      };
-  selection?: T;
-  columns?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

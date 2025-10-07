@@ -1,33 +1,41 @@
+// src/collections/posts/hooks/populateAuthors.ts
 import type { CollectionAfterReadHook } from 'payload'
-import { User } from 'src/payload-types'
 
-export const populateAuthors: CollectionAfterReadHook = async ({ doc, _req, req: { payload } }) => {
-  if (doc?.authors && doc?.authors?.length > 0) {
-    const authorDocs: User[] = []
+export const populateAuthors: CollectionAfterReadHook = async ({ doc, req }) => {
+  try {
+    const payload = req?.payload
+    if (!payload) return doc
 
-    for (const author of doc.authors) {
-      try {
-        const authorDoc = await payload.findByID({
-          id: typeof author === 'object' ? author?.id : author,
-          collection: 'users',
-          depth: 0,
-        })
+    const rawAuthor = (doc as any)?.author
+    if (!rawAuthor) return doc
 
-        if (authorDoc) {
-          authorDocs.push(authorDoc)
-        }
+    const authorId =
+      typeof rawAuthor === 'object'
+        ? ((rawAuthor as any)?.id ?? (rawAuthor as any)?._id ?? rawAuthor)
+        : rawAuthor
 
-        if (authorDocs.length > 0) {
-          doc.populatedAuthors = authorDocs.map((authorDoc) => ({
-            id: authorDoc.id,
-            name: authorDoc.name,
-          }))
-        }
-      } catch {
-        // swallow error
-      }
-    }
+    if (!authorId) return doc
+
+    const user = await payload.findByID({
+      collection: 'users',
+      id: String(authorId),
+      depth: 0, // avoid recursive/populated structures
+    })
+
+    if (!user)
+      return doc
+
+      // write only the small, safe shape you need on the API
+    ;(doc as any).populatedAuthor = [
+      {
+        id: String(user.id),
+        name: (user as any)?.name ?? (user as any)?.email ?? '',
+      },
+    ]
+
+    return doc
+  } catch {
+    // fail-soft to never break the frontend
+    return doc
   }
-
-  return doc
 }

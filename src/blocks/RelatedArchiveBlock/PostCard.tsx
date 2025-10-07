@@ -8,7 +8,9 @@ export function PostCard({ post }: { post: Post }) {
   const thumb = (post?.featuredImage as any)?.url
 
   return (
-    <article className="border border-[#E0E0E0] p-4 shadow-sm text-black flex flex-col justify-between">
+    <article
+      className={`border border-[#E0E0E0] p-4 shadow-sm text-black flex flex-col justify-between hover:bg-white transition-colors post-type-${post.postType}`}
+    >
       <Link href={href} className="block">
         <div className="mb-4 aspect-[12/9] w-full overflow-hidden rounded-lg bg-black/5">
           {thumb ? (

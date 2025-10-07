@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import payload from '@/lib/payload-client'
+import payload from '@/lib/payload'
 import { PayloadRedirects } from '@/components/PayloadRedirects'
 import { type RequiredDataFromCollectionSlug } from 'payload'
 import { draftMode } from 'next/headers'
