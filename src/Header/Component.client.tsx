@@ -27,10 +27,10 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, isHeaderDark }
 
   return (
     <header
-      className={`container relative z-[999] w-full max-w-full flex justify-center  ${isHeaderDark ? 'header-dark border-b-[1px] border-b-[#494949] md:border-none' : 'header-light'}`}
+      className={`container relative z-[999] w-full max-w-full flex justify-center  ${isHeaderDark ? 'header-dark' : 'header-light'} ${isHome ? 'border-b-[1px] border-b-[#494949] md:border-none' : ''}`}
     >
       <div
-        className={`py-6 flex justify-between w-full max-w-7xl md:mx-8 px-4 md:px-8 ${isHeaderDark && isHome ? 'border-x-[1px] border-[#494949]' : ''}`}
+        className={`py-4 md:py-6 flex justify-between w-full max-w-7xl md:mx-8 px-4 md:px-8 ${isHeaderDark && isHome ? 'border-x-[1px] border-[#494949]' : ''}`}
       >
         <Link href="/" aria-label="Go to home">
           <Logo />

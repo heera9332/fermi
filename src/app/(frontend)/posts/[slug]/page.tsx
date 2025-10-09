@@ -132,7 +132,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
       <Header isHeaderDark={true} />
 
       <article className="prose max-w-5xl mx-auto post-content">
-        <div className="post-header px-4 md:px-8">
+        <div className="post-header p-4 md:p-8">
           <h1 className="font-semibold !lh-150 text-[32px] md:text-[40px]">{post.title}</h1>
           <div className="post-excerpt text-lg md:text-2xl lh-130">{post.excerpt}</div>
           <hr className="bg-white/50" />
