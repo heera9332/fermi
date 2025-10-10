@@ -101,10 +101,12 @@ export interface Config {
   globals: {
     header: Header;
     footer: Footer;
+    'related-contents-settings': RelatedContentsSetting;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
+    'related-contents-settings': RelatedContentsSettingsSelect<false> | RelatedContentsSettingsSelect<true>;
   };
   locale: null;
   user: User & {
@@ -1736,6 +1738,35 @@ export interface Footer {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "related-contents-settings".
+ */
+export interface RelatedContentsSetting {
+  id: string;
+  posts: {
+    heading: string;
+    description?: string | null;
+    mode?: ('auto' | 'manual') | null;
+    limit?: number | null;
+    columns?: number | null;
+    excludeCurrent?: boolean | null;
+    sortBy?: ('-publishedAt' | 'publishedAt') | null;
+    items?: (string | Post)[] | null;
+  };
+  projects: {
+    heading: string;
+    description?: string | null;
+    mode?: ('auto' | 'manual') | null;
+    limit?: number | null;
+    columns?: number | null;
+    excludeCurrent?: boolean | null;
+    sortBy?: ('-publishedAt' | 'publishedAt') | null;
+    items?: (string | Post)[] | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -1812,6 +1843,39 @@ export interface FooterSelect<T extends boolean = true> {
         phone?: T;
       };
   footerBackground?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "related-contents-settings_select".
+ */
+export interface RelatedContentsSettingsSelect<T extends boolean = true> {
+  posts?:
+    | T
+    | {
+        heading?: T;
+        description?: T;
+        mode?: T;
+        limit?: T;
+        columns?: T;
+        excludeCurrent?: T;
+        sortBy?: T;
+        items?: T;
+      };
+  projects?:
+    | T
+    | {
+        heading?: T;
+        description?: T;
+        mode?: T;
+        limit?: T;
+        columns?: T;
+        excludeCurrent?: T;
+        sortBy?: T;
+        items?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

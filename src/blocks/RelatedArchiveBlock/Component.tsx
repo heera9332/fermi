@@ -1,4 +1,3 @@
-import type { Post } from '@/payload-types'
 import { PostCard } from '@/blocks/RelatedArchiveBlock/PostCard'
 
 function gridColsClass(n?: number) {
@@ -14,21 +13,8 @@ function gridColsClass(n?: number) {
   return map[c]
 }
 
-interface RelatedContentSectionProps {
-  current: ''
-  relatedResolved: {
-    heading?: string | null
-    description?: string | null
-    columns?: number
-    items: Post[]
-    layout: {
-      columns: number
-    }
-  }
-}
-
-export function RelatedContentSection({ data }: { data: RelatedContentSectionProps }) {
-  if (!data.relatedResolved.items?.length) return null
+export async function RelatedContentSection({ data }) {
+  if (!data?.relatedResolved?.items?.length) return null
 
   const heading = data.relatedResolved.heading || ''
   const description = data.relatedResolved.description || ''
@@ -40,7 +26,8 @@ export function RelatedContentSection({ data }: { data: RelatedContentSectionPro
       <div className="max-w-7xl mx-auto">
         <div className="mb-6 w-full md:w-1/2">
           <h2 className="text-[32px] md:text-[40px] font-semibold lh-130 text-center md:text-left">
-            {heading ?? 'Related Articles'}
+            {heading ||
+              (data.current.postType === 'projects' ? 'Related Projects' : 'Related Articles')}
           </h2>
           {description && (
             <p className="mt-2 text-[#6B6B6B] text-center md:text-left">{description}</p>
@@ -48,7 +35,7 @@ export function RelatedContentSection({ data }: { data: RelatedContentSectionPro
         </div>
 
         <div className={`grid gap-6 ${gridColsClass(columns)}`}>
-          {items.map((p) => (
+          {items.map((p: any) => (
             <PostCard key={p.id} post={p} />
           ))}
         </div>

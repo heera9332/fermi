@@ -36,46 +36,108 @@ async function resolveRelatedOnServer({
     }
   | undefined
 > {
-  if (!related?.isEnableRelatedBlock) return undefined
+  // 1) Load global per-type settings (fallback)
+  const global = await payload.findGlobal({
+    slug: 'related-contents-settings',
+    depth: 2,
+  })
 
-  const mode: 'auto' | 'manual' = related?.mode === 'manual' ? 'manual' : 'auto'
-  const heading =
-    related?.heading ?? (current.postType === 'projects' ? 'Related Projects' : 'Related Articles')
-  const description = related?.description ?? null
-  const columns = mode === 'manual' ? (related?.columnsManual ?? 4) : (related?.columns ?? 4)
-
-  // MANUAL
-  if (mode === 'manual' && Array.isArray(related?.items) && related.items.length > 0) {
-    const manualIds = related.items.map((it: any) => getId(it)).filter(Boolean) as string[]
-    if (manualIds.length === 0) {
-      return { heading, description, mode, layout: { columns }, items: [] }
+  // Helper: extract per-type config from global safely
+  function pickGlobalForType(t: 'posts' | 'projects') {
+    // Expect shape: global.posts / global.projects (groups)
+    const cfg = (global && (global[t] || {})) as any
+    return {
+      isEnableRelatedBlock: true, // resolved effective
+      heading: cfg?.heading ?? (t === 'projects' ? 'Explore More Projects' : 'Related Articles'),
+      description:
+        cfg?.description ??
+        (t === 'projects'
+          ? 'See similar case studies and success stories.'
+          : 'Keep learning about how artificial intelligence can boost your business'),
+      mode: cfg?.mode === 'manual' ? 'manual' : 'auto',
+      limit: Math.max(1, Math.min(Number(cfg?.limit ?? 8), 24)),
+      columns: Math.max(1, Math.min(Number(cfg?.columns ?? 3), 6)),
+      excludeCurrent: cfg?.excludeCurrent !== false,
+      sortBy: cfg?.sortBy === 'publishedAt' ? 'publishedAt' : '-publishedAt',
+      items: Array.isArray(cfg?.items) ? cfg.items : [],
     }
+  }
+
+  // 2) Choose source: per-post (if enabled) else global
+  const source = related?.isEnableRelatedBlock ? 'post' : 'global'
+  const base =
+    source === 'post'
+      ? {
+          isEnableRelatedBlock: true,
+          heading:
+            related?.heading ??
+            (current.postType === 'projects' ? 'Related Projects' : 'Related Articles'),
+          description: related?.description ?? null,
+          mode: related?.mode === 'manual' ? 'manual' : 'auto',
+          limit: Math.max(1, Math.min(Number(related?.limit ?? 8), 24)),
+          columns:
+            (related?.mode === 'manual'
+              ? Number(related?.columnsManual ?? related?.columns ?? 4)
+              : Number(related?.columns ?? 4)) || 4,
+          excludeCurrent: related?.excludeCurrent !== false,
+          sortBy: related?.sortBy === 'publishedAt' ? 'publishedAt' : '-publishedAt',
+          items: Array.isArray(related?.items) ? related.items : [],
+        }
+      : pickGlobalForType(current.postType)
+
+  // Normalize columns bounds
+  const columns = Math.max(1, Math.min(base.columns || 4, 6))
+
+  // 3) Manual mode
+  if (base.mode === 'manual') {
+    const manualIds = (base.items || []).map((it: any) => getId(it)).filter(Boolean) as string[]
+
+    if (manualIds.length === 0) {
+      return {
+        heading: base.heading,
+        description: base.description ?? null,
+        mode: 'manual',
+        layout: { columns },
+        items: [],
+      }
+    }
+
+    // Read only posts whose postType matches the current post’s postType
     const res = await payload.find({
       collection: 'posts',
-      where: { id: { in: manualIds } },
+      where: {
+        and: [{ id: { in: manualIds } }, { postType: { equals: current.postType } }],
+      },
       limit: Math.min(manualIds.length, 24),
       depth: 1,
     })
+
+    // Preserve editor order
     const byId = new Map(res.docs.map((d: any) => [String(d.id), d]))
     const items = manualIds.map((id) => byId.get(id)).filter(Boolean)
-    return { heading, description, mode, layout: { columns }, items }
+
+    return {
+      heading: base.heading,
+      description: base.description ?? null,
+      mode: 'manual',
+      layout: { columns },
+      items,
+    }
   }
 
-  // AUTO
-  const limit = Math.max(1, Math.min(related?.limit ?? 8, 24))
-  // console.log({ limit })
-  const excludeCurrent = related?.excludeCurrent !== false
+  // 4) Auto mode (same collection: 'posts', filter by field postType)
+  const limit = base.limit
+  const excludeCurrent = base.excludeCurrent
   const sortBy: '-publishedAt' | 'publishedAt' =
-    related?.sortBy === 'publishedAt' ? 'publishedAt' : '-publishedAt'
+    base.sortBy === 'publishedAt' ? 'publishedAt' : '-publishedAt'
 
   const where: any = {
     postType: { equals: current.postType },
   }
 
-  // Optional: nudge results by category overlap if available
+  // Optional bias by categories overlap
   const cats = uniqStrings(current.categories ?? [])
   if (cats.length > 0) {
-    // payload "in" with relationship arrays matches any
     where.categories = { in: cats }
   }
 
@@ -91,7 +153,13 @@ async function resolveRelatedOnServer({
     depth: 1,
   })
 
-  return { heading, description, mode, layout: { columns }, items: res.docs }
+  return {
+    heading: base.heading,
+    description: base.description ?? null,
+    mode: 'auto',
+    layout: { columns },
+    items: res.docs,
+  }
 }
 
 export default async function PostPage({ params }: { params: { slug: string } }) {

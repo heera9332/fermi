@@ -144,7 +144,7 @@ export const Posts: CollectionConfig<'posts'> = {
               type: 'checkbox',
               label: 'Enable related posts',
               required: true,
-              defaultValue: true,
+              defaultValue: false,
             },
 
             {
