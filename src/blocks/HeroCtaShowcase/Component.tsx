@@ -51,7 +51,7 @@ export const HeroCtaShowcaseBlock: React.FC<HeroCtaShowcaseBlockProps> = (data) 
       </Head>
 
       <div className="border-[#494949] border-b hidden md:block">
-        <div className="w-full max-w-7xl mx-auto h-1 md:pt-0 pt-16 hidden md:block relative z-[99999] " />
+        <div className="w-full max-w-7xl mx-auto  md:pt-0 pt-16 hidden md:block relative z-[99999] " />
       </div>
 
       {/* only in mobile */}
@@ -59,24 +59,26 @@ export const HeroCtaShowcaseBlock: React.FC<HeroCtaShowcaseBlockProps> = (data) 
         <div className="mx-4 border-x-[1px] border-x-[#494949] px-4 h-full"></div>
       </div> */}
       {/* Background image + tint (unchanged DOM/classes) */}
-      <div className="relative max-w-7xl mx-auto px-4 md:px-12 pt-6 hidden md:block border-x-[1px] border-[#494949]  py-16">
-        {bgSrc ? (
-          <>
-            <Image
-              src={bgSrc}
-              alt={bgAlt}
-              height={350}
-              width={350}
-              sizes="(max-width: 1536px) 100vw, 1536px"
-              priority
-              fetchPriority="high"
-              className="hidden md:block object-cover w-full md:rounded-2xl blur-[1px]"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#030531] via-[#030531]/60 to-transparent pointer-events-none" />
-          </>
-        ) : (
-          <div className="h-full w-full bg-[#030531]" />
-        )}
+      <div className="relative max-w-7xl mx-auto">
+        <div className="px-4 md:px-12 pt-6 hidden md:block border-x-[1px] border-[#494949] py-16">
+          {bgSrc ? (
+            <>
+              <Image
+                src={bgSrc}
+                alt={bgAlt}
+                height={350}
+                width={350}
+                sizes="(max-width: 1536px) 100vw, 1536px"
+                priority
+                fetchPriority="high"
+                className="hidden md:block object-cover w-full md:rounded-2xl blur-[1px]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#030531] via-[#030531]/60 to-transparent pointer-events-none" />
+            </>
+          ) : (
+            <div className="h-full w-full bg-[#030531]" />
+          )}
+        </div>
       </div>
 
       {/* Content (unchanged structure/classes) */}
