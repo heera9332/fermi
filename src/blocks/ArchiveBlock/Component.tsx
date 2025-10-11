@@ -51,8 +51,8 @@ function getDocExcerpt(doc: any): string {
   const clean = String(text).trim()
 
   // Limit to 160 chars like WP excerpt
-  if (clean.length > 72) {
-    return clean.slice(0, 69).trimEnd() + '…'
+  if (clean.length > 120) {
+    return clean.slice(0, 117).trimEnd() + '…'
   }
 
   return clean
@@ -155,6 +155,7 @@ export default function ArchiveBlock(data: ArchiveBlockProps) {
         const res = await fetch(url.toString(), { method: 'GET', credentials: 'include' })
         if (!res.ok) throw new Error(`Search failed: ${res.status}`)
         const json = await res.json()
+        console.log(json)
         const items = Array.isArray(json?.docs) ? json.docs : json?.results || json?.items || []
         setResults((items || []).slice(0, limit))
       } catch (e: any) {
@@ -190,7 +191,7 @@ export default function ArchiveBlock(data: ArchiveBlockProps) {
         </>
       )}
 
-      <div className="relative mx-auto max-w-7xl px-6 md:px-8 py-12 md:py-20">
+      <div className="relative mx-auto max-w-7xl px-6 md:px-8 py-12">
         {/* Header */}
         <header
           className={cx(
