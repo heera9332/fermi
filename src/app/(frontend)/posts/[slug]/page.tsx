@@ -199,12 +199,12 @@ export default async function PostPage({ params }: { params: { slug: string } })
     <div id="post-page" className={`post-page bg-[#030531] text-white post-type-${post.postType}`}>
       <Header isHeaderDark={true} />
 
-      <article className="prose max-w-5xl mx-auto post-content">
-        <div className="post-header p-4 md:py-12">
+      <article className="prose max-w-5xl mx-auto post-content pt-24 md:pt-36 px-6 md:px-0">
+        <div className="post-header">
           <h1 className="font-semibold !lh-150 text-[32px] md:text-[40px]">{post.title}</h1>
           <div className="post-excerpt text-lg md:text-2xl lh-130">{post.excerpt}</div>
           <hr className="bg-white/50" />
-          <div className="post-meta flex gap-16 mb-12">
+          <div className="post-meta flex gap-16 mb-14">
             <div className="author flex items-center gap-4 text-lg">
               Escrito por - {post.author?.name}
             </div>
@@ -220,7 +220,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
             </div>
           </div>
           {post?.heroImage && (
-            <div className="featured-image">
+            <div className="featured-image mb-14">
               <Image
                 src={
                   post?.heroImage?.url ||
@@ -230,12 +230,12 @@ export default async function PostPage({ params }: { params: { slug: string } })
                 width={1000}
                 height={1000}
                 alt={'featured-image'}
-                className="w-full rounded-2xl"
+                className="w-full"
               />
             </div>
           )}
         </div>
-        <div className="post-content prose-lg  mx-auto">
+        <div className="post-content prose-lg  mx-auto !text-xl md:!text-2xl">
           <RichText data={post.content} className="max-w-full w-full mx-0 px-8" />
         </div>
       </article>
