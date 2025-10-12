@@ -1,4 +1,6 @@
 import { PostCard } from '@/blocks/RelatedArchiveBlock/PostCard'
+import { SinglePostGlobalSetting } from '@/payload-types'
+import { getCachedGlobal } from '@/utilities/getGlobals'
 
 function gridColsClass(n?: number) {
   const c = Math.max(1, Math.min(6, Number(n ?? 4)))
@@ -21,6 +23,11 @@ export async function RelatedContentSection({ data }) {
   const columns = data.relatedResolved.layout.columns || 3
   const items = data.relatedResolved.items || []
 
+  const singlePostSettings: SinglePostGlobalSetting = await getCachedGlobal(
+    'single-post-global-settings',
+    1,
+  )()
+
   return (
     <section className="my-12 bg-[#EDEDED] text-black px-4 md:px-6 py-16">
       <div className="max-w-7xl mx-auto">
@@ -36,7 +43,7 @@ export async function RelatedContentSection({ data }) {
 
         <div className={`grid gap-6 ${gridColsClass(columns)}`}>
           {items.map((p: any) => (
-            <PostCard key={p.id} post={p} />
+            <PostCard key={p.id} post={p} singlePostSettings={singlePostSettings} />
           ))}
         </div>
       </div>

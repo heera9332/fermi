@@ -4,7 +4,7 @@
 import * as React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import type { ArchiveBlock as ArchiveBlockProps } from '@/payload-types'
+import type { ArchiveBlock as ArchiveBlockProps, SinglePostGlobalSetting } from '@/payload-types'
 import { usePathname } from 'next/navigation'
 
 const cx = (...c: Array<string | false | undefined | null>) => c.filter(Boolean).join(' ')
@@ -99,10 +99,10 @@ function useDebouncedValue<T>(value: T, delay = 350) {
   return debounced
 }
 
-export default function ArchiveBlock(data: ArchiveBlockProps) {
+export default function ArchiveBlock(data: ArchiveBlockProps & SinglePostGlobalSetting) {
   const pathname = usePathname()
   const searchSettings = data.search
-
+  console.log(searchSettings)
   const docsInitial = extractDocs(data) || []
   const limit = typeof data.limit === 'number' ? data.limit : 10
   const cta = data.link
@@ -245,7 +245,9 @@ export default function ArchiveBlock(data: ArchiveBlockProps) {
                   name="q"
                   value={q}
                   onChange={(e) => setQ(e.target.value)}
-                  placeholder="Buscar artigo, blog ou informação"
+                  placeholder={
+                    searchSettings?.searchPlaceholderText ?? 'Buscar artigo, blog ou informação'
+                  }
                   className="pl-16 w-full rounded-xl border  bg-[#1C1D32] border-none  text-white placeholder-white
                              px-4 py-3 outline-none focus:border-white/30 focus:ring-2 focus:ring-white/20 lh-150 text-lg"
                   autoComplete="off"
@@ -327,11 +329,11 @@ export default function ArchiveBlock(data: ArchiveBlockProps) {
                     <div className="border border-[#797979] h-0 mx-4" />
                     <div className="grid grid-cols-2">
                       <div className="text-[18px] text-white p-4">
-                        <p>Escrito por</p>
+                        <p>{data?.publishedByLabel ?? 'Escrito por'}</p>
                         <p>{doc?.author?.name ?? '—'}</p>
                       </div>
                       <div className="text-[18px] text-white p-4">
-                        <p>Publicado em</p>
+                        <p>{data?.publishedByLabel ?? 'Publicado em'}</p>
                         <p>
                           {doc?.publishedAt ? new Date(doc.publishedAt).toLocaleDateString() : '—'}
                         </p>

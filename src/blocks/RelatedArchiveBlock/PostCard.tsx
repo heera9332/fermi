@@ -1,9 +1,15 @@
 // components/Related/PostCard.tsx
 import Link from 'next/link'
 import Image from 'next/image'
-import type { Post } from '@/payload-types'
+import type { Post, SinglePostGlobalSetting } from '@/payload-types'
 
-export function PostCard({ post }: { post: Post }) {
+export function PostCard({
+  post,
+  singlePostSettings,
+}: {
+  post: Post
+  singlePostSettings: SinglePostGlobalSetting
+}) {
   const href = `/posts/${post.slug}`
   const thumb = (post?.featuredImage as any)?.url
 
@@ -31,12 +37,14 @@ export function PostCard({ post }: { post: Post }) {
       <div className="mt-6 pt-6 flex items-center justify-between text-xs text-black/50 border-t border-gray-200">
         <p className="text-lg  lg-150">
           <span>
-            Escrito por <br />{' '}
-            <span className="text-black "> {post?.authorName ?? 'Fermi Team'}</span>
+            {singlePostSettings?.publishedByLabel ?? 'Escrito por'} <br />{' '}
+            <span className="text-black "> {post?.author?.name ?? 'Fermi Team'}</span>
           </span>
         </p>
         <p className="text-lg  lg-150">
-          <span className="text-[#6B6B6B]">Publicado em</span>
+          <span className="text-[#6B6B6B]">
+            {singlePostSettings?.publishedAtLabel ?? 'Publicado em'}
+          </span>
           <br />
           {post.publishedAt && (
             <span>{new Date(post.publishedAt).toLocaleDateString('pt-BR')}</span>

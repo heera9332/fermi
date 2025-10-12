@@ -6,6 +6,8 @@ import { Header } from '@/Header/Component'
 import { Footer } from '@/Footer/Component'
 import Image from 'next/image'
 import { RelatedContentSection } from '@/blocks/RelatedArchiveBlock/Component'
+import { getCachedGlobal } from '@/utilities/getGlobals'
+import { SinglePostGlobalSetting } from '@/payload-types'
 
 function getId(v: any): string | undefined {
   if (!v) return undefined
@@ -193,6 +195,11 @@ export default async function PostPage({ params }: { params: { slug: string } })
     related: post.relatedContents,
   })
 
+  const singlePostSettings: SinglePostGlobalSetting = await getCachedGlobal(
+    'single-post-global-settings',
+    1,
+  )()
+
   // console.log(relatedResolved)
 
   return (
@@ -206,10 +213,10 @@ export default async function PostPage({ params }: { params: { slug: string } })
           <hr className="bg-white/50" />
           <div className="post-meta flex gap-16 mb-14">
             <div className="author flex items-center gap-4 text-lg">
-              Escrito por - {post.author?.name}
+              {singlePostSettings?.publishedByLabel || 'Escrito por'} - {post.author?.name}
             </div>
             <div className="author flex items-center gap-4 text-lg">
-              Publicado em -{' '}
+              {singlePostSettings?.publishedAtLabel || 'Publicado em'} -
               {post?.publishedAt
                 ? new Date(post.publishedAt).toLocaleDateString(undefined, {
                     year: 'numeric',
@@ -245,6 +252,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
           data={{
             current,
             relatedResolved,
+            singlePostSettings,
           }}
         />
       ) : null}

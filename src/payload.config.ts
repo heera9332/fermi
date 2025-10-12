@@ -23,8 +23,8 @@ const dirname = path.dirname(filename)
 
 export default buildConfig({
   email: nodemailerAdapter({
-    defaultFromAddress: 'info@payloadcms.com',
-    defaultFromName: 'Payload',
+    defaultFromAddress: 'contacto@fermi.pt',
+    defaultFromName: 'Fermi.pt',
     // Nodemailer transportOptions
     transportOptions: {
       host: process.env.MAIL_HOST,
@@ -48,28 +48,6 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
     user: Users.slug,
-    livePreview: {
-      breakpoints: [
-        {
-          label: 'Mobile',
-          name: 'mobile',
-          width: 375,
-          height: 667,
-        },
-        {
-          label: 'Tablet',
-          name: 'tablet',
-          width: 768,
-          height: 1024,
-        },
-        {
-          label: 'Desktop',
-          name: 'desktop',
-          width: 1440,
-          height: 900,
-        },
-      ],
-    },
   },
   // This config helps us configure global or default features that the other editors can inherit
   editor: defaultLexical,
@@ -78,7 +56,29 @@ export default buildConfig({
   }),
   collections: [Pages, Posts, Media, Categories, Users],
   cors: [getServerSideURL()].filter(Boolean),
-  globals: [Header, Footer, RelatedContentsSettings],
+  globals: [
+    Header,
+    Footer,
+    RelatedContentsSettings,
+    {
+      label: 'Single post global settings',
+      slug: 'single-post-global-settings',
+      fields: [
+        {
+          label: 'Published by label',
+          name: 'publishedByLabel',
+          type: 'text',
+          defaultValue: 'Escrito por',
+        },
+        {
+          label: 'Published at label',
+          name: 'publishedAtLabel',
+          type: 'text',
+          defaultValue: 'Publicado em',
+        },
+      ],
+    },
+  ],
   plugins: [
     ...plugins,
     // storage-adapter-placeholder

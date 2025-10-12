@@ -102,11 +102,13 @@ export interface Config {
     header: Header;
     footer: Footer;
     'related-contents-settings': RelatedContentsSetting;
+    'single-post-global-settings': SinglePostGlobalSetting;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
     'related-contents-settings': RelatedContentsSettingsSelect<false> | RelatedContentsSettingsSelect<true>;
+    'single-post-global-settings': SinglePostGlobalSettingsSelect<false> | SinglePostGlobalSettingsSelect<true>;
   };
   locale: null;
   user: User & {
@@ -1767,6 +1769,17 @@ export interface RelatedContentsSetting {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "single-post-global-settings".
+ */
+export interface SinglePostGlobalSetting {
+  id: string;
+  publishedByLabel?: string | null;
+  publishedAtLabel?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -1876,6 +1889,17 @@ export interface RelatedContentsSettingsSelect<T extends boolean = true> {
         sortBy?: T;
         items?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "single-post-global-settings_select".
+ */
+export interface SinglePostGlobalSettingsSelect<T extends boolean = true> {
+  publishedByLabel?: T;
+  publishedAtLabel?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
