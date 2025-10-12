@@ -105,6 +105,22 @@ export const Archive: Block = {
       ],
     },
     {
+      label: 'Is block on post listing page',
+      name: 'isListingPage',
+      type: 'radio',
+      options: [
+        {
+          label: 'Yes',
+          value: 'yes',
+        },
+        {
+          label: 'No',
+          value: 'no',
+        },
+      ],
+      defaultValue: 'yes',
+    },
+    {
       type: 'group',
       name: 'search',
       label: 'Settings for archive page',

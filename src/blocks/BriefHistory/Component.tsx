@@ -24,7 +24,7 @@ export default function BriefHistoryBlock(data: Props) {
 
   return (
     <section className="w-full bg-[#EDEDED]">
-      <div className="mx-auto max-w-7xl px-6 md:px-8 py-12 md:p-20">
+      <div className="mx-auto max-w-7xl px-6 md:px-8 py-12 md:p-[120px]">
         {/* Heading + description */}
         <header className="">
           <h2 className="text-[32px] font-semibold text-[#0A0A0A] md:text-[40px] md:mr-20 leading-130">

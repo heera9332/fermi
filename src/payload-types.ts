@@ -726,6 +726,7 @@ export interface ArchiveBlock {
     url: string;
     newTab: boolean;
   };
+  isListingPage?: ('yes' | 'no') | null;
   search: {
     searchPlaceholderText?: string | null;
   };
@@ -1267,6 +1268,7 @@ export interface ArchiveBlockSelect<T extends boolean = true> {
         url?: T;
         newTab?: T;
       };
+  isListingPage?: T;
   search?:
     | T
     | {
