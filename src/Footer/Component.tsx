@@ -5,6 +5,7 @@ import React from 'react'
 import { getCachedGlobal } from '@/utilities/getGlobals'
 import type { Footer as FooterType } from '@/payload-types'
 import CTAButton from '@/components/CTAButton'
+import Script from 'next/script'
 
 const ICONS: Record<string, string> = {
   x: '/assets/icons/svg/x.svg',
@@ -182,6 +183,22 @@ export async function Footer() {
           </div>
         </div>
       </div>
+      <>
+        {/* Load gtag.js */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-F3FQ6LS1Z2"
+          strategy="afterInteractive"
+        />
+        {/* Initialize gtag */}
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-F3FQ6LS1Z2');
+        `}
+        </Script>
+      </>
     </footer>
   )
 }
